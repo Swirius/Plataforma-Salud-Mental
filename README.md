@@ -20,7 +20,7 @@ La plataforma también ofrecerá acceso inclusivo a **información de emergencia
 ---
 
 ## 🛠️ Tecnologías a Utilizar  
-- **Frontend**: React + React Suite  
+- **Frontend**: React + JavaScript + Tailwind CSS
 - **Backend**: Java + Spring Boot  
 - **Base de Datos**: MySQL  
 
