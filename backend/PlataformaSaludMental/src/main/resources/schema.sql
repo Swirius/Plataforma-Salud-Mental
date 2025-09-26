@@ -35,6 +35,16 @@ CREATE TABLE profesionales (
     celular VARCHAR(30),
     email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    
+    -- Datos profesionales / académicos
+    universidad VARCHAR(150) NOT NULL,
+    matricula VARCHAR(50) NOT NULL UNIQUE,
+    titulo VARCHAR(150) NOT NULL,
+    categoria VARCHAR(100) NOT NULL,
+    etiquetas VARCHAR(255),
+
+    -- Estado de validación documental
+    estado_validacion ENUM('PENDIENTE','VALIDADO','RECHAZADO') DEFAULT 'PENDIENTE',
 
     fecha_registro TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
