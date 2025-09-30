@@ -8,6 +8,8 @@ import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 
+import org.springframework.web.multipart.MultipartFile;
+
 @Entity
 @Table(name = "profesionales")
 public class Profesional {
@@ -82,6 +84,12 @@ public class Profesional {
 
 	@Column(name = "ruta_documento_matricula")
 	private String rutaDocumentoMatricula;
+	
+	@Column(length = 500)
+	private String descripcion;
+	
+	@Column(name = "ruta_imagen")
+	private String rutaImagen;
 
 	@Column(name = "fecha_registro")
 	private LocalDateTime fechaRegistro = LocalDateTime.now();
@@ -265,6 +273,22 @@ public class Profesional {
 
 	public void setRutaDocumentoMatricula(String rutaDocumentoMatricula) {
 		this.rutaDocumentoMatricula = rutaDocumentoMatricula;
+	}
+
+	public String getDescripcion() {
+		return descripcion;
+	}
+
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
+	}
+
+	public String getRutaImagen() {
+		return rutaImagen;
+	}
+
+	public void setRutaImagen(String rutaImagen) {
+		this.rutaImagen = rutaImagen;
 	}
 
 	public LocalDateTime getFechaRegistro() {
