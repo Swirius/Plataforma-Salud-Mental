@@ -12,6 +12,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.UUID;
 
@@ -35,30 +36,22 @@ public class ProfesionalController {
         
         if (!profesional.isAceptarTyC()) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Debe aceptar los Términos y Condiciones para continuar.",
-                "code", "TYC_NOT_ACCEPTED"
-            ));
+                "error", "Debe aceptar los Términos y Condiciones para continuar."));
         }
 
         if (!profesional.getPassword().equals(profesional.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Las contraseñas no coinciden.",
-                "code", "PASSWORD_MISMATCH"
-            ));
+                "error", "Las contraseñas no coinciden."));
         }
 
         if (profesionalService.obtenerProfesionalPorDni(profesional.getDni()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Ya existe una cuenta registrada con este DNI.",
-                "code", "DNI_EXISTS"
-            ));
+                "error", "Ya existe una cuenta registrada con este DNI."));
         }
 
-        if (profesionalService.obtenerProfesionalPorCorreo(profesional.getEmail()) != null) {
+        if (profesionalService.obtenerProfesionalPorEmail(profesional.getEmail()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Ya existe una cuenta registrada con este correo.",
-                "code", "EMAIL_EXISTS"
-            ));
+                "error", "Ya existe una cuenta registrada con este correo."));
         }
 
         try {
@@ -66,64 +59,56 @@ public class ProfesionalController {
             profesional.setTokenVerificacion(UUID.randomUUID().toString());
             Profesional guardado = profesionalService.guardarProfesional(profesional);
             emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
+            
             return ResponseEntity.ok(Map.of(
-                "message", "Registro exitoso, revisa tu correo para verificar la cuenta.",
-                "code", "VERIFICATION_PENDING"
-            ));
+                "message", "Registro exitoso, revisa tu correo para verificar la cuenta."));
+        
         } catch (Exception e) {
             return ResponseEntity.status(500).body(Map.of(
-                "error", "No se pudo completar el registro, intente nuevamente más tarde.",
-                "code", "TECHNICAL_ERROR"
-            ));
+                "error", "No se pudo completar el registro, intente nuevamente más tarde."));
         }
     }
 
     @GetMapping("/verificar")
     public ResponseEntity<?> verificarCuenta(@RequestParam("token") String token) {
-        Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
+        
+    	Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
         if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Token inválido.",
-                "code", "INVALID_TOKEN"
-            ));
+                "error", "Token inválido."));
         }
         profesional.setEstadoValidacion("verificado");
         profesional.setTokenVerificacion(null);
         profesionalService.guardarProfesional(profesional);
+        
         return ResponseEntity.ok(Map.of(
-            "message", "Cuenta verificada correctamente.",
-            "code", "ACCOUNT_VERIFIED"
-        ));
+            "message", "Cuenta verificada correctamente."));
     }
 
     // --- Endpoint de Login ---
 
     @PostMapping("/login")
     public ResponseEntity<?> loginProfesional(@RequestBody LoginProfesional loginProfesional) {
-        Profesional profesional = profesionalService.obtenerProfesionalPorDni(loginProfesional.getDni());
-        if (profesional == null) {
+        
+    	Profesional profesional = profesionalService.obtenerProfesionalPorDni(loginProfesional.getDni());
+        
+    	if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "DNI incorrecto.",
-                "code", "DNI_NOT_FOUND"
-            ));
+                "error", "DNI incorrecto."));
         }
-        if (!BCrypt.checkpw(loginProfesional.getContrasenia(), profesional.getPassword())) {
+        
+    	if (!BCrypt.checkpw(loginProfesional.getContrasenia(), profesional.getPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Contraseña incorrecta.",
-                "code", "INCORRECT_PASSWORD"
-            ));
+                "error", "Contraseña incorrecta."));
         }
-        if (!"verificado".equals(profesional.getEstadoValidacion())) {
+        
+    	if (!"verificado".equals(profesional.getEstadoValidacion())) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "La cuenta no está verificada.",
-                "code", "ACCOUNT_NOT_VERIFIED"
-            ));
+                "error", "La cuenta no está verificada."));
         }
 
         return ResponseEntity.ok(Map.of(
-            "message", "Login exitoso.",
-            "code", "LOGIN_OK"
-        ));
+            "message", "Login exitoso."));
     }
 
     // --- Endpoint de Requisitos ---
@@ -198,5 +183,42 @@ public class ProfesionalController {
             return ResponseEntity.internalServerError()
                     .body(Map.of("error", "Error al procesar la solicitud: " + e.getMessage()));
         }
+    }
+    
+    // --- Endpoint de Actualizar Perfil ---
+    
+    @PutMapping("/{id}/perfil")
+    public ResponseEntity<?> actualizarPerfil(@PathVariable Long id,
+    		                                  @RequestParam("descripcion") String descripcion,
+    		                                  @RequestParam("imagen") MultipartFile imagen) {
+    	
+    	try {
+    	
+    		Profesional profesionalActual = this.profesionalService.obtenerProfesionalPorId(id);
+        
+    		String contentType = imagen.getContentType();
+    		if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
+    		    return ResponseEntity.badRequest().body(Map.of("error", "El archivo debe estar en formato JPG o PNG"));
+    		}
+    	    
+    		if (imagen.getSize() > 5 * 1024 * 1024)
+    	    	return ResponseEntity.badRequest().body(Map.of(
+    	    			"error", "La imagen no debe superar 5 MB."));
+       
+    	    if (descripcion.length() > 500)
+    	    	return ResponseEntity.badRequest().body(Map.of(
+        		        "error", "La descripción no puede superar los 500 caracteres."));
+        
+    	    profesionalActual.setDescripcion(descripcion);
+    	    profesionalService.guardarImagen(profesionalActual, imagen);
+		
+    	} catch (Exception e) {
+			
+    		return ResponseEntity.internalServerError().body(Map.of(
+    				"error", "Error al procesar la solicitud. Intente nuevamente más tarde."));
+		}
+         
+    	return ResponseEntity.ok(Map.of(
+    			"message", "Actualización exitosa."));
     }
 }

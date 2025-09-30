@@ -56,8 +56,8 @@ public class ProfesionalService {
 		return this.profesionalRepository.findByDni(dni);
 	}
 	
-	public Profesional obtenerProfesionalPorCorreo(String correo) {
-		return this.profesionalRepository.findByCorreo(correo);
+	public Profesional obtenerProfesionalPorEmail(String email) {
+		return this.profesionalRepository.findByEmail(email);
 	}
 	
 	public Profesional guardarProfesional(Profesional nuevoProfesional) {
@@ -76,5 +76,32 @@ public class ProfesionalService {
 	    profesional.setEstadoValidacion("Pendiente");
 	    profesional.setTokenVerificacion(UUID.randomUUID().toString());
 	    return profesionalRepository.save(profesional);
+	}
+	
+	public Profesional actualizarPerfil(Profesional descripcion) {
+		return profesionalRepository.save(descripcion);
+	}
+	
+	public Profesional guardarImagen(Profesional profesional, 
+			                         MultipartFile imagenPerfil) throws IOException {
+		
+		
+		String uploadImg = "uploadPhoto/";
+		
+		File uploadImages = new File(uploadImg);
+        if (!uploadImages.exists()) {
+            uploadImages.mkdirs();
+        }
+        
+        String originalFilename = imagenPerfil.getOriginalFilename();
+        String tipo = originalFilename.substring(originalFilename.lastIndexOf('.') + 1).toLowerCase();
+        String imagePath = uploadImg + "foto_perfil_" + profesional.getEmail() + "." + tipo;
+        
+        imagenPerfil.transferTo(new File(imagePath));
+        profesional.setRutaImagen(imagePath);
+        
+        Profesional perfilActualizado = profesionalRepository.save(profesional);
+        
+        return perfilActualizado;
 	}
 }

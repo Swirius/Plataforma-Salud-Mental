@@ -11,7 +11,7 @@ public interface ProfesionalRepository extends JpaRepository<Profesional, Long> 
 	
 	Profesional findByDni(String dni);
 	
-	Profesional findByCorreo(String correo);
+	Profesional findByEmail(String email);
 	
 	Profesional findByTokenVerificacion(String tokenVerificacion);
 }
