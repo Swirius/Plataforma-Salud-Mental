@@ -198,7 +198,8 @@ public class ProfesionalController {
         
     		String contentType = imagen.getContentType();
     		if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
-    		    return ResponseEntity.badRequest().body(Map.of("error", "El archivo debe estar en formato JPG o PNG"));
+    		    return ResponseEntity.badRequest().body(Map.of(
+    		    		"error", "El archivo debe estar en formato JPG o PNG"));
     		}
     	    
     		if (imagen.getSize() > 5 * 1024 * 1024)
