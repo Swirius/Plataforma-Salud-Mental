@@ -11,7 +11,7 @@ import { Button, Checkbox, Container, Content, Panel,  Stack,  Text,  VStack } f
 import { Col } from 'rsuite';
 
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const validationSchema = Yup.object().shape({
   dni: Yup.string().required('Requerido'),
@@ -70,7 +70,7 @@ const Login = () => {
                       validationSchema={validationSchema}
                       onSubmit={(values, { setSubmitting, setErrors }) => {
                         axios
-                          .post(`${backendUrl}/api/admin/login`, values, {
+                          .post("/api/profesionales/login", values, {
                               withCredentials: true,
                               headers: {
                                 'Content-Type': 'application/json',
