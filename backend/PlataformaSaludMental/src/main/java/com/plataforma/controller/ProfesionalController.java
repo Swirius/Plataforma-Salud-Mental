@@ -2,10 +2,13 @@ package com.plataforma.controller;
 
 import com.plataforma.model.LoginProfesional;
 import com.plataforma.model.Profesional;
+import com.plataforma.model.dto.RegistroProfesionalDTO;
 import com.plataforma.service.EmailService;
 import com.plataforma.service.ProfesionalService;
 
 import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.validation.BindingResult;
@@ -31,39 +34,38 @@ public class ProfesionalController {
     // --- Endpoints de Registro y Verificación ---
 
     @PostMapping("/registro")
-    public ResponseEntity<?> registrarProfesional(@RequestBody @Valid Profesional profesional,
+    public ResponseEntity<?> registrarProfesional(@RequestBody @Valid RegistroProfesionalDTO registrarProfesional,
             BindingResult validaciones) {
         
-        if (!profesional.isAceptarTyC()) {
+        if (!registrarProfesional.isAceptarTyC()) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Debe aceptar los Términos y Condiciones para continuar."));
         }
 
-        if (!profesional.getPassword().equals(profesional.getConfirmPassword())) {
+        if (!registrarProfesional.getPassword().equals(registrarProfesional.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Las contraseñas no coinciden."));
         }
 
-        if (profesionalService.obtenerProfesionalPorDni(profesional.getDni()) != null) {
+        if (profesionalService.obtenerProfesionalPorDni(registrarProfesional.getDni()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Ya existe una cuenta registrada con este DNI."));
         }
 
-        if (profesionalService.obtenerProfesionalPorEmail(profesional.getEmail()) != null) {
+        if (profesionalService.obtenerProfesionalPorEmail(registrarProfesional.getEmail()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Ya existe una cuenta registrada con este correo."));
         }
 
         try {
-            profesional.setEstadoValidacion("Pendiente");
-            profesional.setTokenVerificacion(UUID.randomUUID().toString());
-            Profesional guardado = profesionalService.guardarProfesional(profesional);
-            emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
+
+            Profesional guardado = profesionalService.registrarPendiente(registrarProfesional);
+            //emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
             
-            return ResponseEntity.ok(Map.of(
-                "message", "Registro exitoso, revisa tu correo para verificar la cuenta."));
+            return ResponseEntity.status(HttpStatus.CREATED).body(registrarProfesional);
         
         } catch (Exception e) {
+        	e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of(
                 "error", "No se pudo completar el registro, intente nuevamente más tarde."));
         }
@@ -97,7 +99,7 @@ public class ProfesionalController {
                 "error", "DNI incorrecto."));
         }
         
-    	if (!BCrypt.checkpw(loginProfesional.getContrasenia(), profesional.getPassword())) {
+    	if (!BCrypt.checkpw(loginProfesional.getPassword(), profesional.getPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Contraseña incorrecta."));
         }

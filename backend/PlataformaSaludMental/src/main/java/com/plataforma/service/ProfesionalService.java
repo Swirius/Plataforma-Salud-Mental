@@ -1,6 +1,7 @@
 package com.plataforma.service;
 
 import com.plataforma.model.Profesional;
+import com.plataforma.model.dto.RegistroProfesionalDTO;
 import com.plataforma.repository.ProfesionalRepository;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -70,12 +71,26 @@ public class ProfesionalService {
 	    return profesionalRepository.findByTokenVerificacion(token);
 	}
 
-	public Profesional registrarPendiente(Profesional profesional) {
-	    String contraseniaEncriptada = BCrypt.hashpw(profesional.getPassword(), BCrypt.gensalt());
-	    profesional.setPassword(contraseniaEncriptada);
-	    profesional.setEstadoValidacion("Pendiente");
-	    profesional.setTokenVerificacion(UUID.randomUUID().toString());
-	    return profesionalRepository.save(profesional);
+	public Profesional registrarPendiente(RegistroProfesionalDTO registroProfesionalDTO) {
+		Profesional profesionalPendiente = new Profesional();
+		
+		profesionalPendiente.setNombre(registroProfesionalDTO.getNombre());
+        profesionalPendiente.setApellido(registroProfesionalDTO.getApellido());
+        profesionalPendiente.setDni(registroProfesionalDTO.getDni());
+        profesionalPendiente.setNumeroTramite(registroProfesionalDTO.getNumeroTramite());
+        profesionalPendiente.setPais(registroProfesionalDTO.getPais());
+        profesionalPendiente.setProvincia(registroProfesionalDTO.getProvincia());
+        profesionalPendiente.setLocalidad(registroProfesionalDTO.getLocalidad());
+        profesionalPendiente.setCelular(registroProfesionalDTO.getCelular());
+        profesionalPendiente.setEmail(registroProfesionalDTO.getEmail());
+		
+	    String contraseniaEncriptada = BCrypt.hashpw(registroProfesionalDTO.getPassword(), BCrypt.gensalt());
+	    profesionalPendiente.setPassword(contraseniaEncriptada);
+	    
+	    profesionalPendiente.setEstadoValidacion("Pendiente");
+	    profesionalPendiente.setTokenVerificacion(UUID.randomUUID().toString());
+	    
+	    return profesionalRepository.save(profesionalPendiente);
 	}
 	
 	public Profesional actualizarPerfil(Profesional descripcion) {
