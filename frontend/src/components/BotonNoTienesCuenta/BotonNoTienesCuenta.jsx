@@ -2,23 +2,23 @@ import { Link } from "react-router-dom"
 import { Nav } from "rsuite";
 
 
-const BotonYaTenesCuenta = () => {
+const BotonNoTienesCuenta = () => {
 
   return (
     <>
                 <p style={{ fontSize: "0.875rem", color: "#4b5563" }}>
-                  ¿Ya tienes una cuenta?
+                  ¿No tienes una cuenta?
               <Nav>  
                   <Nav.Item
                     as={Link}
-                    to="/login"
+                    to="/register"
                     style={{
                       color: "#2563eb",
                       fontWeight: "500",
                       textDecoration: "underline",
                     }}
                   >
-                    Inicia sesión aquí
+                    Registrate aquí
                   </Nav.Item>
                 </Nav>
                 </p>
@@ -26,4 +26,4 @@ const BotonYaTenesCuenta = () => {
   );
 };
 
-export default BotonYaTenesCuenta
+export default BotonNoTienesCuenta

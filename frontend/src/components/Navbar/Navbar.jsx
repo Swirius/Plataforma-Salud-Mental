@@ -16,6 +16,10 @@ const NavBar = () => {
 
         <Nav>          
            <Nav.Item as={Link} to="/edit-profile-form">Edit Perfil</Nav.Item>
+           <Nav.Item as={Link} to="/dashboard">dashboard</Nav.Item> 
+           <Nav.Item as={Link} to="/professionalProfilePage">Profesionales</Nav.Item>
+           <Nav.Item as={Link} to="/mensages">Mensages</Nav.Item>
+           
         </Nav>
 
         <Nav pullRight>
