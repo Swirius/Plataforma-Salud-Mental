@@ -76,7 +76,7 @@ const DatosAdicionalesFormik = () => {
     <>
       <Grid fluid>
         <Row className="show-grid">
-          <Col xs={24} sm={24} md={7}>
+          <Col xs={24} sm={24} md={9}>
             <FormikSelectPicker
               label="¿Tiene alguna discapacidad?"
               name="discapacidad"
@@ -84,18 +84,14 @@ const DatosAdicionalesFormik = () => {
             />
           </Col>
 
-          <Col xs={24} sm={24} md={17}>
+          <Col xs={24} sm={24} md={9}>
             <FormikSelectPicker
               label="¿Tiene Certificado Único de Discapacidad (CUD)?"
               name="cud"
               data={cudOptions}
             />
           </Col>
-        </Row>
-      </Grid>
-      <Grid>
-        <Row>
-          <Col xs={24} sm={24} md={24}>
+           <Col xs={24} sm={24} md={6}>
             <FormikRadioGroup
               label="¿Tiene Obra Social o Prepaga?"
               name="obra_social"
@@ -106,6 +102,7 @@ const DatosAdicionalesFormik = () => {
           </Col>
         </Row>
       </Grid>
+     
     </>
   );
 };

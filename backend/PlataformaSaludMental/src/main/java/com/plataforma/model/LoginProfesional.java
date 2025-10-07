@@ -8,7 +8,7 @@ public class LoginProfesional {
 	private String dni;
 
 	@NotBlank(message = "Ingresa tu contraseña.")
-	private String contrasenia;
+	private String password;
 
 	// constructor
 	public LoginProfesional() {
@@ -23,12 +23,12 @@ public class LoginProfesional {
 		this.dni = dni;
 	}
 
-	public String getContrasenia() {
-		return contrasenia;
+	public String getPassword() {
+		return password;
 	}
 
-	public void setContrasenia(String contrasenia) {
-		this.contrasenia = contrasenia;
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 }

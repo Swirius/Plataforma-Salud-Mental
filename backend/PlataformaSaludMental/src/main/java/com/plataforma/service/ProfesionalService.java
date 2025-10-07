@@ -1,6 +1,7 @@
 package com.plataforma.service;
 
 import com.plataforma.model.Profesional;
+import com.plataforma.model.dto.RegistroProfesionalDTO;
 import com.plataforma.repository.ProfesionalRepository;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -56,8 +57,8 @@ public class ProfesionalService {
 		return this.profesionalRepository.findByDni(dni);
 	}
 	
-	public Profesional obtenerProfesionalPorCorreo(String correo) {
-		return this.profesionalRepository.findByCorreo(correo);
+	public Profesional obtenerProfesionalPorEmail(String email) {
+		return this.profesionalRepository.findByEmail(email);
 	}
 	
 	public Profesional guardarProfesional(Profesional nuevoProfesional) {
@@ -70,11 +71,52 @@ public class ProfesionalService {
 	    return profesionalRepository.findByTokenVerificacion(token);
 	}
 
-	public Profesional registrarPendiente(Profesional profesional) {
-	    String contraseniaEncriptada = BCrypt.hashpw(profesional.getPassword(), BCrypt.gensalt());
-	    profesional.setPassword(contraseniaEncriptada);
-	    profesional.setEstadoValidacion("Pendiente");
-	    profesional.setTokenVerificacion(UUID.randomUUID().toString());
-	    return profesionalRepository.save(profesional);
+	public Profesional registrarPendiente(RegistroProfesionalDTO registroProfesionalDTO) {
+		Profesional profesionalPendiente = new Profesional();
+		
+		profesionalPendiente.setNombre(registroProfesionalDTO.getNombre());
+        profesionalPendiente.setApellido(registroProfesionalDTO.getApellido());
+        profesionalPendiente.setDni(registroProfesionalDTO.getDni());
+        profesionalPendiente.setNumeroTramite(registroProfesionalDTO.getNumeroTramite());
+        profesionalPendiente.setPais(registroProfesionalDTO.getPais());
+        profesionalPendiente.setProvincia(registroProfesionalDTO.getProvincia());
+        profesionalPendiente.setLocalidad(registroProfesionalDTO.getLocalidad());
+        profesionalPendiente.setCelular(registroProfesionalDTO.getCelular());
+        profesionalPendiente.setEmail(registroProfesionalDTO.getEmail());
+		
+	    String contraseniaEncriptada = BCrypt.hashpw(registroProfesionalDTO.getPassword(), BCrypt.gensalt());
+	    profesionalPendiente.setPassword(contraseniaEncriptada);
+	    
+	    profesionalPendiente.setEstadoValidacion("Pendiente");
+	    profesionalPendiente.setTokenVerificacion(UUID.randomUUID().toString());
+	    
+	    return profesionalRepository.save(profesionalPendiente);
+	}
+	
+	public Profesional actualizarPerfil(Profesional descripcion) {
+		return profesionalRepository.save(descripcion);
+	}
+	
+	public Profesional guardarImagen(Profesional profesional, 
+			                         MultipartFile imagenPerfil) throws IOException {
+		
+		
+		String uploadImg = "uploadPhoto/";
+		
+		File uploadImages = new File(uploadImg);
+        if (!uploadImages.exists()) {
+            uploadImages.mkdirs();
+        }
+        
+        String originalFilename = imagenPerfil.getOriginalFilename();
+        String tipo = originalFilename.substring(originalFilename.lastIndexOf('.') + 1).toLowerCase();
+        String imagePath = uploadImg + "foto_perfil_" + profesional.getEmail() + "." + tipo;
+        
+        imagenPerfil.transferTo(new File(imagePath));
+        profesional.setRutaImagen(imagePath);
+        
+        Profesional perfilActualizado = profesionalRepository.save(profesional);
+        
+        return perfilActualizado;
 	}
 }

@@ -15,7 +15,7 @@ function App() {
         
             <NavBar />
             
-            <RouterPublic />
+              <RouterPublic />
 
               <CTASection />
 
