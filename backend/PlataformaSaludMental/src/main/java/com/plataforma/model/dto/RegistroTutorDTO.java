@@ -3,6 +3,7 @@ package com.plataforma.model.dto;
 import java.time.LocalDate;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -57,6 +58,14 @@ public class RegistroTutorDTO {
 	@NotBlank(message = "Ingresa el número de telefono del consultante.")
 	private String telefonoConsultante;
 	
+	@NotBlank(message = "Ingrese una contraseña.")
+	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
+	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$", message = "La contraseña debe contener, al menos, una mayúscula, una minúscula y un número.")
+	private String password;
+	
+	@Transient
+	private String confirmPassword;
+
 	private String discapacidadConsultante;
 	private String cudConsultante;
 	private String numeroCudConsultante;
@@ -161,6 +170,22 @@ public class RegistroTutorDTO {
 
 	public void setTelefonoConsultante(String telefonoConsultante) {
 		this.telefonoConsultante = telefonoConsultante;
+	}
+	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getDiscapacidadConsultante() {
