@@ -56,7 +56,7 @@ public class ProfesionalController {
 		try {
 
 			Profesional guardado = profesionalService.registrarPendiente(registrarProfesional);
-			//emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
+			emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
 
 			return ResponseEntity.status(HttpStatus.CREATED).body(registrarProfesional);
 
