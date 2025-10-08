@@ -21,6 +21,8 @@ public class SecurityConfig {
 						.requestMatchers("/api/profesionales/login").permitAll()
 
 						.requestMatchers("/api/consultantes/registro").permitAll()
+						
+						.requestMatchers("/api/consultantes/registro-tercero").permitAll()
 
 						.requestMatchers("/api/consultantes/login").permitAll()
 
