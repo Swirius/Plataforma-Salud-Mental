@@ -15,9 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/profesionales")
@@ -60,8 +59,7 @@ public class ProfesionalController {
         try {
 
             Profesional guardado = profesionalService.registrarPendiente(registrarProfesional);
-            //emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
-            
+            emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
             return ResponseEntity.status(HttpStatus.CREATED).body(registrarProfesional);
         
         } catch (Exception e) {
@@ -71,20 +69,32 @@ public class ProfesionalController {
         }
     }
 
-    @GetMapping("/verificar")
-    public ResponseEntity<?> verificarCuenta(@RequestParam("token") String token) {
-        
-    	Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
+    @PostMapping("/verificar")
+    public ResponseEntity<?> verificarCuenta(@RequestBody Map<String, String> verify) {
+        String token = verify.get("token");
+        Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
+
         if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Token inválido."));
+            		"error", "Link Inválido."));
         }
-        profesional.setEstadoValidacion("verificado");
-        profesional.setTokenVerificacion(null);
-        profesionalService.guardarProfesional(profesional);
         
-        return ResponseEntity.ok(Map.of(
-            "message", "Cuenta verificada correctamente."));
+        if (profesional.isActivo()) {
+            return ResponseEntity.ok(Map.of(
+            		"error", "Su cuenta ya fue verificada."));
+        }
+        
+        if (profesional.getTokenExpiracion().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.status(410).body(Map.of(
+            		"error", "Link Expirado."));
+        }
+
+        profesional.setActivo(true);
+        profesional.setTokenVerificacion(null);
+        profesional.setTokenExpiracion(null);
+        profesionalService.guardarProfesional(profesional);
+
+        return ResponseEntity.ok(Map.of("ok", true));
     }
 
     // --- Endpoint de Login ---

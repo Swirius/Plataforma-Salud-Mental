@@ -50,6 +50,12 @@ public class Profesional {
 	@Column(name = "token_verificacion")
 	private String tokenVerificacion;
 
+	@Column(name = "token_expiracion")
+	private LocalDateTime tokenExpiracion;
+
+	@Column(name = "activo")
+	private Boolean activo;
+
 	@Column(name = "ruta_certificado_antecedentes")
 	private String rutaCertificadoAntecedentes;
 
@@ -188,6 +194,22 @@ public class Profesional {
 
 	public void setTokenVerificacion(String tokenVerificacion) {
 		this.tokenVerificacion = tokenVerificacion;
+	}
+
+	public LocalDateTime getTokenExpiracion() {
+		return tokenExpiracion;
+	}
+
+	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
+		this.tokenExpiracion = tokenExpiracion;
+	}
+
+	public boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
 	}
 
 	public String getUniversidad() {

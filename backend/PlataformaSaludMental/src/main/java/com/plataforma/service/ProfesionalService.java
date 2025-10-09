@@ -10,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Base64;
 
 @Service
 public class ProfesionalService {
@@ -70,6 +72,13 @@ public class ProfesionalService {
 	public Profesional obtenerProfesionalPorToken(String token) {
 	    return profesionalRepository.findByTokenVerificacion(token);
 	}
+	
+	public String generarToken() {
+        SecureRandom sr = new SecureRandom();
+        byte[] bytes = new byte[16];
+        sr.nextBytes(bytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+    }
 
 	public Profesional registrarPendiente(RegistroProfesionalDTO registroProfesionalDTO) {
 		Profesional profesionalPendiente = new Profesional();
@@ -88,7 +97,9 @@ public class ProfesionalService {
 	    profesionalPendiente.setPassword(contraseniaEncriptada);
 	    
 	    profesionalPendiente.setEstadoValidacion("Pendiente");
-	    profesionalPendiente.setTokenVerificacion(UUID.randomUUID().toString());
+	    profesionalPendiente.setTokenVerificacion(generarToken());
+        profesionalPendiente.setTokenExpiracion(LocalDateTime.now().plusMinutes(30));
+        profesionalPendiente.setActivo(false);
 	    
 	    return profesionalRepository.save(profesionalPendiente);
 	}
