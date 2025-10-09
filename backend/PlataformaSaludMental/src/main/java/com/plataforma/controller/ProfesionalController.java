@@ -76,7 +76,7 @@ public class ProfesionalController {
 
         if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-            		"error", "Link Inválido."));
+            		"error", "Token Inválido."));
         }
         
         if (profesional.isActivo()) {
@@ -86,7 +86,7 @@ public class ProfesionalController {
         
         if (profesional.getTokenExpiracion().isBefore(LocalDateTime.now())) {
             return ResponseEntity.status(410).body(Map.of(
-            		"error", "Link Expirado."));
+            		"error", "Token Expirado."));
         }
 
         profesional.setActivo(true);
