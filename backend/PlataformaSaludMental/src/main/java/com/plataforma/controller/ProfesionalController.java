@@ -114,7 +114,7 @@ public class ProfesionalController {
                 "error", "Contraseña incorrecta."));
         }
         
-    	if (!"verificado".equals(profesional.getEstadoValidacion())) {
+    	if (!profesional.isActivo()) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "La cuenta no está verificada."));
         }
@@ -199,14 +199,18 @@ public class ProfesionalController {
     
     // --- Endpoint de Actualizar Perfil ---
     
-    @PutMapping("/{id}/perfil")
+    @PutMapping("/{id}/actualizar/perfil")
     public ResponseEntity<?> actualizarPerfil(@PathVariable Long id,
     		                                  @RequestParam("descripcion") String descripcion,
     		                                  @RequestParam("imagen") MultipartFile imagen) {
     	
-    	try {
+    	Profesional profesional = profesionalService.obtenerProfesionalPorId(id);
     	
-    		Profesional profesionalActual = this.profesionalService.obtenerProfesionalPorId(id);
+    	if (!"validado".equals(profesional.getEstadoValidacion())) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Sus documentos no han sido validados."));
+        } 
+    	try {
         
     		String contentType = imagen.getContentType();
     		if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
@@ -222,8 +226,8 @@ public class ProfesionalController {
     	    	return ResponseEntity.badRequest().body(Map.of(
         		        "error", "La descripción no puede superar los 500 caracteres."));
         
-    	    profesionalActual.setDescripcion(descripcion);
-    	    profesionalService.guardarImagen(profesionalActual, imagen);
+    	    profesional.setDescripcion(descripcion);
+    	    profesionalService.guardarImagen(profesional, imagen);
 		
     	} catch (Exception e) {
 			

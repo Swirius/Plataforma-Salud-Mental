@@ -29,7 +29,7 @@ public class ProfesionalService {
             MultipartFile documentoMatricula) throws IOException {
 
         // Guardar archivos en carpeta /uploads
-        String uploadDir = "uploads/";
+    	String uploadDir = new File("uploads").getAbsolutePath();
 
         File uploadFolder = new File(uploadDir);
         if (!uploadFolder.exists()) {
@@ -64,8 +64,6 @@ public class ProfesionalService {
 	}
 	
 	public Profesional guardarProfesional(Profesional nuevoProfesional) {
-        String contraseniaEncriptada = BCrypt.hashpw(nuevoProfesional.getPassword(), BCrypt.gensalt());
-        nuevoProfesional.setPassword(contraseniaEncriptada);
         return profesionalRepository.save(nuevoProfesional);
     }
     
