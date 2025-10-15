@@ -9,9 +9,10 @@ import { useEffect, useRef, useState } from 'react';
 // ✅ SOLO agregamos esto para usar Grid, Row, Col y Button de RSuite
 import { Button, Checkbox, Container, Content, Panel,  Stack,  Text,  VStack } from 'rsuite';
 import { Col } from 'rsuite';
+import BotonNoTienesCuenta from '../../components/BotonNoTienesCuenta/BotonNoTienesCuenta';
 
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const validationSchema = Yup.object().shape({
   dni: Yup.string().required('Requerido'),
@@ -70,7 +71,7 @@ const Login = () => {
                       validationSchema={validationSchema}
                       onSubmit={(values, { setSubmitting, setErrors }) => {
                         axios
-                          .post(`${backendUrl}/api/admin/login`, values, {
+                          .post("/api/profesionales/login", values, {
                               withCredentials: true,
                               headers: {
                                 'Content-Type': 'application/json',
@@ -156,9 +157,9 @@ const Login = () => {
                       )}
                     </Formik>
                     
-                    <small className="d-block text-center text-body-tertiary mt-3">
-                      PSM (2025)
-                    </small>
+                    <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+                      <BotonNoTienesCuenta />
+                    </div>
 
                   </Panel>
                 </Col>

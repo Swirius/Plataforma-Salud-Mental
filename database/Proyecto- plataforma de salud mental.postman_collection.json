@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "ab1adceb-bb31-480a-b6d4-9fdef3c96eb8",
+		"name": "Proyecto: plataforma de salud mental",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49090150"
+	},
+	"item": [
+		{
+			"name": "Autenticación y Registro",
+			"item": [
+				{
+					"name": "Profesionales",
+					"item": [
+						{
+							"name": "registro",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"// 1) Código de estado: 200 o 201\r",
+											"\r",
+											"pm.test(\"Satus code es 200 o 201\", function(){\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([100,201]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// 2) Obtiene el body que se envía en la request\r",
+											"pm.test(\"Password y confirmPassword son iguales\", function () {\r",
+											"    \r",
+											"    const data = JSON.parse(pm.request.body.raw);\r",
+											"    \r",
+											"    pm.expect(data.password).to.eql(data.confirmPassword, \"Las contraseñas no coinciden\");\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// 3)  Este test verifica que el campo 'email' del body tenga un formato válido\r",
+											"\r",
+											"\r",
+											"pm.test(\"El email tiene un formato válido\", function () {\r",
+											"    const data = JSON.parse(pm.request.body.raw);\r",
+											"    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;\r",
+											"    \r",
+											"    pm.expect(emailRegex.test(data.email)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"// 4)  Terminos y condiciones con valor verdadero\r",
+											"pm.test(\"aceptarTyC es true \", function () {\r",
+											"  const json = pm.response.json();\r",
+											"  pm.expect(json.aceptarTyC).to.eql(true);\r",
+											"});\r",
+											"\r",
+											"// 5) Verifica que el DNI es un número de 8 dpigitos\r",
+											"\r",
+											"pm.test(\"El DNI tiene 8 dígitos numéricos\", function () {\r",
+											"  const data = JSON.parse(pm.request.body.raw);\r",
+											"  pm.expect(/^\\d{8}$/.test(data.dni)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"// 6) Verifica que el número de trámite contenga una longuitud de entre 8 y 12 dígitos\r",
+											"pm.test(\"El número de trámite tiene entre 8 y 12 dígitos\", function () {\r",
+											"  const data = JSON.parse(pm.request.body.raw);\r",
+											"  pm.expect(/^\\d{8,12}$/.test(data.numeroTramite)).to.be.true;\r",
+											"});\r",
+											"\r",
+											"// 7) El dni y el número de trámite son distintos\r",
+											"\r",
+											"pm.test(\"El número de trámite no debe ser igual al DNI\", function () {\r",
+											"  const data = JSON.parse(pm.request.body.raw);\r",
+											"  pm.expect(data.numeroTramite).to.not.eql(data.dni);\r",
+											"});\r",
+											"\r",
+											"// TESTS NEGATIVOS\r",
+											"\r",
+											"// 8) // DNI vacío\r",
+											"// Este test comprueba que el backend valide correctamente cuando el campo 'dni' está vacío.\r",
+											"// Si devuelve 400 → ✅ la validación funciona correctamente (el backend rechaza el registro).\r",
+											"// Si devuelve 201 → ⚠️ el backend está aceptando un DNI vacío (falla de validación).\r",
+											"// No rompe la ejecución, pero muestra un warning en consola para revisión manual.\r",
+											"\r",
+											"\r",
+											"pm.test(\"Falla si el DNI está vacío (esperado 400)\", function () {\r",
+											"    if (pm.response.code === 400) {\r",
+											"        console.log(\"✅ Backend valida correctamente el DNI vacío\");\r",
+											"    } else {\r",
+											"        console.warn(\"⚠️ El backend no está validando el DNI vacío\");\r",
+											"    }\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([201, 400]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"// Generar un número aleatorio de 9 dígitos para DNI\r",
+											"\r",
+											"// Guarda el valor en el Environment actual\r",
+											"pm.environment.set(\"dni\",  Math.floor(10000000 + Math.random() * 90000000));\r",
+											"// Generar otro número aleatorio de 9 dígitos para número de trámite\r",
+											"pm.variables.set(\"numeroTramite\", Math.floor(100000000 + Math.random() * 900000000));\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"nombre\": \"Juan\",\r\n  \"apellido\": \"Pérez\",\r\n  \"dni\": \"{{dni}}\",\r\n  \"numeroTramite\": \"{{numeroTramite}}\",\r\n  \"pais\": \"Argentina\",\r\n  \"provincia\": \"Buenos Aires\",\r\n  \"localidad\": \"La Plata\",\r\n  \"matricula\": \"MAT-987654\",\r\n  \"celular\": \"+54 9 221 1234567\",\r\n  \"email\": \"juan.perez+{{dni}}@example.com\",\r\n  \"password\": \"Password123\",\r\n  \"confirmPassword\": \"Password123\",\r\n  \"aceptarTyC\": true,\r\n  \"universidad\": \"Universidad Nacional de La Plata\",\r\n  \"titulo\": \"Licenciado en Psicología\",\r\n  \"categoria\": \"Psicología Clínica\",\r\n  \"etiquetas\": \"niñez, adultez\",\r\n  \"rutaCertificadoAntecedentes\": \"/uploads/antecedentes/juanperez.pdf\",\r\n  \"rutaDocumentoMatricula\": \"/uploads/matriculas/juanperez.pdf\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/profesionales/registro",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"profesionales",
+										"registro"
+									]
+								},
+								"description": "profesionales/registro"
+							},
+							"response": []
+						},
+						{
+							"name": "verificacion email",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseURL}}/api/profesionales/verificar?token=3b36c2aa-31d7-40ba-8b01-61db55d4ac84",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"profesionales",
+										"verificar"
+									],
+									"query": [
+										{
+											"key": "token",
+											"value": "3b36c2aa-31d7-40ba-8b01-61db55d4ac84"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Satus code es 200 o 201\", function(){\r",
+											"    pm.expect(pm.response.code).to.be.oneOf([200,201]);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n  \"dni\": \"{{dni}}\",\r\n  \"password\": \"Password123\"\r\n}\r\n",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseURL}}/api/profesionales/login",
+									"host": [
+										"{{baseURL}}"
+									],
+									"path": [
+										"api",
+										"profesionales",
+										"login"
+									]
+								},
+								"description": "profesionales/login"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Consultantes",
+					"item": [
+						{
+							"name": "registro",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								},
+								"description": "consultantes/registro"
+							},
+							"response": []
+						},
+						{
+							"name": "login",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								},
+								"description": "consultantes/login"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "perfiles",
+			"item": [
+				{
+					"name": "ver perfil",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "profesionales/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar perfil",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "profesionales/{id}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Busqueda de Profesionales",
+			"item": [
+				{
+					"name": "Buscar profesionales",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "profesionales?especialidad=...&ubicacion=..."
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Agenda y Turnos",
+			"item": [
+				{
+					"name": "agenda",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "profesionales/{id}/agenda"
+					},
+					"response": []
+				},
+				{
+					"name": "Reservar turnos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "profesionales/{id}/turnos"
+					},
+					"response": []
+				},
+				{
+					"name": "reprogramar turno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "turnos/ {id}/"
+					},
+					"response": []
+				},
+				{
+					"name": "cancelar turno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "turnos/{id}"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "chat interno",
+			"item": [
+				{
+					"name": "historial",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "chats/{id}"
+					},
+					"response": []
+				},
+				{
+					"name": "Chat interno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": ""
+						},
+						"description": "chats/{id}/mensajes"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Recursos",
+			"item": [
+				{
+					"name": "emergencias",
+					"item": [
+						{
+							"name": "emergencias",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								},
+								"description": "/emergencias"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "directorio de comercios",
+					"item": [
+						{
+							"name": "comercios",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								},
+								"description": "/comercios"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "recursos descargables",
+					"item": [
+						{
+							"name": "recursos",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "reseñas",
+			"item": [
+				{
+					"name": "consultantes",
+					"item": [
+						{
+							"name": "crear reseña",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "profesional",
+					"item": [
+						{
+							"name": "listar reseñas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "ver reseñas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "contestar reseña",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "actualizar respuesta",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "baseURL",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

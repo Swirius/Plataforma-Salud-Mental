@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 
@@ -25,10 +25,11 @@ export const useRegistroSubmit = () => {
   }, []);
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+    console.log("se hizo clik")
     try {
-      const { data } = await axios.post(`${backendUrl}/api/admin/register`, values, {
-        withCredentials: true,
+      const { data } = await axios.post("/api/profesionales/registro", values, {
         headers: { 'Content-Type': 'application/json' },
+        withCredentials: true,
       });
 
       if (data.result === 'error') {
@@ -36,8 +37,8 @@ export const useRegistroSubmit = () => {
       }
 
       if (data.result === 'ok') {
-        localStorage.setItem('token', data.token);
-        axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
+        // localStorage.setItem('token', data.token);
+        //  axios.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
 
       
 

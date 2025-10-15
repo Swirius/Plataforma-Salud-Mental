@@ -46,7 +46,7 @@ public class Profesional {
 
 	@Column(name = "estado_validacion")
 	private String estadoValidacion;
-	
+
 	@Column(name = "token_verificacion")
 	private String tokenVerificacion;
 
@@ -65,6 +65,12 @@ public class Profesional {
 	@Column(length = 500)
 	private String descripcion;
 	
+	@Column(name = "ruta_imagen")
+	private String rutaImagen;
+
+	@Column(length = 500)
+	private String descripcion;
+
 	@Column(name = "ruta_imagen")
 	private String rutaImagen;
 
