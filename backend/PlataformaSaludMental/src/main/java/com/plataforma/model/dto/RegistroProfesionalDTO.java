@@ -1,9 +1,12 @@
 package com.plataforma.model.dto;
 
+import java.time.LocalDateTime;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -55,8 +58,19 @@ public class RegistroProfesionalDTO {
 	@Transient
 	private boolean aceptarTyC;
 	
+	@Column(name = "token_verificacion")
+	private String tokenVerificacion;
+
+	@Column(name = "token_expiracion")
+	private LocalDateTime tokenExpiracion;
+
+	@NotNull
+	@Column(name = "activo")
+	private Boolean activo;
+	
 	
 	//getters y setters
+	
 
 	public String getNombre() {
 		return nombre;
@@ -152,6 +166,30 @@ public class RegistroProfesionalDTO {
 
 	public void setAceptarTyC(boolean aceptarTyC) {
 		this.aceptarTyC = aceptarTyC;
+	}
+
+	public String getTokenVerificacion() {
+		return tokenVerificacion;
+	}
+
+	public void setTokenVerificacion(String tokenVerificacion) {
+		this.tokenVerificacion = tokenVerificacion;
+	}
+
+	public LocalDateTime getTokenExpiracion() {
+		return tokenExpiracion;
+	}
+
+	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
+		this.tokenExpiracion = tokenExpiracion;
+	}
+
+	public Boolean isActivo() {
+		return activo;
+	}
+
+	public void setActivo(Boolean activo) {
+		this.activo = activo;
 	}
 	
 	

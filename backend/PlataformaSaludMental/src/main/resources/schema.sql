@@ -61,7 +61,8 @@ CREATE TABLE profesionales (
     celular VARCHAR(30) NOT NULL,
     email VARCHAR(150) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
-
+    activo BOOLEAN NOT NULL DEFAULT 'FALSE',
+    
     -- Datos profesionales / académicos
     universidad VARCHAR(150) NOT NULL,
     titulo VARCHAR(150) NOT NULL,

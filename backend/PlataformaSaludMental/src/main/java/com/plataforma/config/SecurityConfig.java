@@ -21,6 +21,10 @@ public class SecurityConfig {
 						.requestMatchers("/api/profesionales/login").permitAll()
 
 						.requestMatchers("/api/profesionales/verificar").permitAll()
+                               
+            .requestMatchers("/api/profesionales/{id}/requisitos").permitAll()
+                
+            .requestMatchers("/api/profesionales/{id}/actualizar/perfil").permitAll()
 						
 						.requestMatchers("/api/consultantes/registro").permitAll()
 						
@@ -29,6 +33,10 @@ public class SecurityConfig {
 						.requestMatchers("/api/consultantes/login").permitAll()
 						
 						.requestMatchers("/api/consultantes/verificar").permitAll()
+            
+            .requestMatchers("/api/consultantes/{id}/requisitos").permitAll()
+            
+            .requestMatchers("/api/consultantes/{id}/actualizar/perfil").permitAll()
 
 						.anyRequest().authenticated());
 
