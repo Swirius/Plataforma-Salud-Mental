@@ -68,12 +68,6 @@ public class Profesional {
 	@Column(name = "ruta_imagen")
 	private String rutaImagen;
 
-	@Column(length = 500)
-	private String descripcion;
-
-	@Column(name = "ruta_imagen")
-	private String rutaImagen;
-
 	@Column(name = "fecha_registro")
 	private LocalDateTime fechaRegistro = LocalDateTime.now();
 
