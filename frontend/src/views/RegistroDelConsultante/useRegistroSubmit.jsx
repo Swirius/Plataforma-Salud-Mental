@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 // import { useNavigate } from 'react-router-dom';
 
-const backendUrl = import.meta.env.VITE_BACKEND_URL;
+// const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
 
@@ -26,7 +26,7 @@ export const useRegistroSubmit = () => {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     try {
-      const { data } = await axios.post(`${backendUrl}/api/admin/register`, values, {
+      const { data } = await axios.post("/api/consultante/registro", values, {
         withCredentials: true,
         headers: { 'Content-Type': 'application/json' },
       });

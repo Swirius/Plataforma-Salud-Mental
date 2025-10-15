@@ -1,6 +1,8 @@
 import { Navbar, Nav, Button, Header } from "rsuite";
 // import CogIcon from "@rsuite/icons/legacy/Cog";
 import { Link } from "react-router-dom";
+import { FaRegHeart } from "react-icons/fa";
+
 
 const NavBar = () => {
   return (
@@ -9,30 +11,30 @@ const NavBar = () => {
 
       <Navbar>
         <Navbar.Brand as={Link} to="/" style={{ fontSize: '24px', fontWeight: 'bold' }}>
-          MentalHealth
+          <FaRegHeart color="blue" size={"25px"} />  MentalHealth
         </Navbar.Brand>
 
         <Nav>          
            <Nav.Item as={Link} to="/edit-profile-form">Edit Perfil</Nav.Item>
+           <Nav.Item as={Link} to="/dashboard">dashboard</Nav.Item> 
+           <Nav.Item as={Link} to="/professionalProfilePage">Profesionales</Nav.Item>
+           <Nav.Item as={Link} to="/mensages">Mensages</Nav.Item>
+           
         </Nav>
 
         <Nav pullRight>
           {/* <Nav.Item icon={<CogIcon />}>Settings</Nav.Item> */}          
           <Nav.Item as={Link} to="/login">
-                    <Button appearance="primary">
+                    <Button appearance="ghost">
                       Iniciar Sesión
                     </Button>
            </Nav.Item>
            <Nav.Item as={Link} to="/register">
-                    <Button appearance="ghost">
-                      Registro del Profesional
+                    <Button appearance="primary" style={{backgroundColor:"#171717" , color:"#ffff", padding:"10px" , width:"10rem" }} >
+                      Registrarse
                     </Button>
            </Nav.Item>     
-            <Nav.Item as={Link} to="/register-consultante">
-                    <Button appearance="ghost">
-                      Registro del consultante
-                    </Button>
-           </Nav.Item>        
+                 
         </Nav>
       </Navbar>
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  { useState } from "react";
 import { Form, Button, Uploader, Message, toaster } from "rsuite";
 
 const MAX_DESCRIPTION_LENGTH = 200; // Ajusta X caracteres
