@@ -2,11 +2,10 @@ package com.plataforma.controller;
 
 import com.plataforma.model.Consultante;
 import com.plataforma.model.LoginConsultante;
-import com.plataforma.model.LoginProfesional;
-import com.plataforma.model.Profesional;
 import com.plataforma.model.dto.*;
 import com.plataforma.service.ConsultanteService;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 
@@ -43,13 +42,32 @@ public class ConsultanteController {
 		}
 	}
 
-	@GetMapping("/verificar")
-	public ResponseEntity<?> verificarCuenta(@RequestParam String token) {
-		try {
-			return ResponseEntity.ok(consultanteService.verificarCuenta(token));
-		} catch (Exception e) {
-			return ResponseEntity.badRequest().body(e.getMessage());
+	@PostMapping("/verificar")
+	public ResponseEntity<?> verificarCuenta(@RequestBody Map<String, String> verify) {
+		String token = verify.get("token");
+		Consultante consultante = consultanteService.obtenerConsultantePorToken(token);
+
+		if (consultante == null) {
+			return ResponseEntity.badRequest().body(Map.of(
+					"error", "Token Inválido."));
 		}
+
+		if (consultante.getVerificado()) {
+			return ResponseEntity.ok(Map.of(
+					"error", "Su cuenta ya fue verificada."));
+		}
+
+		if (consultante.getTokenExpiracion().isBefore(LocalDateTime.now())) {
+			return ResponseEntity.status(410).body(Map.of(
+					"error", "Token Expirado."));
+		}
+
+		consultante.setVerificado(true);
+		consultante.setTokenVerificacion(null);
+		consultante.setTokenExpiracion(null);
+		consultanteService.guardarConsultante(consultante);
+
+		return ResponseEntity.ok(Map.of("ok", true));
 	}
 	
 	@PostMapping("/login")

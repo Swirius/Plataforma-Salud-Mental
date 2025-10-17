@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
@@ -61,6 +62,7 @@ public class ConsultanteService {
 
 		c.setVerificado(false);
 		c.setTokenVerificacion(UUID.randomUUID().toString());
+		c.setTokenExpiracion(LocalDateTime.now().plusHours(24));
 
 		consultanteRepository.save(c);
 		emailService.verificarCorreo(c.getEmail(), c.getTokenVerificacion());
@@ -121,9 +123,11 @@ public class ConsultanteService {
 		c.setTutor(tutor);
 		c.setVerificado(false);
 		c.setTokenVerificacion(UUID.randomUUID().toString());
+		c.setTokenExpiracion(LocalDateTime.now().plusHours(24));
 
 		consultanteRepository.save(c);
 		emailService.verificarCorreo(c.getEmail(), c.getTokenVerificacion());
+		
 
 		return Map.of("mensaje", "Registro exitoso. Revisa el correo del consultante para verificar la cuenta.");
 	}
@@ -145,5 +149,13 @@ public class ConsultanteService {
 
 	public Optional<Consultante> obtenerConsultantePorEmail(String email) {
 		return consultanteRepository.findByEmail(email);
+	}
+	
+	public Consultante obtenerConsultantePorToken(String token) {
+		return consultanteRepository.findByTokenVerificacion(token).orElse(null);
+	}
+
+	public void guardarConsultante(Consultante consultante) {
+		consultanteRepository.save(consultante);
 	}
 }

@@ -40,6 +40,9 @@ public class Consultante {
 	private String tokenVerificacion;
 	private LocalDateTime fechaRegistro = LocalDateTime.now();
 
+	@Column(name = "token_expiracion")
+	private LocalDateTime tokenExpiracion;
+	
 	@ManyToOne
 	@JoinColumn(name = "tutor_id")
 	private Tutor tutor;
@@ -186,6 +189,14 @@ public class Consultante {
 		this.tokenVerificacion = tokenVerificacion;
 	}
 
+	public LocalDateTime getTokenExpiracion() {
+		return tokenExpiracion;
+	}
+
+	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
+		this.tokenExpiracion = tokenExpiracion;
+	}
+	
 	public LocalDateTime getFechaRegistro() {
 		return fechaRegistro;
 	}
