@@ -55,6 +55,7 @@ public class RegistroTutorDTO {
 
 	@NotBlank(message = "Ingresa tu patentesco (padre, madre, tutor legal, etc.).")
 	private String parentesco;
+	
 	private Boolean consentimiento = false;
 
 	// Datos del consultante (menor)
