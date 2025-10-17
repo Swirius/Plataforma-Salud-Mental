@@ -10,41 +10,53 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegistroConsultanteDTO {
-	
+
 	@NotBlank(message = "Ingresa tu nombre.")
 	@Size(min = 3, message = "El nombre debe contener al menos 3 caracteres.")
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El nombre no debe contener números.")
 	private String nombre;
-	
+
 	@NotBlank(message = "Ingresa tu apellido.")
 	@Size(min = 3, message = "El apellido debe contener al menos 3 caracteres.")
 	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El apellido no debe contener números.")
 	private String apellido;
-	
+
 	@NotBlank(message = "Ingresa tu DNI.")
 	@Column(unique = true)
 	private String dni;
-	
+
 	@NotBlank(message = "Ingresa el número de trámite de tu DNI.")
 	@Column(unique = true)
 	private String numeroTramite;
-	
+
 	@NotBlank(message = "Ingresa el número fecha de nacimiento (YYYY-MM-DD).")
 	private LocalDate fechaNacimiento;
-	
+
+	@NotBlank(message = "Ingresa tu país.")
+	private String pais;
+
+	@NotBlank(message = "Ingresa tu provincia.")
+	private String provincia;
+
+	@NotBlank(message = "Ingresa tu localidad.")
+	private String localidad;
+
+	@NotBlank(message = "Ingresa tu partido.")
+	private String partido;
+
 	@NotBlank(message = "Ingresa un correo electrónico.")
 	@Column(unique = true)
 	@Email(message = "Ingresa un correo válido.")
 	private String email;
-	
+
 	@NotBlank(message = "Ingresa tu número de telefono.")
 	private String telefono;
-	
+
 	@NotBlank(message = "Ingrese una contraseña.")
 	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
 	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$", message = "La contraseña debe contener, al menos, una mayúscula, una minúscula y un número.")
 	private String password;
-	
+
 	@Transient
 	private String confirmPassword;
 
@@ -53,8 +65,11 @@ public class RegistroConsultanteDTO {
 	private String numeroCud;
 	private String archivoCud;
 
-	private String obraSocial;	
+	private String obraSocial;
 	private String nombreObraSocial;
+
+	@Transient
+	private boolean aceptarTyC;
 
 	// Getters y setters
 
@@ -98,6 +113,38 @@ public class RegistroConsultanteDTO {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
+	public String getPartido() {
+		return partido;
+	}
+
+	public void setPartido(String partido) {
+		this.partido = partido;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -120,6 +167,14 @@ public class RegistroConsultanteDTO {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getDiscapacidad() {
@@ -170,4 +225,11 @@ public class RegistroConsultanteDTO {
 		this.nombreObraSocial = nombreObraSocial;
 	}
 
+	public boolean isAceptarTyC() {
+		return aceptarTyC;
+	}
+
+	public void setAceptarTyC(boolean aceptarTyC) {
+		this.aceptarTyC = aceptarTyC;
+	}
 }

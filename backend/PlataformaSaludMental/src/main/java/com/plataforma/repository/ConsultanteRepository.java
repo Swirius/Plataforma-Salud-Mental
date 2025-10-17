@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface ConsultanteRepository extends JpaRepository<Consultante, Long> {
+	Optional<Consultante> findByDni(String dni);
+	
 	Optional<Consultante> findByEmail(String email);
 
 	Optional<Consultante> findByTokenVerificacion(String token);

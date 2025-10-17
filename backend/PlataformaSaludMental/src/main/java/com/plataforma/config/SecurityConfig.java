@@ -16,27 +16,31 @@ public class SecurityConfig {
 
 				.authorizeHttpRequests(authorize -> authorize
 						// Permite el acceso SIN autenticación al endpoint de registro.
+						
+						//Profesionales
 						.requestMatchers("/api/profesionales/registro").permitAll()
+
+						.requestMatchers("/api/profesionales/verificar").permitAll()
 
 						.requestMatchers("/api/profesionales/login").permitAll()
 
-						.requestMatchers("/api/profesionales/verificar").permitAll()
-                               
-            .requestMatchers("/api/profesionales/{id}/requisitos").permitAll()
-                
-            .requestMatchers("/api/profesionales/{id}/actualizar/perfil").permitAll()
+						.requestMatchers("/api/profesionales/{id}/requisitos").permitAll()
+
+						.requestMatchers("/api/profesionales/{id}/actualizar/perfil").permitAll()
 						
+						
+						//Consultantes
 						.requestMatchers("/api/consultantes/registro").permitAll()
-						
+
 						.requestMatchers("/api/consultantes/registro-tercero").permitAll()
 
-						.requestMatchers("/api/consultantes/login").permitAll()
-						
 						.requestMatchers("/api/consultantes/verificar").permitAll()
-            
-            .requestMatchers("/api/consultantes/{id}/requisitos").permitAll()
-            
-            .requestMatchers("/api/consultantes/{id}/actualizar/perfil").permitAll()
+
+						.requestMatchers("/api/consultantes/login").permitAll()
+
+						.requestMatchers("/api/consultantes/{id}/requisitos").permitAll()
+
+						.requestMatchers("/api/consultantes/{id}/actualizar/perfil").permitAll()
 
 						.anyRequest().authenticated());
 

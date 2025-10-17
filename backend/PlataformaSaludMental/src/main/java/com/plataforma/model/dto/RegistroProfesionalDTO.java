@@ -71,7 +71,6 @@ public class RegistroProfesionalDTO {
 	
 	//getters y setters
 	
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -191,7 +190,4 @@ public class RegistroProfesionalDTO {
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
 	}
-	
-	
-
 }
