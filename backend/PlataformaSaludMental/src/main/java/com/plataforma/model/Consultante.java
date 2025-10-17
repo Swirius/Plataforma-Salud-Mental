@@ -17,17 +17,23 @@ public class Consultante {
 	private String dni;
 	private String numeroTramite;
 	private LocalDate fechaNacimiento;
+
+	private String pais;
+	private String provincia;
+	private String localidad;
+	private String partido;
+
 	private String email;
 	private String telefono;
 	private String password;
-	
+
 	@Transient
 	private String confirmPassword;
 
 	private String discapacidad;
 	private String cud;
 	private String numeroCud;
-	
+
 	@Column(name = "archivo_CUD")
 	private String archivoCud;
 
@@ -35,14 +41,14 @@ public class Consultante {
 	private String nombreObraSocial;
 
 	private boolean verificado = false;
-	
+
 	@Column(name = "token_verificacion")
 	private String tokenVerificacion;
 	private LocalDateTime fechaRegistro = LocalDateTime.now();
 
 	@Column(name = "token_expiracion")
 	private LocalDateTime tokenExpiracion;
-	
+
 	@ManyToOne
 	@JoinColumn(name = "tutor_id")
 	private Tutor tutor;
@@ -101,6 +107,38 @@ public class Consultante {
 		this.fechaNacimiento = fechaNacimiento;
 	}
 
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getProvincia() {
+		return provincia;
+	}
+
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
+
+	public String getLocalidad() {
+		return localidad;
+	}
+
+	public void setLocalidad(String localidad) {
+		this.localidad = localidad;
+	}
+
+	public String getPartido() {
+		return partido;
+	}
+
+	public void setPartido(String partido) {
+		this.partido = partido;
+	}
+
 	public String getEmail() {
 		return email;
 	}
@@ -123,6 +161,14 @@ public class Consultante {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 
 	public String getDiscapacidad() {
@@ -196,7 +242,7 @@ public class Consultante {
 	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
 		this.tokenExpiracion = tokenExpiracion;
 	}
-	
+
 	public LocalDateTime getFechaRegistro() {
 		return fechaRegistro;
 	}
@@ -212,5 +258,4 @@ public class Consultante {
 	public void setTutor(Tutor tutor) {
 		this.tutor = tutor;
 	}
-
 }
