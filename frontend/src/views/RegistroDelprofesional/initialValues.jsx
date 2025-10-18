@@ -2,17 +2,16 @@
 const initialValues = (initialAdmin = '') => ({
   nombre: initialAdmin,
   apellido: '',
-  DNI: '',
+  dni: '',
   numeroTramite: '',
   pais: '',
   provincia: '',
   localidad: '',
-  partido: '',
   celular: '',
   email: '',
   password: '',
-  repetirPassword: '',
-  terminos: false,
+  confirmPassword: '',
+  aceptarTyC: false,
 });
 
 export default initialValues;
