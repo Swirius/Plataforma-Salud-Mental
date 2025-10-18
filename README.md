@@ -120,14 +120,15 @@ plataforma-salud-mental/
 │
 ├── backend/                # Proyecto en Spring Boot
 │   ├── src/main/java/com/plataforma
+│   │   ├── config/         # Configuración de seguridad/autenticación
 │   │   ├── controller/     # Controladores REST
 │   │   ├── model/          # Entidades JPA
+│   │   │   └── dto/        # Objetos de transferencia de datos (DTO) usados para comunicar entidades con el frontend
 │   │   ├── repository/     # Interfaces de acceso a datos
-│   │   ├── service/        # Lógica de negocio
-│   │   └── security/       # Configuración de seguridad/autenticación
+│   │   └── service/        # Lógica de negocio
 │   ├── src/main/resources/ 
 │   │   ├── application.properties
-│   │   └── schema.sql      # Script inicial de BD
+│   │   └── schema.sql      # Script de BD
 │   └── pom.xml
 │
 ├── frontend/               # Proyecto en React
