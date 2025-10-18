@@ -196,7 +196,7 @@ const RegistroDelConsultante = () => {
 
 
                     {/* Terminos */}
-                    <Field name="terminos">
+                    <Field name="aceptarTyC">
                       {({ field, form }) => (
                         <Checkbox
                           checked={field.value}
@@ -208,7 +208,7 @@ const RegistroDelConsultante = () => {
                         </Checkbox>
                       )}
                     </Field>
-                    <FormikError name="terminos" />
+                    <FormikError name="aceptarTyC" />
 
                     {/* Botón */}
                     <VStack spacing={10}>

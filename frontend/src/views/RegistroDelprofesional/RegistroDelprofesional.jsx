@@ -18,6 +18,7 @@ import initialValues from "./initialValues";
 import BotonYaTenesCuenta from "../../components/BotonYaTenesCuenta/BotonYaTenesCuenta";
 import "../../components/Utils/LabelForm.css";
 import BotonVolver from "../../components/BotonVolver/BotonVolver";
+import { Navigate } from "react-router-dom";
 
 
 
@@ -104,8 +105,82 @@ const RegistroDelProfesional = () => {
                             <FormikError name="apellido" />
                           </div>
                         </Col>
+
                       </Row>
                     </Grid>
+
+
+                  <Grid fluid>
+                   <Row>
+                    <Col xs={12}>
+                          <div className="mb-2">
+                            <label htmlFor="pais" className="label-form">
+                              pais:
+                            </label>
+                            <Field
+                              name="pais"
+                              className="rs-input rs-input-lg "
+                              style={{ fontSize: "1.3em" }}
+                              type="text"
+                            />
+
+                            <FormikError name="pais" />
+                          </div>
+                    </Col>
+                    <Col xs={12}>
+                        <div className="mb-2">
+                            <label htmlFor="provincia" className="label-form">
+                              provincia:
+                            </label>
+                            <Field
+                              name="provincia"
+                              className="rs-input rs-input-lg "
+                              style={{ fontSize: "1.3em" }}
+                              type="text"
+                            />
+
+                            <FormikError name="provincia" />
+                          </div>
+                    </Col>
+                   </Row>
+                  </Grid>
+                  
+
+                   <Grid fluid>
+                   <Row>
+                    <Col xs={12}>
+                          <div className="mb-2">
+                            <label htmlFor="localidad" className="label-form">
+                              localidad:
+                            </label>
+                            <Field
+                              name="localidad"
+                              className="rs-input rs-input-lg "
+                              style={{ fontSize: "1.3em" }}
+                              type="text"
+                            />
+
+                            <FormikError name="localidad" />
+                          </div>
+                    </Col>
+                    <Col xs={12}>
+                        <div className="mb-2">
+                            <label htmlFor="celular" className="label-form">
+                              celular:
+                            </label>
+                            <Field
+                              name="celular"
+                              className="rs-input rs-input-lg "
+                              style={{ fontSize: "1.3em" }}
+                              type="text"
+                            />
+
+                            <FormikError name="celular" />
+                          </div>
+                    </Col>
+                   </Row>
+                  </Grid>
+                  
 
                     {/* dni y Tramite */}
                     <Grid fluid>
@@ -168,25 +243,25 @@ const RegistroDelProfesional = () => {
                         <Col xs={24} sm={24} md={12}>
                           <div className="mb-2">
                             <label
-                              htmlFor="repetirPassword"
+                              htmlFor="confirmPassword"
                               className="label-form"
                             >
                               Repetir Contraseña:
                             </label>
                             <Field
-                              name="repetirPassword"
+                              name="confirmPassword"
                               type="password"
                               className="rs-input rs-input-lg "
                               style={{ fontSize: "1.3em" }}
                             />
-                            <FormikError name="repetirPassword" />
+                            <FormikError name="confirmPassword" />
                           </div>
                         </Col>
                       </Row>
                     </Grid>
 
                     {/* Terminos */}
-                    <Field name="terminos">
+                    <Field name="aceptarTyC">
                       {({ field, form }) => (
                         <Checkbox
                           checked={field.value}
@@ -198,7 +273,7 @@ const RegistroDelProfesional = () => {
                         </Checkbox>
                       )}
                     </Field>
-                    <FormikError name="terminos" />
+                    <FormikError name="aceptarTyC" />
 
                     {/* Botón */}
                     <VStack spacing={10}>
