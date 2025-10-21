@@ -11,8 +11,9 @@ import { Button, Checkbox, Container, Content, Panel,  Stack,  Text,  VStack } f
 import { Col } from 'rsuite';
 import BotonNoTienesCuenta from '../../components/BotonNoTienesCuenta/BotonNoTienesCuenta';
 
+const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-// const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
 
 const validationSchema = Yup.object().shape({
   dni: Yup.string().required('Requerido'),
@@ -71,7 +72,7 @@ const Login = () => {
                       validationSchema={validationSchema}
                       onSubmit={(values, { setSubmitting, setErrors }) => {
                         axios
-                          .post("/api/profesionales/login", values, {
+                          .post(`${backendUrl}/api/profesionales/login`, values, {
                               withCredentials: true,
                               headers: {
                                 'Content-Type': 'application/json',
@@ -80,6 +81,7 @@ const Login = () => {
                           
                           .then((response) => {
                             console.log(response.data)
+                            
                             if (response.data.result === 'error') {
                               setErrors({ password: response.data.message });
                             }

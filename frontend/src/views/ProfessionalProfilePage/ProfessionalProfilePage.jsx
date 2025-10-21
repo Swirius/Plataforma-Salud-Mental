@@ -124,13 +124,7 @@ const ProfessionalProfilePage = () => {
       {/* Header */}
       <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ padding: '16px', maxWidth: '1200px', margin: '0 auto' }}>
-          <FlexboxGrid justify="space-between" align="middle">
-            <FlexboxGrid.Item>
-              <FlexboxGrid align="middle" gap={12}>
-                <LuHeart style={{ height: '32px', width: '32px', color: '#4096ff' }} />
-                <h1 style={{ fontSize: '24px', fontWeight: 'bold', color: '#333' }}>MentalCare</h1>
-              </FlexboxGrid>
-            </FlexboxGrid.Item>
+          <FlexboxGrid justify="space-between" align="middle">           
             <FlexboxGrid.Item>
               <Button appearance="default" onClick={handleGoBack} style={{ borderRadius: '6px' }}>
                 <LuArrowLeft style={{ marginRight: '8px' }} />
@@ -264,15 +258,15 @@ const ProfessionalProfilePage = () => {
         <div style={{ marginTop: '24px' }}>
           {activeTab === 'overview' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <Panel shaded header={<h3 style={{ margin: 0, fontWeight: '600' }}>Acerca de mí</h3>}>
+              <Panel shaded header="Acerca de mí">
                 <p style={{ color: '#555', lineHeight: 1.6 }}>{professionalData.about}</p>
               </Panel>
 
-              <Panel shaded header={<h3 style={{ margin: 0, fontWeight: '600' }}>Mi Enfoque Terapéutico</h3>}>
+              <Panel shaded header="Mi Enfoque Terapéutico">
                 <p style={{ color: '#555', lineHeight: 1.6 }}>{professionalData.approach}</p>
               </Panel>
 
-              <Panel shaded header={<h3 style={{ margin: 0, fontWeight: '600' }}>Idiomas</h3>}>
+              <Panel shaded header="Idiomas">
                 <div style={{ display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
                   {professionalData.languages.map((lang) => (
                     <Badge key={lang} color="cyan">
@@ -287,7 +281,7 @@ const ProfessionalProfilePage = () => {
 
           {activeTab === 'experience' && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-              <Panel shaded header={<h3 style={{ margin: 0, fontWeight: '600' }}>Educación</h3>}>
+              <Panel shaded header="Educación">
                 <ul style={{ paddingLeft: '20px', lineHeight: 1.8 }}>
                   {professionalData.education.map((edu, i) => (
                     <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
@@ -298,7 +292,7 @@ const ProfessionalProfilePage = () => {
                 </ul>
               </Panel>
 
-              <Panel shaded header={<h3 style={{ margin: 0, fontWeight: '600' }}>Certificaciones</h3>}>
+              <Panel shaded header="Certificaciones">
                 <ul style={{ paddingLeft: '20px', lineHeight: 1.8 }}>
                   {professionalData.certifications.map((cert, i) => (
                     <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>

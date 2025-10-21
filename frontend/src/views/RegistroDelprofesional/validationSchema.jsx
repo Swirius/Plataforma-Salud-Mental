@@ -14,18 +14,31 @@ export const validationSchema = Yup.object().shape({
   numeroTramite: Yup.string()
     .required('Debe ingresar el número de trámite'),
 
+  pais: Yup.string()
+    .required('Debe ingresar el país'),
+
+  provincia: Yup.string()
+    .required('Debe ingresar la provincia'),
+
+  localidad: Yup.string()
+    .required('Debe ingresar la localidad'),
+
+  celular: Yup.string()
+    .required('Debe ingresar el número de celular'),
+
   email: Yup.string()
     .email('Debe ingresar un correo electrónico válido')
     .required('Debe ingresar un correo electrónico válido'),
 
   password: Yup.string()
+    .min(8, 'La contraseña debe tener al menos 8 caracteres')
     .required('Debe ingresar una contraseña'),
 
-  repetirPassword: Yup.string()
+  confirmPassword: Yup.string()
     .oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden')
     .required('Debe repetir la contraseña'),
 
-  terminos: Yup.boolean()
+  aceptarTyC: Yup.boolean()
     .oneOf([true], 'Debe aceptar los Términos y Condiciones para continuar'),
 });
 

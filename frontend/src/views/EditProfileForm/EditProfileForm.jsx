@@ -46,19 +46,20 @@ const EditProfileForm = () => {
   };
 
   return (
-    <div style={{ maxWidth: 500, margin: "50px auto" }}>
+    <div style={{ maxWidth: 550, margin: "50px auto" }}>
       <h2>Mi perfil</h2>
       <Form
         formValue={formValue}
         onChange={setFormValue}
         fluid
       >
-        <Form.Group>
+        <Form.Group style={{ marginTop: 4 }}>
           <Form.ControlLabel>Descripción</Form.ControlLabel>
           <Form.Control
             name="description"
             accepter="textarea"
-            rows={4}
+            style={{ width: "20rem" }}
+            rows={8}
             placeholder="Escribe tu descripción..."
           />
           {formError.description && (
@@ -69,7 +70,8 @@ const EditProfileForm = () => {
         <Form.Group>
           <Form.ControlLabel>Foto de perfil (opcional)</Form.ControlLabel>
           <Uploader
-            autoUpload={false}
+            autoUpload={false}   
+            appearance="primary"
             fileList={formValue.image ? [formValue.image] : []}
             onChange={(files) => setFormValue({ ...formValue, image: files[0] || null })}
             draggable
@@ -81,7 +83,7 @@ const EditProfileForm = () => {
         </Form.Group>
 
         <Form.Group>
-          <Button appearance="primary" onClick={handleSubmit}>
+          <Button appearance="primary" color="green" onClick={handleSubmit}>
             Guardar cambios
           </Button>
         </Form.Group>
