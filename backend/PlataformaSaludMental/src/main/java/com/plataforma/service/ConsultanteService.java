@@ -50,7 +50,6 @@ public class ConsultanteService {
 		c.setPais(dto.getPais());
 		c.setProvincia(dto.getProvincia());
 		c.setLocalidad(dto.getLocalidad());
-		c.setPartido(dto.getPartido());
 		c.setEmail(dto.getEmail());
 		c.setTelefono(dto.getTelefono());
 
@@ -145,7 +144,6 @@ public class ConsultanteService {
 		c.setPais(dto.getPaisConsultante());
 		c.setProvincia(dto.getProvinciaConsultante());
 		c.setLocalidad(dto.getLocalidadConsultante());
-		c.setPartido(dto.getPartidoConsultante());
 		c.setEmail(dto.getEmailConsultante());
 		c.setTelefono(dto.getTelefonoConsultante());
 		

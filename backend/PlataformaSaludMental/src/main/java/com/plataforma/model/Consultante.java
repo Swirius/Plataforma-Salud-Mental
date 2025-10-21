@@ -21,7 +21,6 @@ public class Consultante {
 	private String pais;
 	private String provincia;
 	private String localidad;
-	private String partido;
 
 	private String email;
 	private String telefono;
@@ -129,14 +128,6 @@ public class Consultante {
 
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
-	}
-
-	public String getPartido() {
-		return partido;
-	}
-
-	public void setPartido(String partido) {
-		this.partido = partido;
 	}
 
 	public String getEmail() {

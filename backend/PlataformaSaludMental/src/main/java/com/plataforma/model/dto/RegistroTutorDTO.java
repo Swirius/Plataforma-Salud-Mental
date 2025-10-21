@@ -42,9 +42,6 @@ public class RegistroTutorDTO {
 	@NotBlank(message = "Ingresa tu localidad.")
 	private String localidadTutor;
 
-	@NotBlank(message = "Ingresa tu partido.")
-	private String partidoTutor;
-
 	@NotBlank(message = "Ingresa un correo electrónico.")
 	@Column(unique = true)
 	@Email(message = "Ingresa un correo válido.")
@@ -87,9 +84,6 @@ public class RegistroTutorDTO {
 
 	@NotBlank(message = "Ingresa la localidad del consultante.")
 	private String localidadConsultante;
-
-	@NotBlank(message = "Ingresa el partido del consultante.")
-	private String partidoConsultante;
 
 	@NotBlank(message = "Ingresa un correo electrónico del consultante.")
 	@Column(unique = true)
@@ -182,14 +176,6 @@ public class RegistroTutorDTO {
 
 	public void setLocalidadTutor(String localidadTutor) {
 		this.localidadTutor = localidadTutor;
-	}
-
-	public String getPartidoTutor() {
-		return partidoTutor;
-	}
-
-	public void setPartidoTutor(String partidoTutor) {
-		this.partidoTutor = partidoTutor;
 	}
 
 	public String getEmailTutor() {
@@ -286,14 +272,6 @@ public class RegistroTutorDTO {
 
 	public void setLocalidadConsultante(String localidadConsultante) {
 		this.localidadConsultante = localidadConsultante;
-	}
-
-	public String getPartidoConsultante() {
-		return partidoConsultante;
-	}
-
-	public void setPartidoConsultante(String partidoConsultante) {
-		this.partidoConsultante = partidoConsultante;
 	}
 
 	public String getEmailConsultante() {
