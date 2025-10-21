@@ -139,7 +139,7 @@ public class Profesional {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-
+	
 	public String getMatricula() {
 		return matricula;
 	}

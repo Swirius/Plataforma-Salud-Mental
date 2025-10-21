@@ -41,9 +41,6 @@ public class RegistroConsultanteDTO {
 	@NotBlank(message = "Ingresa tu localidad.")
 	private String localidad;
 
-	@NotBlank(message = "Ingresa tu partido.")
-	private String partido;
-
 	@NotBlank(message = "Ingresa un correo electrónico.")
 	@Column(unique = true)
 	@Email(message = "Ingresa un correo válido.")
@@ -135,14 +132,6 @@ public class RegistroConsultanteDTO {
 
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
-	}
-
-	public String getPartido() {
-		return partido;
-	}
-
-	public void setPartido(String partido) {
-		this.partido = partido;
 	}
 
 	public String getEmail() {
