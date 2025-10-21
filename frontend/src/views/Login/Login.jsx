@@ -13,6 +13,8 @@ import BotonNoTienesCuenta from '../../components/BotonNoTienesCuenta/BotonNoTie
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
+
+
 const validationSchema = Yup.object().shape({
   dni: Yup.string().required('Requerido'),
   password: Yup.string().required('Requerido'),
@@ -79,6 +81,7 @@ const Login = () => {
                           
                           .then((response) => {
                             console.log(response.data)
+                            
                             if (response.data.result === 'error') {
                               setErrors({ password: response.data.message });
                             }

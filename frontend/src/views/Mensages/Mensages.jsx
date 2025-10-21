@@ -230,13 +230,7 @@ const Mensages = () => {
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       {/* Header */}
       <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', padding: '16px' }}>
-        <FlexboxGrid justify="space-between" align="middle">
-          <FlexboxGrid.Item>
-            <FlexboxGrid align="middle" gap={12}>
-              <LuHeart style={{ height: '32px', width: '32px', color: '#4096ff', fill: 'rgba(64,150,255,0.1)' }} />
-              <h1 style={{ fontSize: '24px', fontWeight: '800', color: '#333' }}>MentalCare</h1>
-            </FlexboxGrid>
-          </FlexboxGrid.Item>
+        <FlexboxGrid justify="space-between" align="middle">         
           <FlexboxGrid.Item>
             <Button appearance="primary" color="blue" style={{ borderRadius: '999px', fontWeight: '600' }}>
               Mi Cuenta

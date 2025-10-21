@@ -15,11 +15,14 @@ const NavBar = () => {
         </Navbar.Brand>
 
         <Nav>          
+           <Nav.Item as={Link} to="/emailVerification">Verificacion e-mail</Nav.Item>           
+           <Nav.Item as={Link} to="/dashboard">Dashboard</Nav.Item>            
+           <Nav.Item as={Link} to="/mensages">Mensages</Nav.Item>           
+          
+            <Nav.Item as={Link} to="/professionalsPage">Lista de Profesionales</Nav.Item>
+            <Nav.Item as={Link} to="/professionalProfilePage">Perfil del Profesional</Nav.Item>
            <Nav.Item as={Link} to="/edit-profile-form">Edit Perfil</Nav.Item>
-           <Nav.Item as={Link} to="/dashboard">dashboard</Nav.Item> 
-           <Nav.Item as={Link} to="/professionalProfilePage">Profesionales</Nav.Item>
-           <Nav.Item as={Link} to="/mensages">Mensages</Nav.Item>
-           
+
         </Nav>
 
         <Nav pullRight>

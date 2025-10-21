@@ -24,6 +24,7 @@ import { Navigate } from "react-router-dom";
 
 const RegistroDelProfesional = () => {
   const { initialAdmin, usernameRef, handleSubmit } = useRegistroSubmit();
+ 
 
   const FormikError = ({ name }) => (
     <ErrorMessage name={name}>

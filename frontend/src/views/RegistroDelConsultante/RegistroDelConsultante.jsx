@@ -61,7 +61,10 @@ const RegistroDelConsultante = () => {
                 enableReinitialize
                 initialValues={initialValues(initialAdmin)}
                 validationSchema={validationSchema}
-                onSubmit={handleSubmit}
+                 onSubmit={(values, actions) => {
+                  console.log("Submit test", values);
+                  handleSubmit(values, actions);
+                }}
               >
                 {({ isSubmitting }) => (
                   <Form>
@@ -116,16 +119,16 @@ const RegistroDelConsultante = () => {
                           <FormikError name="dni" />
                         </Col>
                         <Col xs={24} sm={24} md={9}>
-                          <label htmlFor="numeroTramite" className="label-form" >
+                          <label htmlFor="numero_tramite" className="label-form" >
                             Trámite:
                           </label>
                           <Field
-                            name="numeroTramite"
+                            name="numero_tramite"
                             className="rs-input rs-input-lg "
                             style={{ fontSize: "1.3em" }}
                           />
                           <FormikError
-                            name="numeroTramite"
+                            name="numero_tramite"
                           />
                         </Col>
                          <Col xs={24} sm={24} md={6}>
@@ -196,7 +199,7 @@ const RegistroDelConsultante = () => {
 
 
                     {/* Terminos */}
-                    <Field name="aceptarTyC">
+                    <Field name="isAceptarTyC">
                       {({ field, form }) => (
                         <Checkbox
                           checked={field.value}
@@ -208,7 +211,7 @@ const RegistroDelConsultante = () => {
                         </Checkbox>
                       )}
                     </Field>
-                    <FormikError name="aceptarTyC" />
+                    <FormikError name="isAceptarTyC" />
 
                     {/* Botón */}
                     <VStack spacing={10}>
