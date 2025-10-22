@@ -22,9 +22,9 @@ public class SecurityConfig {
                 
                 .requestMatchers("/api/profesionales/verificar").permitAll()
                 
-                .requestMatchers("/api/profesionales/{id}/requisitos").permitAll()
+                .requestMatchers("/api/profesionales/*/requisitos").permitAll()
                 
-                .requestMatchers("/api/profesionales/{id}/actualizar/perfil").permitAll()
+                .requestMatchers("/api/profesionales/*/actualizar/perfil").permitAll()
                 
                 .anyRequest().authenticated()
             );

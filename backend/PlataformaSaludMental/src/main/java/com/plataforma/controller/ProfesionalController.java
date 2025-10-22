@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -30,11 +31,19 @@ public class ProfesionalController {
         this.emailService = emailService;
     }
 
-    // --- Endpoints de Registro y Verificación ---
+    // --- Endpoint de Registro ---
 
     @PostMapping("/registro")
     public ResponseEntity<?> registrarProfesional(@RequestBody @Valid RegistroProfesionalDTO registrarProfesional,
             BindingResult validaciones) {
+    	
+    	if (validaciones.hasErrors()) {
+            Map<String, String> errores = new HashMap<>();
+            validaciones.getFieldErrors().forEach(error ->
+                errores.put(error.getField(), error.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(errores);
+        }
         
         if (!registrarProfesional.isAceptarTyC()) {
             return ResponseEntity.badRequest().body(Map.of(
@@ -69,6 +78,8 @@ public class ProfesionalController {
         }
     }
 
+    // --- Endpoint de Verificación ---
+    
     @PostMapping("/verificar")
     public ResponseEntity<?> verificarCuenta(@RequestBody Map<String, String> verify) {
         String token = verify.get("token");

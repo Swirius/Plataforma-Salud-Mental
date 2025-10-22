@@ -6,7 +6,6 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -23,20 +22,22 @@ public class RegistroProfesionalDTO {
 	private String apellido;
 
 	@NotBlank(message = "Ingresa tu DNI.")
+	@Size(min = 4)
 	@Column(unique = true)
 	private String dni;
 
 	@NotBlank(message = "Ingresa el número de trámite de tu DNI.")
+	@Size(min = 4)
 	@Column(unique = true)
 	private String numeroTramite;
 
-	@NotBlank(message = "Ingresa tu país de nacimiento.")
+	@NotBlank(message = "Ingresa tu país de residencia.")
 	private String pais;
 
-	@NotBlank(message = "")
+	@NotBlank(message = "Ingresa tu provincia de residencia.")
 	private String provincia;
 
-	@NotBlank(message = "")
+	@NotBlank(message = "Ingresa tu localidad de residencia.")
 	private String localidad;
 
 	@NotBlank(message = "Ingresa tu número de celular.")
@@ -64,9 +65,9 @@ public class RegistroProfesionalDTO {
 	@Column(name = "token_expiracion")
 	private LocalDateTime tokenExpiracion;
 
-	@NotNull
-	@Column(name = "activo")
-	private Boolean activo;
+	//@NotNull
+	//@Column(name = "activo")
+	//private Boolean activo;
 	
 	
 	//getters y setters
@@ -184,13 +185,6 @@ public class RegistroProfesionalDTO {
 		this.tokenExpiracion = tokenExpiracion;
 	}
 
-	public Boolean isActivo() {
-		return activo;
-	}
-
-	public void setActivo(Boolean activo) {
-		this.activo = activo;
-	}
 	
 	
 
