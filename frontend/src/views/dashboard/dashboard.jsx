@@ -7,6 +7,7 @@ import {
   Container,
   Row,
   Col,
+  Nav,
 } from "rsuite";
 
 import { FaRegHeart } from "react-icons/fa";
@@ -17,10 +18,16 @@ import { FiMessageCircle } from "react-icons/fi";
 import { BsGear } from "react-icons/bs";
 import { CiClock2 } from "react-icons/ci";
 import { PiSignOutBold } from "react-icons/pi";
+import NavBar from "../../components/Navbar/Navbar";
 
+import { Link } from "react-router-dom";
 
 
 export default function Dashboard() {
+
+  
+
+
   const [user] = useState({
     name: "María González",
     email: "maria@email.com",
@@ -66,64 +73,77 @@ export default function Dashboard() {
     },
   ];
 
+
+
   return (
+
+    <>
+       <NavBar />
     <div style={{ minHeight: "100vh", background: "#f7f7f7" }}>
       {/* Header */}
-      <header style={{ background: "#fff", borderBottom: "1px solid #ddd", padding: "10px 20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+      {/* <header style={{ background: "#fff", borderBottom: "1px solid #ddd", padding: "10px 20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
        
-      </header>
+      </header> */}
 
       <Container style={{ padding: "20px"  }}>
         {/* Welcome Section */}      
          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-           <h2>Bienvenida, {user.name.split(" ")[0]}</h2>
+           <h2>Hola !!</h2>
+           {/* <h2>Bienvenida, {user.name.split(" ")[0]}</h2> */}
           <p>Aquí tienes un resumen de tu actividad y próximas citas</p>
         </div>
-        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <Button appearance="ghost"><GoBell /></Button>
-          <Button appearance="ghost"><BsGear /></Button>
+        <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>          
           <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
             <Avatar src={user.avatar} alt={user.name} circle />
             <div style={{ display: "flex", flexDirection: "column" }}>
-              <span>{user.name}</span>
-              <span style={{ fontSize: 12, color: "#666" }}>{user.email}</span>
+              {/* <span>{user.name}</span>
+              <span style={{ fontSize: 12, color: "#666" }}>{user.email}</span> */}
             </div>
           </div>
-          <Button appearance="ghost"><PiSignOutBold /></Button>
+          
         </div>
 
+         <Nav>   
         {/* Quick Actions */}
         <Row gutter={[20, 16]} style={{ marginBottom: "20px", padding:"2rem" }}>
           <Col xs={6}>
             <Card bordered>
-              <div style={{ textAlign: "center" }}>
-                <GoSearch style={{ fontSize: 32, color: "#007bff" }} />
-                <h4>Buscar Profesionales</h4>
+              <div style={{ textAlign: "center", padding: "0.7rem"  }}>
                 <p>Encuentra nuevos especialistas</p>
+                <Nav.Item style={{ margin: "1rem"}}  as={Link} to="/user/professionalsPage">
+                <GoSearch style={{ fontSize: 32, color: "#007bff" }} />                
+                  <h4> Buscar Profesionales</h4>
+                </Nav.Item>                
+
               </div>
             </Card>
           </Col>
           <Col xs={6}>
             <Card bordered>
-              <div style={{ textAlign: "center" }}>
-                <GoCalendar style={{ fontSize: 32, color: "#28a745" }} />
-                <h4>Mis Citas</h4>
+              <div style={{ textAlign: "center", padding: "1rem"  }}>
                 <p>Ver todas las citas</p>
+                  <Nav.Item style={{ margin: "1rem"}}  as={Link} to="/user/mis_citas">
+                    <GoCalendar style={{ fontSize: 32, color: "#28a745" }} />
+                <h4>Mis Citas</h4> 
+                </Nav.Item> 
+
               </div>
             </Card>
           </Col>
           <Col xs={6}>
             <Card bordered>
-              <div style={{ textAlign: "center" }}>
-                <FiMessageCircle style={{ fontSize: 32, color: "#6f42c1" }} />
-                <h4>Mensajes</h4>
+              <div style={{ textAlign: "center", padding: "0.7rem" }}>                
                 <p>Comunicación directa</p>
+                 <Nav.Item style={{ margin: "1rem"}}  as={Link} to="/user/mensages">
+                  <FiMessageCircle style={{ fontSize: 32, color: "#6f42c1" }} />                
+                  <h4>Mensajes</h4>
+                </Nav.Item> 
               </div>
             </Card>
           </Col>
           <Col xs={6}>
             <Card bordered>
-              <div style={{ textAlign: "center" }}>
+              <div style={{ textAlign: "center", padding: "1rem"  }}>
                 <FaRegHeart style={{ fontSize: 32, color: "#dc3545" }} />
                 <h4>Mi Bienestar</h4>
                 <p>Seguimiento personal</p>
@@ -131,6 +151,7 @@ export default function Dashboard() {
             </Card>
           </Col>
         </Row>
+</Nav>
 
         <Row gutter={16}>
           {/* Upcoming Appointments */}
@@ -157,7 +178,7 @@ export default function Dashboard() {
                         <Badge style={{ padding: "2px 6px" }}>{appt.type}</Badge>
                       </div>
                     </div>
-                    <Button appearance="default" size="sm">Ver Detalles</Button>
+                    {/* <Button appearance="default" size="sm">Ver Detalles</Button> */}
                   </div>
                 ))
               )}
@@ -204,5 +225,7 @@ export default function Dashboard() {
         </Row>
       </Container>
     </div>
+</>
+
   );
 }

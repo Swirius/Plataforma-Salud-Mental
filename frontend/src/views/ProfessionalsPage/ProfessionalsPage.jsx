@@ -10,6 +10,7 @@ import {
   Divider,
 } from "rsuite";
 import { Calendar, Search, Message, Star } from "@rsuite/icons";
+import NavBar from "../../components/Navbar/Navbar";
 
 // Mock data for professionals
 const professionals = [
@@ -120,6 +121,9 @@ export default function ProfessionalsPage() {
   };
 
   return (
+
+    <>
+    <NavBar />
     <div style={{ padding: 20 }}>
       <h2>Encuentra tu Profesional Ideal</h2>
 
@@ -209,5 +213,10 @@ export default function ProfessionalsPage() {
         ))}
       </div>
     </div>
+    
+    </>
+
+
+
   );
 }

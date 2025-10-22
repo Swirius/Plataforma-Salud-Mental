@@ -2,6 +2,7 @@
 import  { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Message, Button, Loader, Container, Header, Panel } from 'rsuite';
+import NavBar from '../../components/Navbar/Navbar';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
@@ -118,11 +119,14 @@ export default function EmailVerification() {
 
 
   return (
+    <>
+      <NavBar />
     <Container style={{ marginTop: "2em" }}>
       <Header className="text-center mb-4">
         <h2>Verificación de Email</h2>
       </Header>
       {renderContent()}
     </Container>
+    </>
   );
 }

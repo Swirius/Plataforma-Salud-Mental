@@ -1,16 +1,18 @@
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
-// import { useNavigate } from 'react-router-dom';
+ import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 
 // ✅ SOLO agregamos esto para usar Grid, Row, Col y Button de RSuite
 import { Button, Checkbox, Container, Content, Panel,  Stack,  Text,  VStack } from 'rsuite';
 import { Col } from 'rsuite';
 import BotonNoTienesCuenta from '../../components/BotonNoTienesCuenta/BotonNoTienesCuenta';
-
+import NavBar from '../../components/Navbar/Navbar';
+ 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 
@@ -20,10 +22,13 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required('Requerido'),
 });
 
+
+
 const Login = () => {
-//   const navigate = useNavigate();
-  const usernameRef = useRef(null);
   
+   const navigate = useNavigate();
+  const usernameRef = useRef(null);
+    const { updateNCliente } = useContext(UserContext);
 
   const [rememberMe, setRememberMe] = useState(false);
   const [initialAdmin, setInitialAdmin] = useState('');
@@ -41,8 +46,11 @@ const Login = () => {
 
  
   return (
+    <>
+     <NavBar />
     
     <Container style={{ display: "flex", backgroundColor: '#4da3d981', marginTop: "2em" }}>
+
         <Content>  
             
                 <Stack alignItems="center" justifyContent="center" style={{ height: '100dvh' }}>
@@ -71,6 +79,7 @@ const Login = () => {
                       initialValues={{ dni: initialAdmin, password: '' }}
                       validationSchema={validationSchema}
                       onSubmit={(values, { setSubmitting, setErrors }) => {
+                              console.log(values)
                         axios
                           .post(`${backendUrl}/api/profesionales/login`, values, {
                               withCredentials: true,
@@ -80,30 +89,28 @@ const Login = () => {
                           })
                           
                           .then((response) => {
-                            console.log(response.data)
-                            
+                            console.log(response.data)                            
+                            // debugger;
                             if (response.data.result === 'error') {
-                              setErrors({ password: response.data.message });
+                        setErrors({ password: response.data.message });
+                      }
+
+                      if (response.status === 200) {
+                           updateNCliente(`${values.dni}`);
+                            localStorage.setItem('token', response.data.token);
+                            axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
+
+                            if (rememberMe) {
+                              localStorage.setItem('rememberedAdmin', values.dni);
+                            } else {
+                              localStorage.removeItem('rememberedAdmin');
                             }
 
+                          navigate(`/user/dashboard`);
 
-                            if (response.data.result === 'ok') {
-                              localStorage.setItem('token', response.data.token);
-                              axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
-                              
-                              console.log(response.data.user.id)
-                                                         
-
-                              if (rememberMe) {
-                                localStorage.setItem('rememberedAdmin', values.dni);
-                              } else {
-                                localStorage.removeItem('rememberedAdmin');
-                              }
-                        //       navigate(`/`);
-
-                            } else if (response.data.status === 401) {
-                              setErrors({ password: response.data.message });
-                            }
+                        } else if (response.status === 401) {
+                        setErrors({ password: response.data.message });
+                      }
                             
                           })
                           .catch((error) => {
@@ -168,6 +175,7 @@ const Login = () => {
                  </Stack>
             </Content>
     </Container>
+</>
   );
 };
 
