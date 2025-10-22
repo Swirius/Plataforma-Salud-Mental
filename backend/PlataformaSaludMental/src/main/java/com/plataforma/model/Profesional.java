@@ -47,7 +47,7 @@ public class Profesional {
 
 	@Column(name = "estado_validacion")
 	private String estadoValidacion;
-	
+
 	@Column(name = "token_verificacion")
 	private String tokenVerificacion;
 
@@ -141,7 +141,7 @@ public class Profesional {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
-
+	
 	public String getMatricula() {
 		return matricula;
 	}

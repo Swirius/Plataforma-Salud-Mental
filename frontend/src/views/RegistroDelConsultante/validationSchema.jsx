@@ -46,7 +46,7 @@ export const validationSchema = Yup.object().shape({
     .oneOf([Yup.ref('password'), null], 'Las contraseñas no coinciden')
     .required('Debe repetir la contraseña'),
 
-  terminos: Yup.boolean()
+  isAceptarTyC: Yup.boolean()
     .oneOf([true], 'Debe aceptar los Términos y Condiciones para continuar'),
 });
 

@@ -64,15 +64,9 @@ public class RegistroProfesionalDTO {
 
 	@Column(name = "token_expiracion")
 	private LocalDateTime tokenExpiracion;
-
-	//@NotNull
-	//@Column(name = "activo")
-	//private Boolean activo;
-	
 	
 	//getters y setters
 	
-
 	public String getNombre() {
 		return nombre;
 	}
@@ -184,8 +178,5 @@ public class RegistroProfesionalDTO {
 	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
 		this.tokenExpiracion = tokenExpiracion;
 	}
-
-	
-	
 
 }
