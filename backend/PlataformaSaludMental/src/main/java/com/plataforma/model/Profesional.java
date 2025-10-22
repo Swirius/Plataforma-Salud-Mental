@@ -1,6 +1,7 @@
 package com.plataforma.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
 
@@ -53,6 +54,7 @@ public class Profesional {
 	@Column(name = "token_expiracion")
 	private LocalDateTime tokenExpiracion;
 
+	@NotNull
 	@Column(name = "activo")
 	private Boolean activo;
 

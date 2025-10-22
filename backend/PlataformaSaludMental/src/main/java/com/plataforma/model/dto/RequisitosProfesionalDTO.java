@@ -5,13 +5,22 @@ import jakarta.validation.constraints.NotBlank;
 
 public class RequisitosProfesionalDTO {
 	
+	@NotBlank(message = "Debe ingresar universidad.")
 	private String universidad;
+	
+	@NotBlank(message = "Debe ingresar un título.")
 	private String titulo;
-	@NotBlank(message = "Ingresa tu número de matrícula.")
+	
+	@NotBlank(message = "Debe ingresar un número de matrícula.")
 	@Column(unique = true)
 	private String matricula;
+	
+	@NotBlank(message = "Debe ingresar una categoría/especialidad.")
 	private String categoria;
+	
+	@NotBlank(message = "Debe inggresar las etiquetas.")
 	private String etiquetas;
+	
 	@Column(name = "ruta_certificado_antecedentes")
 	private String rutaCertificadoAntecedentes;
 
