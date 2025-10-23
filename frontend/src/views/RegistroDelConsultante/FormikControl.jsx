@@ -1,4 +1,5 @@
 import { useField } from "formik";
+import { Field } from "formik";
 import { Form, SelectPicker, RadioGroup, Radio } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 
@@ -99,6 +100,16 @@ const DatosAdicionalesFormik = () => {
               <Radio value="SI">Sí</Radio>
               <Radio value="NO">No</Radio>
             </FormikRadioGroup>
+          </Col>
+          <Col xs={24} sm={24} md={12}>
+            <label htmlFor="nombre_obra_social" className="label-form">
+              Obra_social:
+            </label>
+            <Field
+              name="nombre_obra_social"
+              className="rs-input rs-input-lg text-center"
+              style={{ fontSize: "1.3em" }}
+            />            
           </Col>
         </Row>
       </Grid>

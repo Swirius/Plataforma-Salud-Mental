@@ -2,19 +2,22 @@ package com.plataforma.controller;
 
 import com.plataforma.model.LoginProfesional;
 import com.plataforma.model.Profesional;
+import com.plataforma.model.dto.RegistroProfesionalDTO;
 import com.plataforma.service.EmailService;
 import com.plataforma.service.ProfesionalService;
 
 import jakarta.validation.Valid;
+
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.Map;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/profesionales")
@@ -28,61 +31,81 @@ public class ProfesionalController {
         this.emailService = emailService;
     }
 
-    // --- Endpoints de Registro y Verificación ---
+    // --- Endpoint de Registro ---
 
     @PostMapping("/registro")
-    public ResponseEntity<?> registrarProfesional(@RequestBody @Valid Profesional profesional,
+    public ResponseEntity<?> registrarProfesional(@RequestBody @Valid RegistroProfesionalDTO registrarProfesional,
             BindingResult validaciones) {
+    	
+    	if (validaciones.hasErrors()) {
+            Map<String, String> errores = new HashMap<>();
+            validaciones.getFieldErrors().forEach(error ->
+                errores.put(error.getField(), error.getDefaultMessage())
+            );
+            return ResponseEntity.badRequest().body(errores);
+        }
         
-        if (!profesional.isAceptarTyC()) {
+        if (!registrarProfesional.isAceptarTyC()) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Debe aceptar los Términos y Condiciones para continuar."));
         }
 
-        if (!profesional.getPassword().equals(profesional.getConfirmPassword())) {
+        if (!registrarProfesional.getPassword().equals(registrarProfesional.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Las contraseñas no coinciden."));
         }
 
-        if (profesionalService.obtenerProfesionalPorDni(profesional.getDni()) != null) {
+        if (profesionalService.obtenerProfesionalPorDni(registrarProfesional.getDni()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Ya existe una cuenta registrada con este DNI."));
         }
 
-        if (profesionalService.obtenerProfesionalPorEmail(profesional.getEmail()) != null) {
+        if (profesionalService.obtenerProfesionalPorEmail(registrarProfesional.getEmail()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Ya existe una cuenta registrada con este correo."));
         }
 
         try {
-            profesional.setEstadoValidacion("Pendiente");
-            profesional.setTokenVerificacion(UUID.randomUUID().toString());
-            Profesional guardado = profesionalService.guardarProfesional(profesional);
+
+            Profesional guardado = profesionalService.registrarPendiente(registrarProfesional);
             emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
-            
-            return ResponseEntity.ok(Map.of(
-                "message", "Registro exitoso, revisa tu correo para verificar la cuenta."));
+            return ResponseEntity.status(HttpStatus.CREATED).body(registrarProfesional);
         
         } catch (Exception e) {
+        	e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of(
                 "error", "No se pudo completar el registro, intente nuevamente más tarde."));
         }
     }
 
-    @GetMapping("/verificar")
-    public ResponseEntity<?> verificarCuenta(@RequestParam("token") String token) {
-        
-    	Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
+    // --- Endpoint de Verificación ---
+    
+    @PostMapping("/verificar")
+    public ResponseEntity<?> verificarCuenta(@RequestBody Map<String, String> verify) {
+        String token = verify.get("token");
+        Profesional profesional = profesionalService.obtenerProfesionalPorToken(token);
+
         if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                "error", "Token inválido."));
+            		"error", "Token Inválido."));
         }
-        profesional.setEstadoValidacion("verificado");
-        profesional.setTokenVerificacion(null);
-        profesionalService.guardarProfesional(profesional);
         
-        return ResponseEntity.ok(Map.of(
-            "message", "Cuenta verificada correctamente."));
+        if (profesional.isActivo()) {
+            return ResponseEntity.ok(Map.of(
+            		"error", "Su cuenta ya fue verificada."));
+        }
+        
+        if (profesional.getTokenExpiracion().isBefore(LocalDateTime.now())) {
+            return ResponseEntity.status(410).body(Map.of(
+            		"error", "Token Expirado."));
+        }
+
+        profesional.setActivo(true);
+        profesional.setTokenVerificacion(null);
+        profesional.setTokenExpiracion(null);
+        profesionalService.guardarProfesional(profesional);
+
+        return ResponseEntity.ok(Map.of("ok", true));
     }
 
     // --- Endpoint de Login ---
@@ -97,12 +120,12 @@ public class ProfesionalController {
                 "error", "DNI incorrecto."));
         }
         
-    	if (!BCrypt.checkpw(loginProfesional.getContrasenia(), profesional.getPassword())) {
+    	if (!BCrypt.checkpw(loginProfesional.getPassword(), profesional.getPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "Contraseña incorrecta."));
         }
         
-    	if (!"verificado".equals(profesional.getEstadoValidacion())) {
+    	if (!profesional.isActivo()) {
             return ResponseEntity.badRequest().body(Map.of(
                 "error", "La cuenta no está verificada."));
         }
@@ -187,18 +210,23 @@ public class ProfesionalController {
     
     // --- Endpoint de Actualizar Perfil ---
     
-    @PutMapping("/{id}/perfil")
+    @PutMapping("/{id}/actualizar/perfil")
     public ResponseEntity<?> actualizarPerfil(@PathVariable Long id,
     		                                  @RequestParam("descripcion") String descripcion,
     		                                  @RequestParam("imagen") MultipartFile imagen) {
     	
-    	try {
+    	Profesional profesional = profesionalService.obtenerProfesionalPorId(id);
     	
-    		Profesional profesionalActual = this.profesionalService.obtenerProfesionalPorId(id);
+    	if (!"validado".equals(profesional.getEstadoValidacion())) {
+            return ResponseEntity.badRequest()
+                    .body(Map.of("error", "Sus documentos no han sido validados."));
+        } 
+    	try {
         
     		String contentType = imagen.getContentType();
     		if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
-    		    return ResponseEntity.badRequest().body(Map.of("error", "El archivo debe estar en formato JPG o PNG"));
+    		    return ResponseEntity.badRequest().body(Map.of(
+    		    		"error", "El archivo debe estar en formato JPG o PNG"));
     		}
     	    
     		if (imagen.getSize() > 5 * 1024 * 1024)
@@ -209,8 +237,8 @@ public class ProfesionalController {
     	    	return ResponseEntity.badRequest().body(Map.of(
         		        "error", "La descripción no puede superar los 500 caracteres."));
         
-    	    profesionalActual.setDescripcion(descripcion);
-    	    profesionalService.guardarImagen(profesionalActual, imagen);
+    	    profesional.setDescripcion(descripcion);
+    	    profesionalService.guardarImagen(profesional, imagen);
 		
     	} catch (Exception e) {
 			

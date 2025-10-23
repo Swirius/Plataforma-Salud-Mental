@@ -8,7 +8,8 @@ import RegisterPage from "../views/RegisterPage/RegisterPage";
 import Dashboard from "../views/dashboard/dashboard";
 import Mensages from "../views/Mensages/Mensages";
 import ProfessionalProfilePage from "../views/ProfessionalProfilePage/ProfessionalProfilePage";
-
+import EmailVerification from "../views/EmailVerification/EmailVerification";
+import ProfessionalsPage from "../views/ProfessionalsPage/ProfessionalsPage";
 
 
 
@@ -27,8 +28,8 @@ function RouterPublic() {
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/mensages" element={<Mensages />} />
       <Route path="/professionalProfilePage" element={<ProfessionalProfilePage />} />
-      
-      
+      <Route path="/emailVerification" element={<EmailVerification />} />
+      <Route path="/professionalsPage" element={<ProfessionalsPage />} />         
 
           
       <Route path="*" element={<h2>Pagina no encontrada</h2>} />                          

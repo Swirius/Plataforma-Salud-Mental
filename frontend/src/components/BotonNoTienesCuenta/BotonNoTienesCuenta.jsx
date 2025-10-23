@@ -6,7 +6,7 @@ const BotonNoTienesCuenta = () => {
 
   return (
     <>
-                <p style={{ fontSize: "0.875rem", color: "#4b5563" }}>
+                <p style={{ fontSize: "0.875rem", color: "#4b5563" }}></p>
                   ¿No tienes una cuenta?
               <Nav>  
                   <Nav.Item
@@ -21,7 +21,7 @@ const BotonNoTienesCuenta = () => {
                     Registrate aquí
                   </Nav.Item>
                 </Nav>
-                </p>
+                
     </>
   );
 };

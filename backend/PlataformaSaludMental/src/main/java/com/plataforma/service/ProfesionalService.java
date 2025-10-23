@@ -1,6 +1,7 @@
 package com.plataforma.service;
 
 import com.plataforma.model.Profesional;
+import com.plataforma.model.dto.RegistroProfesionalDTO;
 import com.plataforma.repository.ProfesionalRepository;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -9,7 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.UUID;
+import java.security.SecureRandom;
+import java.time.LocalDateTime;
+import java.util.Base64;
 
 @Service
 public class ProfesionalService {
@@ -26,7 +29,7 @@ public class ProfesionalService {
             MultipartFile documentoMatricula) throws IOException {
 
         // Guardar archivos en carpeta /uploads
-        String uploadDir = "uploads/";
+    	String uploadDir = new File("uploads").getAbsolutePath();
 
         File uploadFolder = new File(uploadDir);
         if (!uploadFolder.exists()) {
@@ -61,21 +64,42 @@ public class ProfesionalService {
 	}
 	
 	public Profesional guardarProfesional(Profesional nuevoProfesional) {
-        String contraseniaEncriptada = BCrypt.hashpw(nuevoProfesional.getPassword(), BCrypt.gensalt());
-        nuevoProfesional.setPassword(contraseniaEncriptada);
         return profesionalRepository.save(nuevoProfesional);
     }
     
 	public Profesional obtenerProfesionalPorToken(String token) {
 	    return profesionalRepository.findByTokenVerificacion(token);
 	}
+	
+	public String generarToken() {
+        SecureRandom sr = new SecureRandom();
+        byte[] bytes = new byte[16];
+        sr.nextBytes(bytes);
+        return Base64.getUrlEncoder().withoutPadding().encodeToString(bytes);
+    }
 
-	public Profesional registrarPendiente(Profesional profesional) {
-	    String contraseniaEncriptada = BCrypt.hashpw(profesional.getPassword(), BCrypt.gensalt());
-	    profesional.setPassword(contraseniaEncriptada);
-	    profesional.setEstadoValidacion("Pendiente");
-	    profesional.setTokenVerificacion(UUID.randomUUID().toString());
-	    return profesionalRepository.save(profesional);
+	public Profesional registrarPendiente(RegistroProfesionalDTO registroProfesionalDTO) {
+		Profesional profesionalPendiente = new Profesional();
+		
+		profesionalPendiente.setNombre(registroProfesionalDTO.getNombre());
+        profesionalPendiente.setApellido(registroProfesionalDTO.getApellido());
+        profesionalPendiente.setDni(registroProfesionalDTO.getDni());
+        profesionalPendiente.setNumeroTramite(registroProfesionalDTO.getNumeroTramite());
+        profesionalPendiente.setPais(registroProfesionalDTO.getPais());
+        profesionalPendiente.setProvincia(registroProfesionalDTO.getProvincia());
+        profesionalPendiente.setLocalidad(registroProfesionalDTO.getLocalidad());
+        profesionalPendiente.setCelular(registroProfesionalDTO.getCelular());
+        profesionalPendiente.setEmail(registroProfesionalDTO.getEmail());
+		
+	    String contraseniaEncriptada = BCrypt.hashpw(registroProfesionalDTO.getPassword(), BCrypt.gensalt());
+	    profesionalPendiente.setPassword(contraseniaEncriptada);
+	    
+	    profesionalPendiente.setEstadoValidacion("Pendiente");
+	    profesionalPendiente.setTokenVerificacion(generarToken());
+        profesionalPendiente.setTokenExpiracion(LocalDateTime.now().plusMinutes(30));
+        profesionalPendiente.setActivo(false);
+	    
+	    return profesionalRepository.save(profesionalPendiente);
 	}
 	
 	public Profesional actualizarPerfil(Profesional descripcion) {

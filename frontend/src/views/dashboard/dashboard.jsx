@@ -70,9 +70,14 @@ export default function Dashboard() {
     <div style={{ minHeight: "100vh", background: "#f7f7f7" }}>
       {/* Header */}
       <header style={{ background: "#fff", borderBottom: "1px solid #ddd", padding: "10px 20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <FaRegHeart style={{ fontSize: 28, color: "#007bff" }} />
-          <h1 style={{ margin: 0 }}>MentalCare</h1>
+       
+      </header>
+
+      <Container style={{ padding: "20px"  }}>
+        {/* Welcome Section */}      
+         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+           <h2>Bienvenida, {user.name.split(" ")[0]}</h2>
+          <p>Aquí tienes un resumen de tu actividad y próximas citas</p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
           <Button appearance="ghost"><GoBell /></Button>
@@ -85,14 +90,6 @@ export default function Dashboard() {
             </div>
           </div>
           <Button appearance="ghost"><PiSignOutBold /></Button>
-        </div>
-      </header>
-
-      <Container style={{ padding: "20px"  }}>
-        {/* Welcome Section */}
-        <div style={{ marginBottom: "20px" }}>
-          <h2>Bienvenida, {user.name.split(" ")[0]}</h2>
-          <p>Aquí tienes un resumen de tu actividad y próximas citas</p>
         </div>
 
         {/* Quick Actions */}
