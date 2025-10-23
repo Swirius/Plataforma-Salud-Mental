@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import { Form, Button, Uploader, Message, toaster } from "rsuite";
 
 const MAX_DESCRIPTION_LENGTH = 200; // Ajusta X caracteres
@@ -11,10 +11,10 @@ const EditProfileForm = () => {
   });
 
   const [formError, setFormError] = useState({});
-  
+
   const validate = () => {
     const errors = {};
-    
+
     if (formValue.description.length > MAX_DESCRIPTION_LENGTH) {
       errors.description = `La descripción no puede superar ${MAX_DESCRIPTION_LENGTH} caracteres`;
     }
@@ -70,7 +70,7 @@ const EditProfileForm = () => {
         <Form.Group>
           <Form.ControlLabel>Foto de perfil (opcional)</Form.ControlLabel>
           <Uploader
-            autoUpload={false}   
+            autoUpload={false}
             appearance="primary"
             fileList={formValue.image ? [formValue.image] : []}
             onChange={(files) => setFormValue({ ...formValue, image: files[0] || null })}

@@ -2,12 +2,12 @@ import { useState } from 'react';
 import {
   Button,
   Panel,
-  Tabs,  
+  Tabs,
   Avatar,
   Badge,
   Grid,
   Row,
-  Col,        
+  Col,
   FlexboxGrid,
 } from 'rsuite';
 import {
@@ -18,7 +18,7 @@ import {
   LuMessageCircle,
   LuAward,
   LuClock,
-  LuCircleCheckBig ,
+  LuCircleCheckBig,
   LuArrowLeft,
   LuGlobe,
   LuVideo,
@@ -124,7 +124,7 @@ const ProfessionalProfilePage = () => {
       {/* Header */}
       <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ padding: '16px', maxWidth: '1200px', margin: '0 auto' }}>
-          <FlexboxGrid justify="space-between" align="middle">           
+          <FlexboxGrid justify="space-between" align="middle">
             <FlexboxGrid.Item>
               <Button appearance="default" onClick={handleGoBack} style={{ borderRadius: '6px' }}>
                 <LuArrowLeft style={{ marginRight: '8px' }} />
@@ -169,7 +169,7 @@ const ProfessionalProfilePage = () => {
                           {professionalData.name}
                           {professionalData.verified && (
                             <Badge color="green">
-                              <LuCircleCheckBig  style={{ marginRight: '4px' }} />
+                              <LuCircleCheckBig style={{ marginRight: '4px' }} />
                               Verificado
                             </Badge>
                           )}
@@ -296,7 +296,7 @@ const ProfessionalProfilePage = () => {
                 <ul style={{ paddingLeft: '20px', lineHeight: 1.8 }}>
                   {professionalData.certifications.map((cert, i) => (
                     <li key={i} style={{ display: 'flex', gap: '8px', alignItems: 'flex-start' }}>
-                      <LuCircleCheckBig  style={{ color: '#059669', marginTop: '4px' }} />
+                      <LuCircleCheckBig style={{ color: '#059669', marginTop: '4px' }} />
                       <span>{cert}</span>
                     </li>
                   ))}

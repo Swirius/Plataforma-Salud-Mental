@@ -4,7 +4,7 @@ import FooterPage from "./components/Footer/Footer";
 
 import NavBar from "./components/Navbar/Navbar";
 import RouterPublic from "./Routers/RouterPublic";
-import { Container} from 'rsuite';
+import { Container } from 'rsuite';
 
 
 function App() {
@@ -12,15 +12,15 @@ function App() {
   return (
     <>
       <Container style={{ width: '100%' }}>
-        
-            <NavBar />
-            
-              <RouterPublic />
 
-              <CTASection />
+        <NavBar />
 
-              <FooterPage />
-       
+        <RouterPublic />
+
+        <CTASection />
+
+        <FooterPage />
+
       </Container>
     </>
   );

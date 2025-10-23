@@ -4,19 +4,16 @@ import { FiShield } from "react-icons/fi";
 import { GoCalendar } from "react-icons/go";
 import { FiMessageCircle } from "react-icons/fi";
 
-
 import {
-  Container,  
+  Container,
   Content,
   Grid,
   Row,
-  Col,  
-  Panel,  
+  Col,
+  Panel,
 } from 'rsuite';
 
 import NavBar from "../../components/Navbar/Navbar";
-
-
 
 const FeatureCard = ({ icon, title, description }) => (
   <Panel header={
@@ -31,11 +28,10 @@ const FeatureCard = ({ icon, title, description }) => (
   </Panel>
 );
 
-
 export default function Home() {
   return (
-    <Container>        
-      
+    <Container>
+
       <Content style={{ padding: '32px', backgroundColor: "#EEF4FF" }}>
         <Grid fluid>
           <Row>
@@ -48,7 +44,7 @@ export default function Home() {
               </p>
             </Col>
           </Row>
-          
+
           <Row gutter={32}>
             <Col xs={24} md={8} style={{ marginBottom: '32px' }}>
               <FeatureCard
@@ -60,14 +56,14 @@ export default function Home() {
             </Col>
             <Col xs={24} md={8} style={{ marginBottom: '32px' }}>
               <FeatureCard
-                icon={<GoCalendar  size={"3em"} color="green" />}
+                icon={<GoCalendar size={"3em"} color="green" />}
                 title="Seguridad y Privacidad"
                 description="Tu información está protegida con los más altos estándares de seguridad."
               />
             </Col>
             <Col xs={24} md={8} style={{ marginBottom: '32px' }}>
               <FeatureCard
-                icon={<FiMessageCircle size={"3em"} style={{color:"#9810FA"}} />}
+                icon={<FiMessageCircle size={"3em"} style={{ color: "#9810FA" }} />}
                 title="Conexión Personalizada"
                 description="Te ayudamos a encontrar el profesional que mejor se adapte a tus necesidades."
               />

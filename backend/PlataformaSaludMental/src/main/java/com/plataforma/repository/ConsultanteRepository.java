@@ -1,13 +1,16 @@
 package com.plataforma.repository;
 
-import com.plataforma.model.Consultante;
-import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
-public interface ConsultanteRepository extends JpaRepository<Consultante, Long> {
-	Optional<Consultante> findByDni(String dni);
-	
-	Optional<Consultante> findByEmail(String email);
+import org.springframework.data.jpa.repository.JpaRepository;
 
-	Optional<Consultante> findByTokenVerificacion(String token);
+import com.plataforma.model.Consultante;
+
+public interface ConsultanteRepository extends JpaRepository<Consultante, Long> {
+
+    Optional<Consultante> findByDni(String dni);
+
+    Optional<Consultante> findByEmail(String email);
+
+    Optional<Consultante> findByTokenVerificacion(String token);
 }

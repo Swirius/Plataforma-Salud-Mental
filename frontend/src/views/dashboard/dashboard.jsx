@@ -1,4 +1,4 @@
-import  { useState } from "react";
+import { useState } from "react";
 import {
   Button,
   Avatar,
@@ -12,13 +12,10 @@ import {
 import { FaRegHeart } from "react-icons/fa";
 // import { FiShield } from "react-icons/fi";
 import { GoCalendar, GoBell, GoSearch } from "react-icons/go";
-
 import { FiMessageCircle } from "react-icons/fi";
 import { BsGear } from "react-icons/bs";
 import { CiClock2 } from "react-icons/ci";
 import { PiSignOutBold } from "react-icons/pi";
-
-
 
 export default function Dashboard() {
   const [user] = useState({
@@ -70,13 +67,13 @@ export default function Dashboard() {
     <div style={{ minHeight: "100vh", background: "#f7f7f7" }}>
       {/* Header */}
       <header style={{ background: "#fff", borderBottom: "1px solid #ddd", padding: "10px 20px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-       
+
       </header>
 
-      <Container style={{ padding: "20px"  }}>
-        {/* Welcome Section */}      
-         <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-           <h2>Bienvenida, {user.name.split(" ")[0]}</h2>
+      <Container style={{ padding: "20px" }}>
+        {/* Welcome Section */}
+        <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+          <h2>Bienvenida, {user.name.split(" ")[0]}</h2>
           <p>Aquí tienes un resumen de tu actividad y próximas citas</p>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
@@ -93,7 +90,7 @@ export default function Dashboard() {
         </div>
 
         {/* Quick Actions */}
-        <Row gutter={[20, 16]} style={{ marginBottom: "20px", padding:"2rem" }}>
+        <Row gutter={[20, 16]} style={{ marginBottom: "20px", padding: "2rem" }}>
           <Col xs={6}>
             <Card bordered>
               <div style={{ textAlign: "center" }}>
@@ -103,6 +100,7 @@ export default function Dashboard() {
               </div>
             </Card>
           </Col>
+
           <Col xs={6}>
             <Card bordered>
               <div style={{ textAlign: "center" }}>
@@ -112,6 +110,7 @@ export default function Dashboard() {
               </div>
             </Card>
           </Col>
+
           <Col xs={6}>
             <Card bordered>
               <div style={{ textAlign: "center" }}>
@@ -121,6 +120,7 @@ export default function Dashboard() {
               </div>
             </Card>
           </Col>
+
           <Col xs={6}>
             <Card bordered>
               <div style={{ textAlign: "center" }}>

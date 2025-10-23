@@ -1,297 +1,313 @@
 package com.plataforma.model;
 
+<<<<<<< Updated upstream
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
+=======
+>>>>>>> Stashed changes
 import java.time.LocalDateTime;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "profesionales")
 public class Profesional {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	private String nombre;
+    private String nombre;
 
-	private String apellido;
+    private String apellido;
 
-	private String dni;
+    private String dni;
 
-	private String numeroTramite;
+    private String numeroTramite;
 
-	private String pais;
+    private String pais;
 
-	private String provincia;
+    private String provincia;
 
-	private String localidad;
+    private String localidad;
 
-	private String celular;
+    private String celular;
 
-	private String email;
+    private String email;
 
-	private String password;
+    private String password;
 
-	@Transient
-	private String confirmPassword;
+    @Transient
+    private String confirmPassword;
 
-	@Transient
-	private boolean aceptarTyC;
+    @Transient
+    private boolean aceptarTyC;
 
-	private String universidad;
-	private String titulo;
-	private String matricula;
-	private String categoria;
-	private String etiquetas;
+    private String universidad;
+    private String titulo;
+    private String matricula;
+    private String categoria;
+    private String etiquetas;
 
-	@Column(name = "estado_validacion")
-	private String estadoValidacion;
+    @Column(name = "estado_validacion")
+    private String estadoValidacion;
 
-	@Column(name = "token_verificacion")
-	private String tokenVerificacion;
+    @Column(name = "token_verificacion")
+    private String tokenVerificacion;
 
-	@Column(name = "token_expiracion")
-	private LocalDateTime tokenExpiracion;
+    @Column(name = "token_expiracion")
+    private LocalDateTime tokenExpiracion;
 
+<<<<<<< Updated upstream
 	@NotNull
 	@Column(name = "activo")
 	private Boolean activo;
+=======
+    @Column(name = "activo")
+    private Boolean activo;
+>>>>>>> Stashed changes
 
-	@Column(name = "ruta_certificado_antecedentes")
-	private String rutaCertificadoAntecedentes;
+    @Column(name = "ruta_certificado_antecedentes")
+    private String rutaCertificadoAntecedentes;
 
-	@Column(name = "ruta_documento_matricula")
-	private String rutaDocumentoMatricula;
-	
-	@Column(length = 500)
-	private String descripcion;
-	
-	@Column(name = "ruta_imagen")
-	private String rutaImagen;
+    @Column(name = "ruta_documento_matricula")
+    private String rutaDocumentoMatricula;
 
-	@Column(name = "fecha_registro")
-	private LocalDateTime fechaRegistro = LocalDateTime.now();
+    @Column(length = 500)
+    private String descripcion;
 
-	// constructor
-	public Profesional() {
-	}
+    @Column(name = "ruta_imagen")
+    private String rutaImagen;
 
-	// Getters y Setters
-	public Long getId() {
-		return id;
-	}
+    @Column(name = "fecha_registro")
+    private LocalDateTime fechaRegistro = LocalDateTime.now();
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    // constructor
+    public Profesional() {
+    }
 
-	public String getNombre() {
-		return nombre;
-	}
+    // Getters y Setters
+    public Long getId() {
+        return id;
+    }
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getApellido() {
-		return apellido;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getDni() {
-		return dni;
-	}
+    public String getApellido() {
+        return apellido;
+    }
 
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
-	public String getNumeroTramite() {
-		return numeroTramite;
-	}
+    public String getDni() {
+        return dni;
+    }
 
-	public void setNumeroTramite(String numeroTramite) {
-		this.numeroTramite = numeroTramite;
-	}
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
-	public String getPais() {
-		return pais;
-	}
+    public String getNumeroTramite() {
+        return numeroTramite;
+    }
 
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
+    public void setNumeroTramite(String numeroTramite) {
+        this.numeroTramite = numeroTramite;
+    }
 
-	public String getProvincia() {
-		return provincia;
-	}
+    public String getPais() {
+        return pais;
+    }
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
-	public String getLocalidad() {
-		return localidad;
-	}
+    public String getProvincia() {
+        return provincia;
+    }
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
-	
-	public String getMatricula() {
-		return matricula;
-	}
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
+    public String getLocalidad() {
+        return localidad;
+    }
 
-	public String getCelular() {
-		return celular;
-	}
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
+    public String getMatricula() {
+        return matricula;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getCelular() {
+        return celular;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public boolean isAceptarTyC() {
-		return aceptarTyC;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setAceptarTyC(boolean aceptarTyC) {
-		this.aceptarTyC = aceptarTyC;
-	}
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-	public String getTokenVerificacion() {
-		return tokenVerificacion;
-	}
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
-	public void setTokenVerificacion(String tokenVerificacion) {
-		this.tokenVerificacion = tokenVerificacion;
-	}
+    public boolean isAceptarTyC() {
+        return aceptarTyC;
+    }
 
-	public LocalDateTime getTokenExpiracion() {
-		return tokenExpiracion;
-	}
+    public void setAceptarTyC(boolean aceptarTyC) {
+        this.aceptarTyC = aceptarTyC;
+    }
 
-	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
-		this.tokenExpiracion = tokenExpiracion;
-	}
+    public String getTokenVerificacion() {
+        return tokenVerificacion;
+    }
 
-	public boolean isActivo() {
-		return activo;
-	}
+    public void setTokenVerificacion(String tokenVerificacion) {
+        this.tokenVerificacion = tokenVerificacion;
+    }
 
-	public void setActivo(boolean activo) {
-		this.activo = activo;
-	}
+    public LocalDateTime getTokenExpiracion() {
+        return tokenExpiracion;
+    }
 
-	public String getUniversidad() {
-		return universidad;
-	}
+    public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
+        this.tokenExpiracion = tokenExpiracion;
+    }
 
-	public void setUniversidad(String universidad) {
-		this.universidad = universidad;
-	}
+    public boolean isActivo() {
+        return activo;
+    }
 
-	public String getTitulo() {
-		return titulo;
-	}
+    public void setActivo(boolean activo) {
+        this.activo = activo;
+    }
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    public String getUniversidad() {
+        return universidad;
+    }
 
-	public String getCategoria() {
-		return categoria;
-	}
+    public void setUniversidad(String universidad) {
+        this.universidad = universidad;
+    }
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
-	public String getEtiquetas() {
-		return etiquetas;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public void setEtiquetas(String etiquetas) {
-		this.etiquetas = etiquetas;
-	}
+    public String getCategoria() {
+        return categoria;
+    }
 
-	public String getEstadoValidacion() {
-		return estadoValidacion;
-	}
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
-	public void setEstadoValidacion(String estadoValidacion) {
-		this.estadoValidacion = estadoValidacion;
-	}
+    public String getEtiquetas() {
+        return etiquetas;
+    }
 
-	public String getRutaCertificadoAntecedentes() {
-		return rutaCertificadoAntecedentes;
-	}
+    public void setEtiquetas(String etiquetas) {
+        this.etiquetas = etiquetas;
+    }
 
-	public void setRutaCertificadoAntecedentes(String rutaCertificadoAntecedentes) {
-		this.rutaCertificadoAntecedentes = rutaCertificadoAntecedentes;
-	}
+    public String getEstadoValidacion() {
+        return estadoValidacion;
+    }
 
-	public String getRutaDocumentoMatricula() {
-		return rutaDocumentoMatricula;
-	}
+    public void setEstadoValidacion(String estadoValidacion) {
+        this.estadoValidacion = estadoValidacion;
+    }
 
-	public void setRutaDocumentoMatricula(String rutaDocumentoMatricula) {
-		this.rutaDocumentoMatricula = rutaDocumentoMatricula;
-	}
+    public String getRutaCertificadoAntecedentes() {
+        return rutaCertificadoAntecedentes;
+    }
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    public void setRutaCertificadoAntecedentes(String rutaCertificadoAntecedentes) {
+        this.rutaCertificadoAntecedentes = rutaCertificadoAntecedentes;
+    }
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    public String getRutaDocumentoMatricula() {
+        return rutaDocumentoMatricula;
+    }
 
-	public String getRutaImagen() {
-		return rutaImagen;
-	}
+    public void setRutaDocumentoMatricula(String rutaDocumentoMatricula) {
+        this.rutaDocumentoMatricula = rutaDocumentoMatricula;
+    }
 
-	public void setRutaImagen(String rutaImagen) {
-		this.rutaImagen = rutaImagen;
-	}
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public LocalDateTime getFechaRegistro() {
-		return fechaRegistro;
-	}
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
-	public void setFechaRegistro(LocalDateTime fechaRegistro) {
-		this.fechaRegistro = fechaRegistro;
-	}
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
+
+    public LocalDateTime getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(LocalDateTime fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
 
 }

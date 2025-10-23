@@ -11,32 +11,25 @@ import ProfessionalProfilePage from "../views/ProfessionalProfilePage/Profession
 import EmailVerification from "../views/EmailVerification/EmailVerification";
 import ProfessionalsPage from "../views/ProfessionalsPage/ProfessionalsPage";
 
-
-
-
-function RouterPublic() {    
+function RouterPublic() {
 
   return (
-
-    <Routes>                    
-      <Route path="/" element={<Home />} />    
-      <Route path="/login" element={<Login />} />         
-      <Route path="/register" element={<RegisterPage />} /> 
-      <Route path="/register-profesional" element={<RegistroDelprofesional />} />      
-      <Route path="/register-consultante" element={<RegistroDelConsultante />} />  
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/register-profesional" element={<RegistroDelprofesional />} />
+      <Route path="/register-consultante" element={<RegistroDelConsultante />} />
       <Route path="/edit-profile-form" element={<EditProfileForm />} />
       <Route path="/dashboard" element={<Dashboard />} />
       <Route path="/mensages" element={<Mensages />} />
       <Route path="/professionalProfilePage" element={<ProfessionalProfilePage />} />
       <Route path="/emailVerification" element={<EmailVerification />} />
-      <Route path="/professionalsPage" element={<ProfessionalsPage />} />         
+      <Route path="/professionalsPage" element={<ProfessionalsPage />} />
 
-          
-      <Route path="*" element={<h2>Pagina no encontrada</h2>} />                          
+      <Route path="*" element={<h2>Pagina no encontrada</h2>} />
     </Routes>
-
   );
-
 }
 
 export default RouterPublic;

@@ -4,16 +4,12 @@ import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 
-
-
 // ✅ SOLO agregamos esto para usar Grid, Row, Col y Button de RSuite
 import { Button, Checkbox, Container, Content, Panel, Stack, Text, VStack } from 'rsuite';
 import { Col } from 'rsuite';
 import BotonNoTienesCuenta from '../../components/BotonNoTienesCuenta/BotonNoTienesCuenta';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
-
 
 const validationSchema = Yup.object().shape({
   dni: Yup.string().required('Requerido'),
@@ -23,8 +19,6 @@ const validationSchema = Yup.object().shape({
 const Login = () => {
   const navigate = useNavigate();
   const usernameRef = useRef(null);
-
-
   const [rememberMe, setRememberMe] = useState(false);
   const [initialAdmin, setInitialAdmin] = useState('');
 
@@ -39,9 +33,7 @@ const Login = () => {
     }
   }, []);
 
-
   return (
-
     <Container style={{ display: "flex", backgroundColor: '#4da3d981', marginTop: "2em" }}>
       <Content>
 
@@ -58,13 +50,7 @@ const Login = () => {
                 margin: "0 auto"   // 🔹 centrado
               }}
             >
-
               <Text size="2rem" color="blue" >Login</Text>
-
-
-
-
-
 
               <Formik
                 enableReinitialize

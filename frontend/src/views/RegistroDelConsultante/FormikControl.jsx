@@ -92,7 +92,7 @@ const DatosAdicionalesFormik = () => {
               data={cudOptions}
             />
           </Col>
-           <Col xs={24} sm={24} md={6}>
+          <Col xs={24} sm={24} md={6}>
             <FormikRadioGroup
               label="¿Tiene Obra Social o Prepaga?"
               name="obra_social"
@@ -109,11 +109,10 @@ const DatosAdicionalesFormik = () => {
               name="nombre_obra_social"
               className="rs-input rs-input-lg text-center"
               style={{ fontSize: "1.3em" }}
-            />            
+            />
           </Col>
         </Row>
       </Grid>
-     
     </>
   );
 };

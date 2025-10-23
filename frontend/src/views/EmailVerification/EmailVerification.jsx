@@ -1,11 +1,10 @@
 // src/pages/EmailVerification.js
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Message, Button, Loader, Container, Header, Panel } from 'rsuite';
 import NavBar from '../../components/Navbar/Navbar';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
 
 export default function EmailVerification() {
   const [status, setStatus] = useState('loading'); // loading | success | expired | invalid | already | checkEmail | error
@@ -68,7 +67,6 @@ export default function EmailVerification() {
     verifyEmail();
   }, [token, navigate]);
 
-
   const resendVerification = async () => {
     setResending(true);
     try {
@@ -116,7 +114,6 @@ export default function EmailVerification() {
         );
     }
   };
-
 
   return (
     <>

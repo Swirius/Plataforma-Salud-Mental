@@ -120,6 +120,7 @@ export default function ProfessionalsPage() {
   };
 
   return (
+<<<<<<< Updated upstream
     <div style={{ padding: 20 }}>
       <h2>Encuentra tu Profesional Ideal</h2>
 
@@ -137,6 +138,59 @@ export default function ProfessionalsPage() {
           Filtros
         </Button>
       </div>
+=======
+    <div
+      style={{
+        minHeight: "100vh",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: "linear-gradient(to bottom right, #ebf4ff, #e0e7ff)",
+        padding: "1rem",
+      }}
+    >
+      <div style={{ width: "100%", maxWidth: "420px" }}>
+        {/* Header */}
+        <div
+          style={{
+            textAlign: "center",
+            marginBottom: "2rem",
+            padding: "1.5rem",
+            borderRadius: "1rem",
+          }}
+        >
+          <Navbar>
+            <Nav style={{ width: "100%", justifyContent: "center" }}>
+              <Nav.Item as={Link} to="/" style={{ width: "100%" }}>
+                <button
+                  style={{
+                    width: "100%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    gap: "0.5rem",
+                    textDecoration: "none",
+                    background: "transparent", // 🔥 transparente total
+                    border: "none",
+                    padding: "0.75rem 1rem",
+                    cursor: "pointer",
+                  }}
+                >
+                  <FaHeart size={28} color="#2563eb" />
+                  <span
+                    style={{
+                      fontSize: "1.5rem",
+                      fontWeight: "bold",
+                      color: "#111827",
+                    }}
+                  >
+                    MentalCare
+                  </span>
+                </button>
+              </Nav.Item>
+            </Nav>
+          </Navbar>
+>>>>>>> Stashed changes
 
       {/* Filters */}
       {showFilters && (
@@ -162,7 +216,33 @@ export default function ProfessionalsPage() {
         </div>
       )}
 
+<<<<<<< Updated upstream
       <Divider />
+=======
+        <Panel
+          bordered
+          shaded
+          style={{ borderRadius: "12px", padding: "1.5rem", backgroundColor: "#fff" }}
+        >
+          <h2
+            style={{
+              textAlign: "center",
+              fontSize: "1.25rem",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Registro
+          </h2>
+          <p
+            style={{
+              textAlign: "center",
+              color: "#6b7280",
+              marginBottom: "1.5rem",
+            }}
+          >
+            Selecciona el tipo de cuenta que deseas crear
+          </p>
+>>>>>>> Stashed changes
 
       {/* Professional Cards */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
@@ -204,9 +284,19 @@ export default function ProfessionalsPage() {
                   <IconButton icon={<Message />} circle />
                 </div>
               </div>
+<<<<<<< Updated upstream
             </div>
           </Panel>
         ))}
+=======
+
+            </Nav>
+          </Navbar>
+          <div style={{ marginTop: "1.5rem", textAlign: "center" }}>
+            <BotonYaTenesCuenta />
+          </div>
+        </Panel>
+>>>>>>> Stashed changes
       </div>
     </div>
   );
