@@ -13,6 +13,7 @@ import {
   Tooltip,
   Divider,
 } from 'rsuite';
+
 import {
   LuHeart,
   LuSearch,
@@ -25,6 +26,8 @@ import {
   LuCheckCheck,
   LuCalendar,
 } from 'react-icons/lu';
+
+import NavBar from '../../components/Navbar/Navbar';
 
 // Mock data (igual que antes)
 const conversations = [
@@ -227,191 +230,197 @@ const Mensages = () => {
     .join('');
 
   return (
-    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
-      {/* Header */}
-      <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', padding: '16px' }}>
-        <FlexboxGrid justify="space-between" align="middle">         
-          <FlexboxGrid.Item>
-            <Button appearance="primary" color="blue" style={{ borderRadius: '999px', fontWeight: '600' }}>
-              Mi Cuenta
-            </Button>
-          </FlexboxGrid.Item>
-        </FlexboxGrid>
-      </div>
+    <>
+      <NavBar />
+      <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
+        {/* Header */}
+        <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', padding: '16px' }}>
+          <FlexboxGrid justify="space-between" align="middle">
+            <FlexboxGrid.Item>
+              <Button appearance="primary" color="blue" style={{ borderRadius: '999px', fontWeight: '600' }}>
+                Mi Cuenta
+              </Button>
+            </FlexboxGrid.Item>
+          </FlexboxGrid>
+        </div>
 
-      <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
-        {/* Sidebar de conversaciones */}
-        <Sidenav
-          style={{ width: '100%', maxWidth: '320px', height: '100%' }}
-          appearance="subtle"
-        >
-          <Sidenav.Body>
-            <div style={{ padding: '16px' }}>
-              <InputGroup inside>
-                <InputGroup.Addon>
-                  <LuSearch style={{ color: '#999' }} />
-                </InputGroup.Addon>
-                <Input
-                  placeholder="Buscar conversaciones..."
-                  value={searchTerm}
-                  onChange={setSearchTerm}
-                />
-              </InputGroup>
-            </div>
-            <Divider style={{ margin: '8px 0' }} />
-            <div style={{ padding: '0 12px', overflowY: 'auto', height: 'calc(100% - 100px)' }}>
-              {filteredConversations.map((conversation) => (
-                <ConversationItem
-                  key={conversation.id}
-                  conversation={conversation}
-                  isSelected={selectedConversation?.id === conversation.id}
-                  onClick={() => setSelectedConversation(conversation)}
-                />
-              ))}
-            </div>
-          </Sidenav.Body>
-        </Sidenav>
-
-        {/* Área de chat */}
-        <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-          {selectedConversation ? (
-            <>
-              {/* Header del chat */}
-              <div
-                style={{
-                  backgroundColor: '#fff',
-                  borderBottom: '1px solid #eee',
-                  padding: '16px',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                }}
-              >
-                <FlexboxGrid align="middle" gap={12}>
-                  <div style={{ position: 'relative', display: 'inline-block' }}>
-                    <Avatar
-                      circle
-                      size="md"
-                      src={selectedConversation.professional.avatar}
-                      alt={selectedConversation.professional.name}
-                      style={{ backgroundColor: '#4096ff', color: '#fff' }}
-                    >
-                      {selectedInitials}
-                    </Avatar>
-                    {selectedConversation.professional.online && (
-                      <span style={{ position: 'absolute', bottom: '-2px', right: '-2px' }}>
-                        <LuCircle
-                          style={{
-                            height: '12px',
-                            width: '12px',
-                            fill: '#17c964',
-                            stroke: '#17c964',
-                            strokeWidth: 2,
-                          }}
-                        />
-                      </span>
-                    )}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#333' }}>
-                      {selectedConversation.professional.name}
-                    </div>
-                    <div style={{ fontSize: '13px', color: '#4096ff', fontWeight: 'bold' }}>
-                      {selectedConversation.professional.specialty}
-                    </div>
-                    <div style={{ fontSize: '12px', color: '#999' }}>
-                      {selectedConversation.professional.online ? 'En línea' : 'Desconectado'}
-                    </div>
-                  </div>
-                </FlexboxGrid>
-
-                <div>
-                  <Whisper placement="top" speaker={<Tooltip>Llamada</Tooltip>}>
-                    <IconButton icon={<LuPhone />} appearance="subtle" circle />
-                  </Whisper>
-                  <Whisper placement="top" speaker={<Tooltip>Video</Tooltip>}>
-                    <IconButton icon={<LuVideo />} appearance="subtle" circle />
-                  </Whisper>
-                  <Whisper placement="top" speaker={<Tooltip>Agendar cita</Tooltip>}>
-                    <IconButton icon={<LuCalendar />} appearance="subtle" circle as="a" href={`/appointments/book/${selectedConversation.id}`} />
-                  </Whisper>
-                  <Whisper placement="top" speaker={<Tooltip>Opciones</Tooltip>}>
-                    <IconButton icon={<LuSlidersVertical />} appearance="subtle" circle />
-                  </Whisper>
-                </div>
+        <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
+          {/* Sidebar de conversaciones */}
+          <Sidenav
+            style={{ width: '100%', maxWidth: '320px', height: '100%' }}
+            appearance="subtle"
+          >
+            <Sidenav.Body>
+              <div style={{ padding: '16px' }}>
+                <InputGroup inside>
+                  <InputGroup.Addon>
+                    <LuSearch style={{ color: '#999' }} />
+                  </InputGroup.Addon>
+                  <Input
+                    placeholder="Buscar conversaciones..."
+                    value={searchTerm}
+                    onChange={setSearchTerm}
+                  />
+                </InputGroup>
               </div>
 
-              {/* Mensajes */}
+              <Divider style={{ margin: '8px 0' }} />
+              <div style={{ padding: '0 12px', overflowY: 'auto', height: 'calc(100% - 100px)' }}>
+                {filteredConversations.map((conversation) => (
+                  <ConversationItem
+                    key={conversation.id}
+                    conversation={conversation}
+                    isSelected={selectedConversation?.id === conversation.id}
+                    onClick={() => setSelectedConversation(conversation)}
+                  />
+                ))}
+              </div>
+            </Sidenav.Body>
+          </Sidenav>
+
+          {/* Área de chat */}
+          <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+            {selectedConversation ? (
+              <>
+                {/* Header del chat */}
+                <div
+                  style={{
+                    backgroundColor: '#fff',
+                    borderBottom: '1px solid #eee',
+                    padding: '16px',
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                  }}
+                >
+                  <FlexboxGrid align="middle" gap={12}>
+                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                      <Avatar
+                        circle
+                        size="md"
+                        src={selectedConversation.professional.avatar}
+                        alt={selectedConversation.professional.name}
+                        style={{ backgroundColor: '#4096ff', color: '#fff' }}
+                      >
+                        {selectedInitials}
+                      </Avatar>
+                      {selectedConversation.professional.online && (
+                        <span style={{ position: 'absolute', bottom: '-2px', right: '-2px' }}>
+                          <LuCircle
+                            style={{
+                              height: '12px',
+                              width: '12px',
+                              fill: '#17c964',
+                              stroke: '#17c964',
+                              strokeWidth: 2,
+                            }}
+                          />
+                        </span>
+                      )}
+                    </div>
+                    <div>
+                      <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#333' }}>
+                        {selectedConversation.professional.name}
+                      </div>
+
+                      <div style={{ fontSize: '13px', color: '#4096ff', fontWeight: 'bold' }}>
+                        {selectedConversation.professional.specialty}
+                      </div>
+
+                      <div style={{ fontSize: '12px', color: '#999' }}>
+                        {selectedConversation.professional.online ? 'En línea' : 'Desconectado'}
+                      </div>
+                    </div>
+                  </FlexboxGrid>
+
+                  <div>
+                    <Whisper placement="top" speaker={<Tooltip>Llamada</Tooltip>}>
+                      <IconButton icon={<LuPhone />} appearance="subtle" circle />
+                    </Whisper>
+                    <Whisper placement="top" speaker={<Tooltip>Video</Tooltip>}>
+                      <IconButton icon={<LuVideo />} appearance="subtle" circle />
+                    </Whisper>
+                    <Whisper placement="top" speaker={<Tooltip>Agendar cita</Tooltip>}>
+                      <IconButton icon={<LuCalendar />} appearance="subtle" circle as="a" href={`/appointments/book/${selectedConversation.id}`} />
+                    </Whisper>
+                    <Whisper placement="top" speaker={<Tooltip>Opciones</Tooltip>}>
+                      <IconButton icon={<LuSlidersVertical />} appearance="subtle" circle />
+                    </Whisper>
+                  </div>
+                </div>
+
+                {/* Mensajes */}
+                <div
+                  style={{
+                    flex: 1,
+                    padding: '24px',
+                    overflowY: 'auto',
+                    backgroundColor: '#f9fafb',
+                  }}
+                >
+                  {messages.map((msg) => (
+                    <MessageBubble key={msg.id} message={msg} />
+                  ))}
+                  <div ref={messagesEndRef} />
+                </div>
+
+                {/* Input de mensaje */}
+                <div style={{ backgroundColor: '#fff', borderTop: '1px solid #eee', padding: '16px' }}>
+                  <FlexboxGrid align="middle" gap={12}>
+                    <IconButton icon={<LuPaperclip />} appearance="subtle" circle />
+                    <InputGroup style={{ flex: 1, borderRadius: '999px', background: '#f5f5f5' }}>
+                      <Input
+                        placeholder="Escribe tu mensaje..."
+                        value={newMessage}
+                        onChange={(value) => setNewMessage(value)}
+                        style={{ border: 'none', background: 'transparent', padding: '8px 16px' }}
+                      />
+                      <InputGroup.Button
+                        onClick={handleSendMessage}
+                        disabled={!newMessage.trim()}
+                        appearance="primary"
+                        color="blue"
+                        style={{
+                          borderRadius: '999px',
+                          minWidth: '40px',
+                          minHeight: '40px',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                        }}
+                      >
+                        <LuSend style={{ height: '16px', width: '16px' }} />
+                      </InputGroup.Button>
+                    </InputGroup>
+                  </FlexboxGrid>
+                  <div style={{ textAlign: 'center', fontSize: '12px', color: '#999', marginTop: '8px' }}>
+                    Presiona Enter para enviar. Tus mensajes están protegidos con encriptación de extremo a extremo.
+                  </div>
+                </div>
+              </>
+            ) : (
               <div
                 style={{
                   flex: 1,
-                  padding: '24px',
-                  overflowY: 'auto',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                   backgroundColor: '#f9fafb',
                 }}
               >
-                {messages.map((msg) => (
-                  <MessageBubble key={msg.id} message={msg} />
-                ))}
-                <div ref={messagesEndRef} />
+                <Panel shaded style={{ textAlign: 'center', padding: '32px', borderRadius: '16px' }}>
+                  <LuHeart style={{ height: '64px', width: '64px', color: '#d0e4ff', margin: '0 auto 16px' }} />
+                  <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#555', marginBottom: '8px' }}>
+                    Selecciona una conversación
+                  </h3>
+                  <p style={{ color: '#888' }}>Elige un profesional para comenzar a chatear</p>
+                </Panel>
               </div>
-
-              {/* Input de mensaje */}
-              <div style={{ backgroundColor: '#fff', borderTop: '1px solid #eee', padding: '16px' }}>
-                <FlexboxGrid align="middle" gap={12}>
-                  <IconButton icon={<LuPaperclip />} appearance="subtle" circle />
-                  <InputGroup style={{ flex: 1, borderRadius: '999px', background: '#f5f5f5' }}>
-                    <Input
-                      placeholder="Escribe tu mensaje..."
-                      value={newMessage}
-                      onChange={(value) => setNewMessage(value)}
-                      style={{ border: 'none', background: 'transparent', padding: '8px 16px' }}
-                    />
-                    <InputGroup.Button
-                      onClick={handleSendMessage}
-                      disabled={!newMessage.trim()}
-                      appearance="primary"
-                      color="blue"
-                      style={{
-                        borderRadius: '999px',
-                        minWidth: '40px',
-                        minHeight: '40px',
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <LuSend style={{ height: '16px', width: '16px' }} />
-                    </InputGroup.Button>
-                  </InputGroup>
-                </FlexboxGrid>
-                <div style={{ textAlign: 'center', fontSize: '12px', color: '#999', marginTop: '8px' }}>
-                  Presiona Enter para enviar. Tus mensajes están protegidos con encriptación de extremo a extremo.
-                </div>
-              </div>
-            </>
-          ) : (
-            <div
-              style={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: '#f9fafb',
-              }}
-            >
-              <Panel shaded style={{ textAlign: 'center', padding: '32px', borderRadius: '16px' }}>
-                <LuHeart style={{ height: '64px', width: '64px', color: '#d0e4ff', margin: '0 auto 16px' }} />
-                <h3 style={{ fontSize: '20px', fontWeight: 'bold', color: '#555', marginBottom: '8px' }}>
-                  Selecciona una conversación
-                </h3>
-                <p style={{ color: '#888' }}>Elige un profesional para comenzar a chatear</p>
-              </Panel>
-            </div>
-          )}
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

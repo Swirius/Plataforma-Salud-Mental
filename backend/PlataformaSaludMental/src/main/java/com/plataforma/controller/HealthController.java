@@ -1,13 +1,13 @@
 package com.plataforma.controller;
 
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -19,7 +19,7 @@ public class HealthController {
         response.put("status", "OK");
         response.put("message", "Plataforma Salud Mental API is running");
         response.put("timestamp", LocalDateTime.now());
-        
+
         return ResponseEntity.ok(response);
     }
 }
