@@ -24,7 +24,6 @@ import {
   LuVideo,
   LuMapPin as LuMapPinIcon,
 } from 'react-icons/lu';
-import NavBar from '../../components/Navbar/Navbar';
 
 // Mock data
 const professionalData = {
@@ -121,19 +120,15 @@ const ProfessionalProfilePage = () => {
     .join('');
 
   return (
-
-    <>
-    <NavBar />
-
-    <div style={{marginTop:"2rem",  backgroundColor: '#f9fafb', minHeight: '100vh', fontFamily: 'sans-serif' }}>
+    <div style={{ backgroundColor: '#f9fafb', minHeight: '100vh', fontFamily: 'sans-serif' }}>
       {/* Header */}
-      <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee' }}>
+      <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', position: 'sticky', top: 0, zIndex: 100 }}>
         <div style={{ padding: '16px', maxWidth: '1200px', margin: '0 auto' }}>
           <FlexboxGrid justify="space-between" align="middle">           
             <FlexboxGrid.Item>
               <Button appearance="default" onClick={handleGoBack} style={{ borderRadius: '6px' }}>
                 <LuArrowLeft style={{ marginRight: '8px' }} />
-                Volver
+                Volver a Búsqueda
               </Button>
             </FlexboxGrid.Item>
           </FlexboxGrid>
@@ -370,9 +365,6 @@ const ProfessionalProfilePage = () => {
         </div>
       </div>
     </div>
-    
-    </>
-
   );
 };
 

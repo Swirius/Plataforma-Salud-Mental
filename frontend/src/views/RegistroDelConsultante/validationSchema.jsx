@@ -17,7 +17,7 @@ export const validationSchema = Yup.object().shape({
     .matches(/^[0-9]{8}$/, 'El DNI debe contener 8 dígitos numéricos')
     .required('El DNI debe contener 8 dígitos numéricos'),
 
-  numero_tramite: Yup.string()
+  numeroTramite: Yup.string()
     .required('Debe ingresar el número de trámite'),
 
       // Esquema para "discapacidad"

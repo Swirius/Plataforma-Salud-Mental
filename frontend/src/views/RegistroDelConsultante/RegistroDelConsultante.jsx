@@ -3,7 +3,7 @@ import {
   Button,
   Checkbox,
   Container,
-  Content,  
+  Content,
   Panel,
   Stack,
   Text,
@@ -19,7 +19,6 @@ import DatosAdicionalesFormik from "./FormikControl";
 import "../../components/Utils/LabelForm.css"
 import BotonVolver from "../../components/BotonVolver/BotonVolver";
 import BotonYaTenesCuenta from "../../components/BotonYaTenesCuenta/BotonYaTenesCuenta";
-import NavBar from "../../components/Navbar/Navbar";
 
 
 
@@ -37,11 +36,7 @@ const RegistroDelConsultante = () => {
 
 
   return (
-
-    <>
-      <NavBar />
-    <Container style={{ display: "flex", backgroundColor: "#EFF4FF", marginTop: "2em" }}>    
-
+    <Container style={{ display: "flex", backgroundColor: "#EFF4FF", marginTop: "2em" }}>           
               <Text size="1.7rem" style={{ fontWeight:"bold" }}  >
                 Registro del Consultante
               </Text>
@@ -248,11 +243,6 @@ const RegistroDelConsultante = () => {
         </Stack>
       </Content>
     </Container>
-
-    </>
-
-
-
   );
 };
 

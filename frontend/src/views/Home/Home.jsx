@@ -15,8 +15,7 @@ import {
 } from 'rsuite';
 
 import NavBar from "../../components/Navbar/Navbar";
-import CTASection from "../../components/CTASection/CTASection";
-import FooterPage from "../../components/Footer/Footer";
+
 
 
 const FeatureCard = ({ icon, title, description }) => (
@@ -36,7 +35,7 @@ const FeatureCard = ({ icon, title, description }) => (
 export default function Home() {
   return (
     <Container>        
-      <NavBar />
+      
       <Content style={{ padding: '32px', backgroundColor: "#EEF4FF" }}>
         <Grid fluid>
           <Row>
@@ -75,10 +74,6 @@ export default function Home() {
             </Col>
           </Row>
         </Grid>
-
-        <CTASection />
-        <FooterPage />
-
       </Content>
     </Container>
   );
