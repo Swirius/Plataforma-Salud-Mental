@@ -3,7 +3,7 @@ const initialValues = (initialAdmin = '') => ({
   nombre: initialAdmin,
   apellido: '',
   dni: '',
-  numero_tramite: '',
+  numero_tramite: '',  
   edad: "",
   discapacidad: '',
   cud: '',

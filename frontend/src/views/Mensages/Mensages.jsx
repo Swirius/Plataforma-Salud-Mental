@@ -25,6 +25,7 @@ import {
   LuCheckCheck,
   LuCalendar,
 } from 'react-icons/lu';
+import NavBar from '../../components/Navbar/Navbar';
 
 // Mock data (igual que antes)
 const conversations = [
@@ -128,7 +129,6 @@ const ConversationItem = ({ conversation, isSelected, onClick }) => {
             )}
           </div>
         </FlexboxGrid.Item>
-
         <FlexboxGrid.Item colspan={20}>
           <div style={{ marginLeft: '12px' }}>
             <FlexboxGrid justify="space-between" align="middle">
@@ -228,10 +228,13 @@ const Mensages = () => {
     .join('');
 
   return (
+
+    <>
+    <NavBar />
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       {/* Header */}
       <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', padding: '16px' }}>
-        <FlexboxGrid justify="space-between" align="middle">
+        <FlexboxGrid justify="space-between" align="middle">         
           <FlexboxGrid.Item>
             <Button appearance="primary" color="blue" style={{ borderRadius: '999px', fontWeight: '600' }}>
               Mi Cuenta
@@ -313,7 +316,6 @@ const Mensages = () => {
                       </span>
                     )}
                   </div>
-
                   <div>
                     <div style={{ fontWeight: 'bold', fontSize: '16px', color: '#333' }}>
                       {selectedConversation.professional.name}
@@ -414,6 +416,10 @@ const Mensages = () => {
         </div>
       </div>
     </div>
+    
+    </>
+
+
   );
 };
 

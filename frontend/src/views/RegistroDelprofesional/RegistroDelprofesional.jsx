@@ -19,9 +19,13 @@ import BotonYaTenesCuenta from "../../components/BotonYaTenesCuenta/BotonYaTenes
 import "../../components/Utils/LabelForm.css";
 import BotonVolver from "../../components/BotonVolver/BotonVolver";
 import { Navigate } from "react-router-dom";
+import NavBar from "../../components/Navbar/Navbar";
+
+
 
 const RegistroDelProfesional = () => {
   const { initialAdmin, usernameRef, handleSubmit } = useRegistroSubmit();
+ 
 
   const FormikError = ({ name }) => (
     <ErrorMessage name={name}>
@@ -31,13 +35,18 @@ const RegistroDelProfesional = () => {
     </ErrorMessage>
   );
 
+
+
   return (
-    <Container style={{ display: "flex", backgroundColor: "#EFF4FF", marginTop: "2em" }}  >
-      <Text size="1.7rem" style={{ fontWeight: "bold" }}>
-        Registro Del Profesional
-      </Text>
-      <span>Complete la información para crear su cuenta profesional</span>
-      <BotonVolver />
+
+    <>
+    <NavBar />
+    <Container  style={{ display: "flex", backgroundColor: "#EFF4FF", marginTop: "2em" }}  >
+          <Text size="1.7rem" style={{ fontWeight: "bold" }}>
+            Registro Del Profesional
+          </Text>
+          <span>Complete la información para crear su cuenta profesional</span>      
+       <BotonVolver/>
 
       <Content>
         <Stack justifyContent="center" style={{ margin: "1rem" }}>
@@ -52,7 +61,7 @@ const RegistroDelProfesional = () => {
                 margin: "0 auto",
               }}
             >
-
+              
               <Formik
                 enableReinitialize
                 initialValues={initialValues(initialAdmin)}
@@ -101,12 +110,14 @@ const RegistroDelProfesional = () => {
                             <FormikError name="apellido" />
                           </div>
                         </Col>
+
                       </Row>
                     </Grid>
 
-                    <Grid fluid>
-                      <Row>
-                        <Col xs={12}>
+
+                  <Grid fluid>
+                   <Row>
+                    <Col xs={12}>
                           <div className="mb-2">
                             <label htmlFor="pais" className="label-form">
                               pais:
@@ -120,9 +131,9 @@ const RegistroDelProfesional = () => {
 
                             <FormikError name="pais" />
                           </div>
-                        </Col>
-                        <Col xs={12}>
-                          <div className="mb-2">
+                    </Col>
+                    <Col xs={12}>
+                        <div className="mb-2">
                             <label htmlFor="provincia" className="label-form">
                               provincia:
                             </label>
@@ -135,13 +146,14 @@ const RegistroDelProfesional = () => {
 
                             <FormikError name="provincia" />
                           </div>
-                        </Col>
-                      </Row>
-                    </Grid>
+                    </Col>
+                   </Row>
+                  </Grid>
+                  
 
-                    <Grid fluid>
-                      <Row>
-                        <Col xs={12}>
+                   <Grid fluid>
+                   <Row>
+                    <Col xs={12}>
                           <div className="mb-2">
                             <label htmlFor="localidad" className="label-form">
                               localidad:
@@ -155,9 +167,9 @@ const RegistroDelProfesional = () => {
 
                             <FormikError name="localidad" />
                           </div>
-                        </Col>
-                        <Col xs={12}>
-                          <div className="mb-2">
+                    </Col>
+                    <Col xs={12}>
+                        <div className="mb-2">
                             <label htmlFor="celular" className="label-form">
                               celular:
                             </label>
@@ -170,9 +182,10 @@ const RegistroDelProfesional = () => {
 
                             <FormikError name="celular" />
                           </div>
-                        </Col>
-                      </Row>
-                    </Grid>
+                    </Col>
+                   </Row>
+                  </Grid>
+                  
 
                     {/* dni y Tramite */}
                     <Grid fluid>
@@ -297,6 +310,8 @@ const RegistroDelProfesional = () => {
         </Stack>
       </Content>
     </Container>
+    </>
+
   );
 };
 

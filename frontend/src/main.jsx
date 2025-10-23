@@ -4,7 +4,6 @@ import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import { UserProvider } from "./context/userContext";
 
-<<<<<<< Updated upstream
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <UserProvider>
@@ -12,13 +11,3 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     </UserProvider>
   </BrowserRouter>
 );
-=======
-
-createRoot(document.getElementById('root')).render(
-  <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StrictMode>,
-)
->>>>>>> Stashed changes

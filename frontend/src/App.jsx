@@ -1,28 +1,13 @@
-import "./App.css";
-import CTASection from "./components/CTASection/CTASection";
-import FooterPage from "./components/Footer/Footer";
-
-import NavBar from "./components/Navbar/Navbar";
+import { Routes, Route } from "react-router-dom";
 import RouterPublic from "./Routers/RouterPublic";
-import { Container } from 'rsuite';
-
+import RouterUsers from "./Routers/RouterUsers";
 
 function App() {
-
   return (
-    <>
-      <Container style={{ width: '100%' }}>
-
-        <NavBar />
-
-        <RouterPublic />
-
-        <CTASection />
-
-        <FooterPage />
-
-      </Container>
-    </>
+    <Routes>
+      <Route path="/*" element={<RouterPublic />} />
+      <Route path="/user/*" element={<RouterUsers />} />
+    </Routes>
   );
 }
 

@@ -1,21 +1,5 @@
 package com.plataforma.controller;
 
-import java.time.LocalDateTime;
-import java.util.Map;
-
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.plataforma.model.LoginProfesional;
 import com.plataforma.model.Profesional;
 import com.plataforma.model.dto.RegistroProfesionalDTO;
@@ -24,7 +8,6 @@ import com.plataforma.service.ProfesionalService;
 
 import jakarta.validation.Valid;
 
-<<<<<<< Updated upstream
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCrypt;
@@ -36,8 +19,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-=======
->>>>>>> Stashed changes
 @RestController
 @RequestMapping("/api/profesionales")
 public class ProfesionalController {
@@ -50,7 +31,6 @@ public class ProfesionalController {
         this.emailService = emailService;
     }
 
-<<<<<<< Updated upstream
     // --- Endpoint de Registro ---
 
     @PostMapping("/registro")
@@ -65,31 +45,24 @@ public class ProfesionalController {
             return ResponseEntity.badRequest().body(errores);
         }
         
-=======
-    // --- Endpoints de Registro y Verificación ---
-    @PostMapping("/registro")
-    public ResponseEntity<?> registrarProfesional(@RequestBody @Valid RegistroProfesionalDTO registrarProfesional,
-            BindingResult validaciones) {
-
->>>>>>> Stashed changes
         if (!registrarProfesional.isAceptarTyC()) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Debe aceptar los Términos y Condiciones para continuar."));
+                "error", "Debe aceptar los Términos y Condiciones para continuar."));
         }
 
         if (!registrarProfesional.getPassword().equals(registrarProfesional.getConfirmPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Las contraseñas no coinciden."));
+                "error", "Las contraseñas no coinciden."));
         }
 
         if (profesionalService.obtenerProfesionalPorDni(registrarProfesional.getDni()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Ya existe una cuenta registrada con este DNI."));
+                "error", "Ya existe una cuenta registrada con este DNI."));
         }
 
         if (profesionalService.obtenerProfesionalPorEmail(registrarProfesional.getEmail()) != null) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Ya existe una cuenta registrada con este correo."));
+                "error", "Ya existe una cuenta registrada con este correo."));
         }
 
         try {
@@ -97,11 +70,11 @@ public class ProfesionalController {
             Profesional guardado = profesionalService.registrarPendiente(registrarProfesional);
             emailService.verificarCorreo(guardado.getEmail(), guardado.getTokenVerificacion());
             return ResponseEntity.status(HttpStatus.CREATED).body(registrarProfesional);
-
+        
         } catch (Exception e) {
-            e.printStackTrace();
+        	e.printStackTrace();
             return ResponseEntity.status(500).body(Map.of(
-                    "error", "No se pudo completar el registro, intente nuevamente más tarde."));
+                "error", "No se pudo completar el registro, intente nuevamente más tarde."));
         }
     }
 
@@ -114,17 +87,17 @@ public class ProfesionalController {
 
         if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Token Inválido."));
+            		"error", "Token Inválido."));
         }
-
+        
         if (profesional.isActivo()) {
             return ResponseEntity.ok(Map.of(
-                    "error", "Su cuenta ya fue verificada."));
+            		"error", "Su cuenta ya fue verificada."));
         }
-
+        
         if (profesional.getTokenExpiracion().isBefore(LocalDateTime.now())) {
             return ResponseEntity.status(410).body(Map.of(
-                    "error", "Token Expirado."));
+            		"error", "Token Expirado."));
         }
 
         profesional.setActivo(true);
@@ -136,31 +109,33 @@ public class ProfesionalController {
     }
 
     // --- Endpoint de Login ---
+
     @PostMapping("/login")
     public ResponseEntity<?> loginProfesional(@RequestBody LoginProfesional loginProfesional) {
-
-        Profesional profesional = profesionalService.obtenerProfesionalPorDni(loginProfesional.getDni());
-
-        if (profesional == null) {
+        
+    	Profesional profesional = profesionalService.obtenerProfesionalPorDni(loginProfesional.getDni());
+        
+    	if (profesional == null) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "DNI incorrecto."));
+                "error", "DNI incorrecto."));
         }
-
-        if (!BCrypt.checkpw(loginProfesional.getPassword(), profesional.getPassword())) {
+        
+    	if (!BCrypt.checkpw(loginProfesional.getPassword(), profesional.getPassword())) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "Contraseña incorrecta."));
+                "error", "Contraseña incorrecta."));
         }
-
-        if (!profesional.isActivo()) {
+        
+    	if (!profesional.isActivo()) {
             return ResponseEntity.badRequest().body(Map.of(
-                    "error", "La cuenta no está verificada."));
+                "error", "La cuenta no está verificada."));
         }
 
         return ResponseEntity.ok(Map.of(
-                "message", "Login exitoso."));
+            "message", "Login exitoso."));
     }
 
     // --- Endpoint de Requisitos ---
+
     @PostMapping("/{id}/requisitos")
     public ResponseEntity<?> subirRequisitos(
             @PathVariable Long id,
@@ -181,48 +156,37 @@ public class ProfesionalController {
             }
 
             // Validaciones de campos
-            if (universidad.isBlank()) {
+            if (universidad.isBlank())
                 return ResponseEntity.badRequest().body(Map.of("error", "Debe ingresar la universidad"));
-            }
-            if (matricula.isBlank()) {
+            if (matricula.isBlank())
                 return ResponseEntity.badRequest().body(Map.of("error", "Debe ingresar la matrícula"));
-            }
-            if (titulo.isBlank()) {
+            if (titulo.isBlank())
                 return ResponseEntity.badRequest().body(Map.of("error", "Debe ingresar el título"));
-            }
-            if (categoria.isBlank()) {
+            if (categoria.isBlank())
                 return ResponseEntity.badRequest().body(Map.of("error", "Debe ingresar la categoría"));
-            }
-            if (etiquetas.isBlank()) {
+            if (etiquetas.isBlank())
                 return ResponseEntity.badRequest().body(Map.of("error", "Debe ingresar las etiquetas"));
-            }
 
             // Validaciones de archivos
-            if (certificadoAntecedentes == null || certificadoAntecedentes.isEmpty()) {
+            if (certificadoAntecedentes == null || certificadoAntecedentes.isEmpty())
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "Debe adjuntar certificado de antecedentes penales"));
-            }
-            if (!certificadoAntecedentes.getContentType().equals("application/pdf")) {
+            if (!certificadoAntecedentes.getContentType().equals("application/pdf"))
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "El archivo de antecedentes debe estar en formato PDF"));
-            }
-            if (certificadoAntecedentes.getSize() > 5 * 1024 * 1024) {
+            if (certificadoAntecedentes.getSize() > 5 * 1024 * 1024)
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "El archivo de antecedentes no debe superar 5 MB"));
-            }
 
-            if (documentoMatricula == null || documentoMatricula.isEmpty()) {
+            if (documentoMatricula == null || documentoMatricula.isEmpty())
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "Debe adjuntar documento de matrícula/especialización"));
-            }
-            if (!documentoMatricula.getContentType().equals("application/pdf")) {
+            if (!documentoMatricula.getContentType().equals("application/pdf"))
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "El archivo de matrícula debe estar en formato PDF"));
-            }
-            if (documentoMatricula.getSize() > 5 * 1024 * 1024) {
+            if (documentoMatricula.getSize() > 5 * 1024 * 1024)
                 return ResponseEntity.badRequest()
                         .body(Map.of("error", "El archivo de matrícula no debe superar 5 MB"));
-            }
 
             // Actualizar el profesional existente con los nuevos datos
             profesionalExistente.setUniversidad(universidad);
@@ -235,7 +199,7 @@ public class ProfesionalController {
             profesionalService.guardarPendiente(profesionalExistente, certificadoAntecedentes, documentoMatricula);
 
             return ResponseEntity.ok(Map.of(
-                    "mensaje", "Documentos recibidos. Su perfil está pendiente de validación."
+                "mensaje", "Documentos recibidos. Su perfil está pendiente de validación."
             ));
 
         } catch (Exception e) {
@@ -243,47 +207,46 @@ public class ProfesionalController {
                     .body(Map.of("error", "Error al procesar la solicitud: " + e.getMessage()));
         }
     }
-
+    
     // --- Endpoint de Actualizar Perfil ---
+    
     @PutMapping("/{id}/actualizar/perfil")
     public ResponseEntity<?> actualizarPerfil(@PathVariable Long id,
-            @RequestParam("descripcion") String descripcion,
-            @RequestParam("imagen") MultipartFile imagen) {
-
-        Profesional profesional = profesionalService.obtenerProfesionalPorId(id);
-
-        if (!"validado".equals(profesional.getEstadoValidacion())) {
+    		                                  @RequestParam("descripcion") String descripcion,
+    		                                  @RequestParam("imagen") MultipartFile imagen) {
+    	
+    	Profesional profesional = profesionalService.obtenerProfesionalPorId(id);
+    	
+    	if (!"validado".equals(profesional.getEstadoValidacion())) {
             return ResponseEntity.badRequest()
                     .body(Map.of("error", "Sus documentos no han sido validados."));
-        }
-        try {
-
-            String contentType = imagen.getContentType();
-            if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
-                return ResponseEntity.badRequest().body(Map.of(
-                        "error", "El archivo debe estar en formato JPG o PNG"));
-            }
-
-            if (imagen.getSize() > 5 * 1024 * 1024) {
-                return ResponseEntity.badRequest().body(Map.of(
-                        "error", "La imagen no debe superar 5 MB."));
-            }
-
-            if (descripcion.length() > 500) {
-                return ResponseEntity.badRequest().body(Map.of(
-                        "error", "La descripción no puede superar los 500 caracteres."));
-            }
-
-            profesional.setDescripcion(descripcion);
-            profesionalService.guardarImagen(profesional, imagen);
-
-        } catch (Exception e) {
-
-            return ResponseEntity.internalServerError().body(Map.of(
-                    "error", "Error al procesar la solicitud. Intente nuevamente más tarde."));
-        }
-
-        return ResponseEntity.ok(Map.of(
-                "message", "Actualización exitosa."));
+        } 
+    	try {
+        
+    		String contentType = imagen.getContentType();
+    		if (!(contentType.equals("image/jpeg") || contentType.equals("image/png"))) {
+    		    return ResponseEntity.badRequest().body(Map.of(
+    		    		"error", "El archivo debe estar en formato JPG o PNG"));
+    		}
+    	    
+    		if (imagen.getSize() > 5 * 1024 * 1024)
+    	    	return ResponseEntity.badRequest().body(Map.of(
+    	    			"error", "La imagen no debe superar 5 MB."));
+       
+    	    if (descripcion.length() > 500)
+    	    	return ResponseEntity.badRequest().body(Map.of(
+        		        "error", "La descripción no puede superar los 500 caracteres."));
+        
+    	    profesional.setDescripcion(descripcion);
+    	    profesionalService.guardarImagen(profesional, imagen);
+		
+    	} catch (Exception e) {
+			
+    		return ResponseEntity.internalServerError().body(Map.of(
+    				"error", "Error al procesar la solicitud. Intente nuevamente más tarde."));
+		}
+         
+    	return ResponseEntity.ok(Map.of(
+    			"message", "Actualización exitosa."));
     }
 }

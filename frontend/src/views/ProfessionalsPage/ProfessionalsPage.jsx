@@ -186,7 +186,7 @@ export default function ProfessionalsPage() {
                 <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
                   <Star /> {prof.rating} ({prof.reviews})
                 </div>
-
+                
                 <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 5 }}>
                   {prof.specializations.slice(0, 3).map((s) => (
                     <Tag key={s}>{s}</Tag>

@@ -9,7 +9,7 @@ const BotonVolver = () => {
       <div style={{ margin: "20px auto" }}>
         <Col xs={4}>
           <Nav>
-            <Nav.Item as={Link} to="/register" ><MdOutlineArrowBack />Volver</Nav.Item>
+             <Nav.Item as={Link} to="/register" ><MdOutlineArrowBack />Volver</Nav.Item>            
           </Nav>
         </Col>
       </div>
