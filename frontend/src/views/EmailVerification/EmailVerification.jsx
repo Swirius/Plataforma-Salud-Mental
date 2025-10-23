@@ -1,11 +1,10 @@
 // src/pages/EmailVerification.js
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Message, Button, Loader, Container, Header, Panel } from 'rsuite';
 import NavBar from '../../components/Navbar/Navbar';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
-
 
 export default function EmailVerification() {
   const [status, setStatus] = useState('loading'); // loading | success | expired | invalid | already | checkEmail | error
@@ -45,10 +44,12 @@ export default function EmailVerification() {
               setMessage('El enlace de verificación ha expirado. Reenviamos un nuevo correo.');
               resendVerification();
               break;
+
             case 'INVALID':
               setStatus('invalid');
               setMessage('El enlace no es válido. Solicitá un nuevo correo de verificación.');
               break;
+
             case 'ALREADY_VERIFIED':
               setStatus('already');
               setMessage('Tu cuenta ya estaba verificada.');
@@ -67,7 +68,6 @@ export default function EmailVerification() {
 
     verifyEmail();
   }, [token, navigate]);
-
 
   const resendVerification = async () => {
     setResending(true);
@@ -112,21 +112,19 @@ export default function EmailVerification() {
               </Button>
             )}
           </Panel>
-
         );
     }
   };
 
-
   return (
     <>
       <NavBar />
-    <Container style={{ marginTop: "2em" }}>
-      <Header className="text-center mb-4">
-        <h2>Verificación de Email</h2>
-      </Header>
-      {renderContent()}
-    </Container>
+      <Container style={{ marginTop: "2em" }}>
+        <Header className="text-center mb-4">
+          <h2>Verificación de Email</h2>
+        </Header>
+        {renderContent()}
+      </Container>
     </>
   );
 }

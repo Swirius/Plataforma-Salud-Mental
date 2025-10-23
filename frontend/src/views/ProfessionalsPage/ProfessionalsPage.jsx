@@ -121,102 +121,103 @@ export default function ProfessionalsPage() {
   };
 
   return (
-
     <>
-    <NavBar />
-    <div style={{ padding: 20 }}>
-      <h2>Encuentra tu Profesional Ideal</h2>
+      <NavBar />
+      <div style={{ padding: 20 }}>
+        <h2>Encuentra tu Profesional Ideal</h2>
 
-      {/* Search */}
-      <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
-        <Input
-          placeholder="Buscar por nombre, especialidad o tratamiento..."
-          value={searchTerm}
-          onChange={setSearchTerm}
-        />
-        <Button onClick={handleSearch} appearance="primary">
-          <Search /> Buscar
-        </Button>
-        <Button appearance="default" onClick={() => setShowFilters(!showFilters)}>
-          Filtros
-        </Button>
-      </div>
-
-      {/* Filters */}
-      {showFilters && (
-        <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
-          <SelectPicker
-            data={[{ label: "Todas las especialidades", value: null }, ...specialties.map(s => ({ label: s, value: s }))]}
-            style={{ width: 200 }}
-            value={selectedSpecialty}
-            onChange={setSelectedSpecialty}
+        {/* Search */}
+        <div style={{ display: "flex", gap: 10, marginBottom: 10 }}>
+          <Input
+            placeholder="Buscar por nombre, especialidad o tratamiento..."
+            value={searchTerm}
+            onChange={setSearchTerm}
           />
-          <SelectPicker
-            data={[{ label: "Todas las ubicaciones", value: null }, ...locations.map(l => ({ label: l, value: l }))]}
-            style={{ width: 200 }}
-            value={selectedLocation}
-            onChange={setSelectedLocation}
-          />
-          <SelectPicker
-            data={[{ label: "Todas las modalidades", value: null }, ...modalities.map(m => ({ label: m, value: m }))]}
-            style={{ width: 200 }}
-            value={selectedModality}
-            onChange={setSelectedModality}
-          />
+          <Button onClick={handleSearch} appearance="primary">
+            <Search /> Buscar
+          </Button>
+          <Button appearance="default" onClick={() => setShowFilters(!showFilters)}>
+            Filtros
+          </Button>
         </div>
-      )}
 
-      <Divider />
-
-      {/* Professional Cards */}
-      <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
-        {filteredProfessionals.length === 0 && (
-          <div>No se encontraron profesionales. Ajusta tus filtros.</div>
+        {/* Filters */}
+        {showFilters && (
+          <div style={{ display: "flex", gap: 10, marginBottom: 20 }}>
+            <SelectPicker
+              data={[{ label: "Todas las especialidades", value: null }, ...specialties.map(s => ({ label: s, value: s }))]}
+              style={{ width: 200 }}
+              value={selectedSpecialty}
+              onChange={setSelectedSpecialty}
+            />
+            <SelectPicker
+              data={[{ label: "Todas las ubicaciones", value: null }, ...locations.map(l => ({ label: l, value: l }))]}
+              style={{ width: 200 }}
+              value={selectedLocation}
+              onChange={setSelectedLocation}
+            />
+            <SelectPicker
+              data={[{ label: "Todas las modalidades", value: null }, ...modalities.map(m => ({ label: m, value: m }))]}
+              style={{ width: 200 }}
+              value={selectedModality}
+              onChange={setSelectedModality}
+            />
+          </div>
         )}
-        {filteredProfessionals.map((prof) => (
-          <Panel key={prof.id} bordered style={{ width: 300 }}>
-            <div style={{ display: "flex", gap: 10 }}>
-              <Avatar src={prof.avatar} circle />
-              <div>
-                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <strong>{prof.name}</strong>
-                  {prof.verified && <Tag color="green">Verificado</Tag>}
-                </div>
-                <div>{prof.specialty}</div>
-                <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
-                  <Star /> {prof.rating} ({prof.reviews})
-                </div>
-                
-                <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 5 }}>
-                  {prof.specializations.slice(0, 3).map((s) => (
-                    <Tag key={s}>{s}</Tag>
-                  ))}
-                  {prof.modalities.map((m) => (
-                    <Tag key={m}>{m}</Tag>
-                  ))}
-                </div>
-                <div style={{ marginTop: 5 }}>
-                  Disponible: <strong>{prof.nextAvailable}</strong>
-                </div>
-                <div style={{ display: "flex", gap: 5, marginTop: 10 }}>
-                  <Button appearance="ghost" block>
-                    Ver Perfil
-                  </Button>
-                  <Button appearance="primary" block>
-                    <Calendar /> Agendar Cita
-                  </Button>
-                  <IconButton icon={<Message />} circle />
+
+        <Divider />
+
+        {/* Professional Cards */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: 20 }}>
+          {filteredProfessionals.length === 0 && (
+            <div>No se encontraron profesionales. Ajusta tus filtros.</div>
+          )}
+
+          {filteredProfessionals.map((prof) => (
+            <Panel key={prof.id} bordered style={{ width: 300 }}>
+              <div style={{ display: "flex", gap: 10 }}>
+                <Avatar src={prof.avatar} circle />
+
+                <div>
+                  <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                    <strong>{prof.name}</strong>
+                    {prof.verified && <Tag color="green">Verificado</Tag>}
+                  </div>
+
+                  <div>{prof.specialty}</div>
+
+                  <div style={{ display: "flex", alignItems: "center", gap: 5 }}>
+                    <Star /> {prof.rating} ({prof.reviews})
+                  </div>
+
+                  <div style={{ display: "flex", gap: 5, flexWrap: "wrap", marginTop: 5 }}>
+                    {prof.specializations.slice(0, 3).map((s) => (
+                      <Tag key={s}>{s}</Tag>
+                    ))}
+                    {prof.modalities.map((m) => (
+                      <Tag key={m}>{m}</Tag>
+                    ))}
+                  </div>
+
+                  <div style={{ marginTop: 5 }}>
+                    Disponible: <strong>{prof.nextAvailable}</strong>
+                  </div>
+
+                  <div style={{ display: "flex", gap: 5, marginTop: 10 }}>
+                    <Button appearance="ghost" block>
+                      Ver Perfil
+                    </Button>
+                    <Button appearance="primary" block>
+                      <Calendar /> Agendar Cita
+                    </Button>
+                    <IconButton icon={<Message />} circle />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Panel>
-        ))}
+            </Panel>
+          ))}
+        </div>
       </div>
-    </div>
-    
     </>
-
-
-
   );
 }

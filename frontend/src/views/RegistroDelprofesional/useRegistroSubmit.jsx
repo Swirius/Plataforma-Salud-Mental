@@ -13,46 +13,42 @@ export const useRegistroSubmit = () => {
   const [initialAdmin, setInitialAdmin] = useState("");
   const usernameRef = useRef(null);
   const navigate = useNavigate();
-  
 
   const notifyError = (message) => {
-  Swal.fire({
-    icon: 'error',
-    title: 'Oops...',
-    text: message,
-    confirmButtonColor: '#d33',
-    confirmButtonText: 'Cerrar',
-    toast: true,
-    position: 'top',
-    showConfirmButton: false,
-    timer: 5000,
-    timerProgressBar: true
-  });
-};
+    Swal.fire({
+      icon: 'error',
+      title: 'Oops...',
+      text: message,
+      confirmButtonColor: '#d33',
+      confirmButtonText: 'Cerrar',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 5000,
+      timerProgressBar: true
+    });
+  };
 
-const notifySuccess = (message) => {
-  Swal.fire({
-    icon: 'success',
-    title: '¡Éxito!',
-    text: message,
-    confirmButtonColor: '#3085d6',
-    confirmButtonText: 'Cerrar',
-    toast: true,
-    position: 'top',
-    showConfirmButton: false,
-    timer: 3000,
-    timerProgressBar: true
-  });
-};
- 
+  const notifySuccess = (message) => {
+    Swal.fire({
+      icon: 'success',
+      title: '¡Éxito!',
+      text: message,
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Cerrar',
+      toast: true,
+      position: 'top',
+      showConfirmButton: false,
+      timer: 3000,
+      timerProgressBar: true
+    });
+  };
 
   useEffect(() => {
     const savedAdmin = localStorage.getItem("rememberedAdmin");
     if (savedAdmin) setInitialAdmin(savedAdmin);
     if (usernameRef.current) usernameRef.current.focus();
   }, []);
-
-
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     const dataToSend = {
@@ -80,11 +76,11 @@ const notifySuccess = (message) => {
         notifySuccess(
           `¡¡ ${data.mensaje} `
         );
-        console.log(data.mensaje)   
+        console.log(data.mensaje)
 
-          setTimeout(() => {
-                      navigate("/user/emailVerification");                    
-                  }, 3500);
+        setTimeout(() => {
+          navigate("/user/emailVerification");
+        }, 3500);
 
       }
 
@@ -99,7 +95,5 @@ const notifySuccess = (message) => {
     }
   };
 
-
-  
   return { initialAdmin, usernameRef, handleSubmit };
 };

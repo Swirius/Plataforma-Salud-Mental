@@ -9,24 +9,20 @@ import RegisterPage from "../views/RegisterPage/RegisterPage";
 
 // import { UserProvider } from '../context/userContext';
 
-
-function RouterPublic() {    
+function RouterPublic() {
 
   return (
-   
-    <Routes>                    
-      <Route path="/" element={<Home />} />    
-      <Route path="/login" element={<Login />} />         
-      <Route path="/register" element={<RegisterPage />} /> 
-      <Route path="/register-profesional" element={<RegistroDelprofesional />} />      
-      <Route path="/register-consultante" element={<RegistroDelConsultante />} />  
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/register" element={<RegisterPage />} />
+      <Route path="/register-profesional" element={<RegistroDelprofesional />} />
+      <Route path="/register-consultante" element={<RegistroDelConsultante />} />
       {/* <Route path="dashboard" element={ <Dashboard />} /> */}
 
-      <Route path="*" element={<h2>Pagina no encontrada</h2>} />                          
+      <Route path="*" element={<h2>Pagina no encontrada</h2>} />
     </Routes>
-  
   );
-
 }
 
 export default RouterPublic;

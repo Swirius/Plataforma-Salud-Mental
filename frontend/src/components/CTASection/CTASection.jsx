@@ -1,6 +1,5 @@
-import { Container, Content,  Button,  } from 'rsuite';
+import { Container, Content, Button, } from 'rsuite';
 import { Link } from "react-router-dom";
-
 
 const CTASection = () => {
   return (
@@ -14,7 +13,7 @@ const CTASection = () => {
             No esperes más para cuidar tu salud mental. Encuentra el profesional adecuado para ti.
           </p>
           <Link as={Link} to="/register" >
-            <Button style={{ backgroundColor: '#ffffffff', padding: '12px 12px', color:"#171717", marginTop:"50px" , textAlign: 'center' }} appearance="primary" size="lg">
+            <Button style={{ backgroundColor: '#ffffffff', padding: '12px 12px', color: "#171717", marginTop: "50px", textAlign: 'center' }} appearance="primary" size="lg">
               Registrarse Gratis
             </Button>
           </Link>
