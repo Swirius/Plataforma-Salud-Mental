@@ -3,33 +3,27 @@ package com.plataforma.model.dto;
 import jakarta.persistence.Column;
 
 public class PerfilProfesionalDTO {
-	
-	@Column(length = 500)
-	private String descripcion;
-	
-	@Column(name = "ruta_imagen")
-	private String rutaImagen;
-	
-	
-	//getters y setters
-	
 
-	public String getDescripcion() {
-		return descripcion;
-	}
+    @Column(length = 500)
+    private String descripcion;
 
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
+    @Column(name = "ruta_imagen")
+    private String rutaImagen;
 
-	public String getRutaImagen() {
-		return rutaImagen;
-	}
+    //getters y setters
+    public String getDescripcion() {
+        return descripcion;
+    }
 
-	public void setRutaImagen(String rutaImagen) {
-		this.rutaImagen = rutaImagen;
-	}
-	
-	
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
 
+    public String getRutaImagen() {
+        return rutaImagen;
+    }
+
+    public void setRutaImagen(String rutaImagen) {
+        this.rutaImagen = rutaImagen;
+    }
 }

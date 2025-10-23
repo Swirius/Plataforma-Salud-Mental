@@ -10,173 +10,171 @@ import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegistroProfesionalDTO {
-	
-	@NotBlank(message = "Ingresa tu nombre.")
-	@Size(min = 3, message = "El nombre debe contener al menos 3 caracteres.")
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El nombre no debe contener números.")
-	private String nombre;
 
-	@NotBlank(message = "Ingresa tu apellido.")
-	@Size(min = 3, message = "El apellido debe contener al menos 3 caracteres.")
-	@Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El apellido no debe contener números.")
-	private String apellido;
+    @NotBlank(message = "Ingresa tu nombre.")
+    @Size(min = 3, message = "El nombre debe contener al menos 3 caracteres.")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El nombre no debe contener números.")
+    private String nombre;
 
-	@NotBlank(message = "Ingresa tu DNI.")
-	@Size(min = 4)
-	@Column(unique = true)
-	private String dni;
+    @NotBlank(message = "Ingresa tu apellido.")
+    @Size(min = 3, message = "El apellido debe contener al menos 3 caracteres.")
+    @Pattern(regexp = "^[a-zA-Z\\s]+$", message = "El apellido no debe contener números.")
+    private String apellido;
 
-	@NotBlank(message = "Ingresa el número de trámite de tu DNI.")
-	@Size(min = 4)
-	@Column(unique = true)
-	private String numeroTramite;
+    @NotBlank(message = "Ingresa tu DNI.")
+    @Size(min = 4)
+    @Column(unique = true)
+    private String dni;
 
-	@NotBlank(message = "Ingresa tu país de residencia.")
-	private String pais;
+    @NotBlank(message = "Ingresa el número de trámite de tu DNI.")
+    @Size(min = 4)
+    @Column(unique = true)
+    private String numeroTramite;
 
-	@NotBlank(message = "Ingresa tu provincia de residencia.")
-	private String provincia;
+    @NotBlank(message = "Ingresa tu país de residencia.")
+    private String pais;
 
-	@NotBlank(message = "Ingresa tu localidad de residencia.")
-	private String localidad;
+    @NotBlank(message = "Ingresa tu provincia de residencia.")
+    private String provincia;
 
-	@NotBlank(message = "Ingresa tu número de celular.")
-	private String celular;
+    @NotBlank(message = "Ingresa tu localidad de residencia.")
+    private String localidad;
 
-	@NotBlank(message = "Ingresa un correo electrónico.")
-	@Column(unique = true)
-	@Email(message = "Ingresa un correo válido.")
-	private String email;
+    @NotBlank(message = "Ingresa tu número de celular.")
+    private String celular;
 
-	@NotBlank(message = "Ingrese una contraseña.")
-	@Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
-	@Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$", message = "La contraseña debe contener, al menos, una mayúscula, una minúscula y un número.")
-	private String password;
+    @NotBlank(message = "Ingresa un correo electrónico.")
+    @Column(unique = true)
+    @Email(message = "Ingresa un correo válido.")
+    private String email;
 
-	@Transient
-	private String confirmPassword;
+    @NotBlank(message = "Ingrese una contraseña.")
+    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres.")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,}$", message = "La contraseña debe contener, al menos, una mayúscula, una minúscula y un número.")
+    private String password;
 
-	@Transient
-	private boolean aceptarTyC;
-	
-	@Column(name = "token_verificacion")
-	private String tokenVerificacion;
+    @Transient
+    private String confirmPassword;
 
-	@Column(name = "token_expiracion")
-	private LocalDateTime tokenExpiracion;
-	
-	//getters y setters
-	
-	public String getNombre() {
-		return nombre;
-	}
+    @Transient
+    private boolean aceptarTyC;
 
-	public void setNombre(String nombre) {
-		this.nombre = nombre;
-	}
+    @Column(name = "token_verificacion")
+    private String tokenVerificacion;
 
-	public String getApellido() {
-		return apellido;
-	}
+    @Column(name = "token_expiracion")
+    private LocalDateTime tokenExpiracion;
 
-	public void setApellido(String apellido) {
-		this.apellido = apellido;
-	}
+    //getters y setters
+    public String getNombre() {
+        return nombre;
+    }
 
-	public String getDni() {
-		return dni;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public void setDni(String dni) {
-		this.dni = dni;
-	}
+    public String getApellido() {
+        return apellido;
+    }
 
-	public String getNumeroTramite() {
-		return numeroTramite;
-	}
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
-	public void setNumeroTramite(String numeroTramite) {
-		this.numeroTramite = numeroTramite;
-	}
+    public String getDni() {
+        return dni;
+    }
 
-	public String getPais() {
-		return pais;
-	}
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
+    public String getNumeroTramite() {
+        return numeroTramite;
+    }
 
-	public String getProvincia() {
-		return provincia;
-	}
+    public void setNumeroTramite(String numeroTramite) {
+        this.numeroTramite = numeroTramite;
+    }
 
-	public void setProvincia(String provincia) {
-		this.provincia = provincia;
-	}
+    public String getPais() {
+        return pais;
+    }
 
-	public String getLocalidad() {
-		return localidad;
-	}
+    public void setPais(String pais) {
+        this.pais = pais;
+    }
 
-	public void setLocalidad(String localidad) {
-		this.localidad = localidad;
-	}
+    public String getProvincia() {
+        return provincia;
+    }
 
-	public String getCelular() {
-		return celular;
-	}
+    public void setProvincia(String provincia) {
+        this.provincia = provincia;
+    }
 
-	public void setCelular(String celular) {
-		this.celular = celular;
-	}
+    public String getLocalidad() {
+        return localidad;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public void setLocalidad(String localidad) {
+        this.localidad = localidad;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public String getCelular() {
+        return celular;
+    }
 
-	public String getPassword() {
-		return password;
-	}
+    public void setCelular(String celular) {
+        this.celular = celular;
+    }
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
+    public String getPassword() {
+        return password;
+    }
 
-	public boolean isAceptarTyC() {
-		return aceptarTyC;
-	}
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-	public void setAceptarTyC(boolean aceptarTyC) {
-		this.aceptarTyC = aceptarTyC;
-	}
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
 
-	public String getTokenVerificacion() {
-		return tokenVerificacion;
-	}
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
 
-	public void setTokenVerificacion(String tokenVerificacion) {
-		this.tokenVerificacion = tokenVerificacion;
-	}
+    public boolean isAceptarTyC() {
+        return aceptarTyC;
+    }
 
-	public LocalDateTime getTokenExpiracion() {
-		return tokenExpiracion;
-	}
+    public void setAceptarTyC(boolean aceptarTyC) {
+        this.aceptarTyC = aceptarTyC;
+    }
 
-	public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
-		this.tokenExpiracion = tokenExpiracion;
-	}
+    public String getTokenVerificacion() {
+        return tokenVerificacion;
+    }
 
+    public void setTokenVerificacion(String tokenVerificacion) {
+        this.tokenVerificacion = tokenVerificacion;
+    }
+
+    public LocalDateTime getTokenExpiracion() {
+        return tokenExpiracion;
+    }
+
+    public void setTokenExpiracion(LocalDateTime tokenExpiracion) {
+        this.tokenExpiracion = tokenExpiracion;
+    }
 }

@@ -4,87 +4,83 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.NotBlank;
 
 public class RequisitosProfesionalDTO {
-	
-	@NotBlank(message = "Debe ingresar universidad.")
-	private String universidad;
-	
-	@NotBlank(message = "Debe ingresar un título.")
-	private String titulo;
-	
-	@NotBlank(message = "Debe ingresar un número de matrícula.")
-	@Column(unique = true)
-	private String matricula;
-	
-	@NotBlank(message = "Debe ingresar una categoría/especialidad.")
-	private String categoria;
-	
-	@NotBlank(message = "Debe inggresar las etiquetas.")
-	private String etiquetas;
-	
-	@Column(name = "ruta_certificado_antecedentes")
-	private String rutaCertificadoAntecedentes;
 
-	@Column(name = "ruta_documento_matricula")
-	private String rutaDocumentoMatricula;
+    @NotBlank(message = "Debe ingresar universidad.")
+    private String universidad;
 
-	
-	//getters y setters
-	
-	
-	public String getUniversidad() {
-		return universidad;
-	}
+    @NotBlank(message = "Debe ingresar un título.")
+    private String titulo;
 
-	public void setUniversidad(String universidad) {
-		this.universidad = universidad;
-	}
+    @NotBlank(message = "Debe ingresar un número de matrícula.")
+    @Column(unique = true)
+    private String matricula;
 
-	public String getTitulo() {
-		return titulo;
-	}
+    @NotBlank(message = "Debe ingresar una categoría/especialidad.")
+    private String categoria;
 
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
-	}
+    @NotBlank(message = "Debe inggresar las etiquetas.")
+    private String etiquetas;
 
-	public String getMatricula() {
-		return matricula;
-	}
+    @Column(name = "ruta_certificado_antecedentes")
+    private String rutaCertificadoAntecedentes;
 
-	public void setMatricula(String matricula) {
-		this.matricula = matricula;
-	}
+    @Column(name = "ruta_documento_matricula")
+    private String rutaDocumentoMatricula;
 
-	public String getCategoria() {
-		return categoria;
-	}
+    //getters y setters
+    public String getUniversidad() {
+        return universidad;
+    }
 
-	public void setCategoria(String categoria) {
-		this.categoria = categoria;
-	}
+    public void setUniversidad(String universidad) {
+        this.universidad = universidad;
+    }
 
-	public String getEtiquetas() {
-		return etiquetas;
-	}
+    public String getTitulo() {
+        return titulo;
+    }
 
-	public void setEtiquetas(String etiquetas) {
-		this.etiquetas = etiquetas;
-	}
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
 
-	public String getRutaCertificadoAntecedentes() {
-		return rutaCertificadoAntecedentes;
-	}
+    public String getMatricula() {
+        return matricula;
+    }
 
-	public void setRutaCertificadoAntecedentes(String rutaCertificadoAntecedentes) {
-		this.rutaCertificadoAntecedentes = rutaCertificadoAntecedentes;
-	}
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
 
-	public String getRutaDocumentoMatricula() {
-		return rutaDocumentoMatricula;
-	}
+    public String getCategoria() {
+        return categoria;
+    }
 
-	public void setRutaDocumentoMatricula(String rutaDocumentoMatricula) {
-		this.rutaDocumentoMatricula = rutaDocumentoMatricula;
-	}
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
 
+    public String getEtiquetas() {
+        return etiquetas;
+    }
+
+    public void setEtiquetas(String etiquetas) {
+        this.etiquetas = etiquetas;
+    }
+
+    public String getRutaCertificadoAntecedentes() {
+        return rutaCertificadoAntecedentes;
+    }
+
+    public void setRutaCertificadoAntecedentes(String rutaCertificadoAntecedentes) {
+        this.rutaCertificadoAntecedentes = rutaCertificadoAntecedentes;
+    }
+
+    public String getRutaDocumentoMatricula() {
+        return rutaDocumentoMatricula;
+    }
+
+    public void setRutaDocumentoMatricula(String rutaDocumentoMatricula) {
+        this.rutaDocumentoMatricula = rutaDocumentoMatricula;
+    }
 }
