@@ -19,6 +19,7 @@ import BotonYaTenesCuenta from "../../components/BotonYaTenesCuenta/BotonYaTenes
 import "../../components/Utils/LabelForm.css";
 import BotonVolver from "../../components/BotonVolver/BotonVolver";
 import { Navigate } from "react-router-dom";
+import NavBar from "../../components/Navbar/Navbar";
 
 
 
@@ -37,6 +38,9 @@ const RegistroDelProfesional = () => {
 
 
   return (
+
+    <>
+    <NavBar />
     <Container  style={{ display: "flex", backgroundColor: "#EFF4FF", marginTop: "2em" }}  >
           <Text size="1.7rem" style={{ fontWeight: "bold" }}>
             Registro Del Profesional
@@ -306,6 +310,8 @@ const RegistroDelProfesional = () => {
         </Stack>
       </Content>
     </Container>
+    </>
+
   );
 };
 

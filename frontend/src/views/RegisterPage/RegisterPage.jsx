@@ -3,9 +3,15 @@ import { Button, Panel, Nav, Navbar } from "rsuite";
 import { FaHeart } from "react-icons/fa"; // reemplazo de lucide-react
 import { Link } from "react-router-dom";
 import BotonYaTenesCuenta from "../../components/BotonYaTenesCuenta/BotonYaTenesCuenta";
+import NavBar from "../../components/Navbar/Navbar";
 
 export default function RegisterPage() {
+
+
   return (
+
+    <>
+    <NavBar />
     <div
       style={{
         minHeight: "100vh",
@@ -163,5 +169,9 @@ export default function RegisterPage() {
         </Panel>
       </div>
     </div>
+    
+    </>
+
+
   );
 }

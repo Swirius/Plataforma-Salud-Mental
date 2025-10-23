@@ -25,6 +25,7 @@ import {
   LuCheckCheck,
   LuCalendar,
 } from 'react-icons/lu';
+import NavBar from '../../components/Navbar/Navbar';
 
 // Mock data (igual que antes)
 const conversations = [
@@ -227,6 +228,9 @@ const Mensages = () => {
     .join('');
 
   return (
+
+    <>
+    <NavBar />
     <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', fontFamily: 'sans-serif' }}>
       {/* Header */}
       <div style={{ backgroundColor: '#fff', borderBottom: '1px solid #eee', padding: '16px' }}>
@@ -412,6 +416,10 @@ const Mensages = () => {
         </div>
       </div>
     </div>
+    
+    </>
+
+
   );
 };
 

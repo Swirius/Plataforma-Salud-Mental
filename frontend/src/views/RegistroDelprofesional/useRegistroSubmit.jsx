@@ -3,11 +3,13 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 import Swal from 'sweetalert2';
-
+import { useContext } from 'react';
+import { UserContext } from '../../context/userContext';
 
 const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 export const useRegistroSubmit = () => {
+  const { updateNCliente } = useContext(UserContext);
   const [initialAdmin, setInitialAdmin] = useState("");
   const usernameRef = useRef(null);
   const navigate = useNavigate();
@@ -74,15 +76,15 @@ const notifySuccess = (message) => {
       // console.log(data);     
 
       if (status === 201) {
+        updateNCliente(`${values.dni}`);
         notifySuccess(
           `¡¡ ${data.mensaje} `
         );
         console.log(data.mensaje)   
 
           setTimeout(() => {
-                    //  navigate("/emailVerification");
-                       navigate("/login");
-                  }, 3800);
+                      navigate("/user/emailVerification");                    
+                  }, 3500);
 
       }
 

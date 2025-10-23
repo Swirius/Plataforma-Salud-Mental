@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-PlataformaSaludMentalApplication<PlataformaSaludMental>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.plataforma.PlataformaSaludMentalApplication",
+            "projectName": "PlataformaSaludMental",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
