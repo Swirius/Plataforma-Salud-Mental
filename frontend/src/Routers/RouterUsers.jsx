@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 
 import ProtectedRoute from '../Components/utils/ProtectedRoute';
 
-import Login from "../views/Login/Login";
+import LoginPage from '../views/LoginPage/LoginPage';
 import EditProfileForm from "../views/EditProfileForm/EditProfileForm";
 
 import Dashboard from "../views/dashboard/dashboard";
@@ -16,7 +16,7 @@ function RouterUsers() {
   return (
 
     <Routes>
-      <Route path="login" element={<Login />} />
+      <Route path="login" element={<LoginPage />} />
 
       <Route path="edit-profile-form" element={
         <ProtectedRoute>

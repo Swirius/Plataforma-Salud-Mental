@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
-import Login from "../views/Login/Login";
+
+import LoginPage from '../views/LoginPage/LoginPage';
+import LoginProfesional from "../views/LoginProfesional/LoginProfesional";
+import LoginConsultante from '../views/LoginConsultante/LoginConsultante';
 
 import RegistroDelprofesional from "../views/RegistroDelprofesional/RegistroDelprofesional";
 import RegistroDelConsultante from "../views/RegistroDelConsultante/RegistroDelConsultante"
@@ -14,7 +17,9 @@ function RouterPublic() {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="/login-profesional" element={<LoginProfesional />} />
+      <Route path="/login-consultante" element={<LoginConsultante />} />
       <Route path="/register" element={<RegisterPage />} />
       <Route path="/register-profesional" element={<RegistroDelprofesional />} />
       <Route path="/register-consultante" element={<RegistroDelConsultante />} />

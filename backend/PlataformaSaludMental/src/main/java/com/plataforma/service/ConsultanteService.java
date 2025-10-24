@@ -77,7 +77,7 @@ public class ConsultanteService {
             throw new RuntimeException("Debe ser mayor de 18 años para registrarse directamente.");
         }
 
-        c.setVerificado(false);
+        c.setVerificado(true); // No esta completamente finalizada la funcion de validacion, por el momento lo dejamos activo.
         c.setTokenVerificacion(UUID.randomUUID().toString());
         c.setTokenExpiracion(LocalDateTime.now().plusHours(24));
 
