@@ -118,28 +118,28 @@ const RegistroDelConsultante = () => {
                           </Col>
 
                           <Col xs={24} sm={24} md={9}>
-                            <label htmlFor="numero_tramite" className="label-form" >
+                            <label htmlFor="numeroTramite" className="label-form" >
                               Trámite:
                             </label>
                             <Field
-                              name="numero_tramite"
+                              name="numeroTramite"
                               className="rs-input rs-input-lg "
                               style={{ fontSize: "1.3em" }}
                             />
                             <FormikError
-                              name="numero_tramite"
+                              name="numeroTramite"
                             />
                           </Col>
 
                           <Col xs={24} sm={24} md={6}>
-                            <label htmlFor="edad" className="label-form">Edad:</label>
+                            <label htmlFor="fechaNacimiento" className="label-form">Edad:</label>
                             <Field
-                              name="edad"
-                              type="number"
+                              name="fechaNacimiento"
+                              type="date"
                               className="rs-input rs-input-lg"
                               style={{ fontSize: "1.3em" }}
                             />
-                            <FormikError name="edad" />
+                            <FormikError name="fechaNacimiento" />
                           </Col>
                         </Row>
                       </Grid>
@@ -180,24 +180,23 @@ const RegistroDelConsultante = () => {
 
                           <Col xs={24} sm={24} md={12}>
                             <div className="mb-2">
-                              <label htmlFor="repetirPassword" className="label-form">
+                              <label htmlFor="confirmPassword" className="label-form">
                                 Repetir Contraseña:
                               </label>
                               <Field
-                                name="repetirPassword"
+                                name="confirmPassword"
                                 type="password"
                                 className="rs-input rs-input-lg"
                                 style={{ fontSize: "1.3em" }}
                               />
-                              <FormikError name="repetirPassword" />
+                              <FormikError name="confirmPassword" />
                             </div>
                           </Col>
                         </Row>
                       </Grid>
 
-
                       {/* Terminos */}
-                      <Field name="isAceptarTyC">
+                      <Field name="aceptarTyC">
                         {({ field, form }) => (
                           <Checkbox
                             checked={field.value}
@@ -209,7 +208,7 @@ const RegistroDelConsultante = () => {
                           </Checkbox>
                         )}
                       </Field>
-                      <FormikError name="isAceptarTyC" />
+                      <FormikError name="aceptarTyC" />
 
                       {/* Botón */}
                       <VStack spacing={10}>

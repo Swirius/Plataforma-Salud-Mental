@@ -110,3 +110,6 @@ CREATE TABLE consultante_profesional (
     FOREIGN KEY (consultante_id) REFERENCES consultantes(id) ON DELETE CASCADE,
     FOREIGN KEY (profesional_id) REFERENCES profesionales(id) ON DELETE CASCADE
 );
+
+SELECT * FROM plataforma_db.profesionales;
+SELECT * FROM plataforma_db.consultantes;

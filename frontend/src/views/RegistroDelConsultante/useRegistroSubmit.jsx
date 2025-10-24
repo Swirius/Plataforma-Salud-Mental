@@ -53,47 +53,63 @@ export const useRegistroSubmit = () => {
   }, []);
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    const dataToSend = {
-      ...values,
-      fecha_nacimiento: values.fecha_nacimiento || "",
-      telefono: values.telefono || "00000",
-      archivo_cud: values.archivo_cud || "Sin especificar",
-      pais: values.pais || "Sin especificar",
-      partido: values.partido || "Sin especificar",
-      provincia: values.provincia || "Sin especificar",
-      localidad: values.localidad || "Sin especificar",
-    };
-
     try {
-      const { data, status } = await axios.post(
+      console.log("Valores a enviar:", values); // Para debugging
+
+      // Crear FormData para manejar archivos y datos
+      const formData = new FormData();
+
+      // Mapear los campos correctamente
+      const fieldsToSend = {
+        nombre: values.nombre,
+        apellido: values.apellido,
+        dni: values.dni,
+        numeroTramite: values.numeroTramite,
+        fechaNacimiento: values.fechaNacimiento, // será YYYY-MM-DD desde el input date
+        pais: values.pais || "Argentina",
+        provincia: values.provincia || "Buenos Aires",
+        localidad: values.localidad || "CABA",
+        email: values.email,
+        telefono: values.telefono || "00000",
+        password: values.password,
+        confirmPassword: values.confirmPassword,
+        discapacidad: values.discapacidad || "No",
+        cud: values.cud || "No",
+        numeroCud: values.numeroCud || "0",
+        archivoCud: values.archivoCud || "",
+        obraSocial: values.obraSocial || "No",
+        nombreObraSocial: values.nombreObraSocial || "Ninguna",
+        aceptarTyC: values.aceptarTyC
+      };
+
+      // Agregar campos al FormData
+      Object.entries(fieldsToSend).forEach(([key, value]) => {
+        formData.append(key, value);
+      });
+
+      console.log("FormData a enviar:", Object.fromEntries(formData)); // Para debugging
+
+      const response = await axios.post(
         `${backendUrl}/api/consultantes/registro`,
-        dataToSend,
+        formData,
         {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          }
         }
       );
 
-      console.log(data)
-
-      if (status === 201) {
-        notifySuccess(
-          `¡¡ ${data.mensaje} `
-        );
-        console.log(data.mensaje)
-
+      if (response.status === 200 || response.status === 201) {
+        notifySuccess("Registro exitoso");
         setTimeout(() => {
-          //  navigate("/emailVerification");
           navigate("/login");
         }, 3800);
-
       }
     } catch (error) {
-      const errorMessage =
-        error.response?.data?.error ||
-        "Error de conexión. Inténtalo nuevamente.";
+      console.error("Error en el registro:", error.response?.data || error);
+      const errorMessage = error.response?.data?.error || "Error en el registro";
       notifyError(errorMessage);
-      setErrors({ password: errorMessage });
+      setErrors({ submit: errorMessage });
     } finally {
       setSubmitting(false);
     }

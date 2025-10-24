@@ -97,7 +97,7 @@ public class ProfesionalService {
         profesionalPendiente.setEstadoValidacion("Pendiente");
         profesionalPendiente.setTokenVerificacion(generarToken());
         profesionalPendiente.setTokenExpiracion(LocalDateTime.now().plusMinutes(30));
-        profesionalPendiente.setActivo(false);
+        profesionalPendiente.setActivo(true); // No esta completamente finalizada la funcion de validacion, por el momento lo dejamos activo.
 
         return profesionalRepository.save(profesionalPendiente);
     }

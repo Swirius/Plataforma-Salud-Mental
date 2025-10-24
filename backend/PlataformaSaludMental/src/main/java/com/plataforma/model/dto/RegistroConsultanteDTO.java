@@ -6,6 +6,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Transient;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
@@ -29,7 +31,8 @@ public class RegistroConsultanteDTO {
     @Column(unique = true)
     private String numeroTramite;
 
-    @NotBlank(message = "Ingresa el número fecha de nacimiento (YYYY-MM-DD).")
+    @NotNull(message = "Ingresa la fecha de nacimiento (YYYY-MM-DD).")
+    @Past(message = "La fecha de nacimiento debe ser anterior a la fecha actual.")
     private LocalDate fechaNacimiento;
 
     @NotBlank(message = "Ingresa tu país.")

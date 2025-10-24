@@ -11,7 +11,7 @@ const initialValues = (initialAdmin = '') => ({
   email: '',
   password: '',
   confirmPassword: '',
-  aceptarTyC: false,
+  isAceptarTyC: false,
 });
 
 export default initialValues;

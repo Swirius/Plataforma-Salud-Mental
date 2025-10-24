@@ -32,6 +32,10 @@ public class ConsultanteController {
     public ResponseEntity<?> registrarConsultante(@ModelAttribute RegistroConsultanteDTO dto,
             @RequestParam(value = "archivoCudPdf", required = false) MultipartFile archivoPdf) {
         try {
+            // Logging para debug
+            System.out.println("DTO recibido: " + dto);
+            System.out.println("Password recibido: " + dto.getPassword());
+            System.out.println("ConfirmPassword recibido: " + dto.getConfirmPassword());
             // Valida los terminos y condiciones
             if (!dto.isAceptarTyC()) {
                 return ResponseEntity.badRequest()
@@ -57,7 +61,11 @@ public class ConsultanteController {
 
             // Pasa el DTO y el archivo opcional al service
             return ResponseEntity.ok(consultanteService.registrarConsultante(dto, archivoPdf));
-        } catch (Exception e) {
+        } //catch (Exception e) {
+            //return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        //} 
+        catch (Exception e) {
+            e.printStackTrace(); // Para ver el stack trace completo
             return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
         }
     }

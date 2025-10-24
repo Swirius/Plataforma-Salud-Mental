@@ -63,7 +63,9 @@ public class Consultante {
 
     // Método auxiliar
     public boolean isMayorDeEdad() {
-        return fechaNacimiento != null && LocalDate.now().minusYears(18).isAfter(fechaNacimiento);
+        if (fechaNacimiento == null) return false;
+        LocalDate corte = LocalDate.now().minusYears(18);
+        return !fechaNacimiento.isAfter(corte); // true si fechaNacimiento <= corte (>=18 años)
     }
 
     // Getters y setters

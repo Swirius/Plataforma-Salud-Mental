@@ -3,7 +3,6 @@ import { Field } from "formik";
 import { Form, SelectPicker, RadioGroup, Radio } from "rsuite";
 import { Grid, Row, Col } from "rsuite";
 
-// --- Opciones de datos ---
 const discapacidadOptions = [
   { label: "Sí", value: "SI" },
   { label: "No", value: "NO" },
@@ -17,7 +16,6 @@ const cudOptions = [
   { label: "Prefiero no responder", value: "PREFIERO_NO_RESPONDER" },
 ];
 
-// Este componente adapta SelectPicker para Formik
 const FormikSelectPicker = ({ label, name, data, ...props }) => {
   const [field, meta] = useField(name);
   const hasError = meta.touched && meta.error;
@@ -44,7 +42,6 @@ const FormikSelectPicker = ({ label, name, data, ...props }) => {
   );
 };
 
-// Este componente adapta RadioGroup para Formik
 const FormikRadioGroup = ({ label, name, children, ...props }) => {
   const [field, meta] = useField(name);
   const hasError = meta.touched && meta.error;
@@ -71,7 +68,6 @@ const FormikRadioGroup = ({ label, name, children, ...props }) => {
   );
 };
 
-// --- Implementación de los campos ---
 const DatosAdicionalesFormik = () => {
   return (
     <>
@@ -94,9 +90,10 @@ const DatosAdicionalesFormik = () => {
           </Col>
 
           <Col xs={24} sm={24} md={6}>
+            {/* nombre cambiado a obraSocial para coincidir con initialValues */}
             <FormikRadioGroup
               label="¿Tiene Obra Social o Prepaga?"
-              name="obra_social"
+              name="obraSocial"
             >
               <Radio value="SI">Sí</Radio>
               <Radio value="NO">No</Radio>
@@ -104,11 +101,11 @@ const DatosAdicionalesFormik = () => {
           </Col>
 
           <Col xs={24} sm={24} md={12}>
-            <label htmlFor="nombre_obra_social" className="label-form">
-              Obra_social:
+            <label htmlFor="nombreObraSocial" className="label-form">
+              Obra social:
             </label>
             <Field
-              name="nombre_obra_social"
+              name="nombreObraSocial"
               className="rs-input rs-input-lg text-center"
               style={{ fontSize: "1.3em" }}
             />
